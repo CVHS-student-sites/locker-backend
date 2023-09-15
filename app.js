@@ -110,6 +110,6 @@ app.get('/logout', (req, res, next) => {
 
 // Start the server
 const port = process.env.PORT || 3000;
-app.listen('10.1.13.12',port, () => {
+app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
