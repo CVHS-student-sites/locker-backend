@@ -30,6 +30,6 @@ Admin.beforeCreate((admin) => {
     admin.userId = uuidv4();
 });
 
-Admin.sync();
+// Admin.sync();
 
-export { Admin };
+export { Admin, sequelize };
