@@ -1,10 +1,19 @@
-import { Sequelize, DataTypes } from "sequelize";
-import { v4 as uuidv4 } from "uuid";
+import {Sequelize, DataTypes} from "sequelize";
+import {v4 as uuidv4} from "uuid";
+
+// const sequelize = new Sequelize({
+//     dialect: 'sqlite',
+//     storage: 'database1.sqlite'
+// });
 
 const sequelize = new Sequelize({
-    dialect: 'sqlite',
-    storage: 'database1.sqlite'
+    dialect: 'mysql',
+    host: '10.1.13.12',
+    username: 'birdpump',
+    password: 'ggfdlkgg4',
+    database: 'test'
 });
+
 
 const Admin = sequelize.define('Admin', {
     username: {
@@ -32,4 +41,4 @@ Admin.beforeCreate((admin) => {
 
 // Admin.sync();
 
-export { Admin, sequelize };
+export {Admin, sequelize};
