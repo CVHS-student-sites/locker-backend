@@ -6,10 +6,17 @@ import passport from 'passport';
 import {Strategy as LocalStrategy} from 'passport-local';
 import session from 'express-session';
 import connectSqlite3 from 'connect-sqlite3';
+import cors from 'cors';
 
 const SQLiteStore = connectSqlite3(session);
 
 const app = express();
+
+const corsOptions = {
+    origin: 'http://localhost:5173',
+};
+
+app.use(cors(corsOptions));
 
 // Passport configuration
 passport.use(
@@ -21,18 +28,15 @@ passport.use(
             return cb(null, false, {message: 'Incorrect username or password'});
         }
         let user = await getUser(username)
-        console.log(user)
         return cb(null, user);
     })
 );
 
 passport.serializeUser((user, cb) => {
-    console.log("test1")
     cb(null, user.userId);
 });
 
 passport.deserializeUser(async (id, cb) => {
-    console.log("test2")
     const user = await getUserfromId(id)
     cb(null, user);
 });
