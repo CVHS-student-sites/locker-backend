@@ -55,6 +55,7 @@ app.use(
         saveUninitialized: false,
         cookie: {
             maxAge: 1800000, // Set the session timeout to 30 minutes (in milliseconds)
+            domain: 'cvapps.net',
         },
     })
 );
