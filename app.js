@@ -60,6 +60,15 @@ app.use(
     })
 );
 
+// middleware function to check if the user is authenticated
+function ensureAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next(); // User is authenticated, proceed to the next middleware or route
+    }
+    // User is not authenticated, redirect to the login page or send an error message
+    res.redirect('/login'); // You can customize the login route as needed
+}
+
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -107,6 +116,11 @@ app.get('/logout', (req, res, next) => {
         console.log(err);
     });
 });
+
+app.get('/admin', ensureAuthenticated, (req, res) => {
+        res.send('Welcome! you are logged in');
+});
+
 
 // Start the server
 const port = process.env.PORT || 3000;
