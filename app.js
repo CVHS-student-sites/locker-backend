@@ -26,7 +26,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(
     session({
         store: new SQLiteStore({
-            db: 'sessions.db', // Specify the SQLite database file
+            db: './local-db/sessions.db', // Specify the SQLite database file
         }),
         secret: 'your-secret-key', //TODO store in ENV
         resave: false,
