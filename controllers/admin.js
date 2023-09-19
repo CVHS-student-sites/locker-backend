@@ -1,5 +1,5 @@
 import bcrypt from "bcrypt";
-import {Admin, sequelize} from "../models/admin.js";
+import {Admin} from "../models/admin.js";
 
 const saltRounds = 10;
 
@@ -13,7 +13,6 @@ export async function createUser(username, plainpassword) {
         // console.error("Error creating user:", err);
         return false;
     }
-
 }
 
 export async function validateUser(username, plainpassword) {
