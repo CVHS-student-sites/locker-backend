@@ -1,10 +1,13 @@
-import { sequelize } from '../models/admin.js'
+import { format } from 'mysql2';
+import { sequelize } from '../config/sequelize.js'
+
+import { Admin } from '../models/admin.js';
 
 async function syncDatabase() {
   try {
     // Sync all defined models with the database
-    await sequelize.sync({ force: true }); // Use force: true to recreate tables on every run
-
+    // await sequelize.sync(); // Use force: true to recreate tables on every run
+    await Admin.sync({force: true});
     // If you don't want to recreate tables every time, use this instead:
     // await sequelize.sync();
 

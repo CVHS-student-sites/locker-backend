@@ -10,7 +10,7 @@ export async function createUser(username, plainpassword) {
         // console.log("User created successfully.")
         return true;
     } catch (err) {
-        // console.error("Error creating user:", err);
+        console.error("Error creating user:", err);
         return false;
     }
 }
