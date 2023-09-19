@@ -5,8 +5,10 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "start-dev": "cross-env NODE_ENV=development node app.js",
-    "start-prod": "cross-env NODE_ENV=production node app.js"
+    "sync-dev":"NODE_ENV=development cd tools; node sync-db.js",
+    "sync-prod":"NODE_ENV=production cd tools; node sync-db.js",
+    "start-dev": "NODE_ENV=development node app.js",
+    "start-prod": "NODE_ENV=production node app.js"
   },
   "author": "",
   "license": "ISC",
