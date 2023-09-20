@@ -63,13 +63,14 @@ router.post('/login', express.json(), (req, res, next) => {
 
 
 router.post('/logout', (req, res, next) => {
-    req.logout((err) => {
-        if (err) {
-            return next(err);
-        }
-        res.status(204)
-    });
+  req.logout((err) => {
+      if (err) {
+          return next(err);
+      }
+      res.status(204).end(); // Send a response with status code 204 and end the response
+  });
 });
+
 
 router.get('/checkauth', (req, res) => {
     // Check the user's authentication status (you need to implement this logic)
