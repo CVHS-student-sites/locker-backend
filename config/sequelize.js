@@ -1,13 +1,14 @@
-import { Sequelize } from "sequelize";
+import {Sequelize} from "sequelize";
 import path from 'path';
 
 // process.env.NODE_ENV = 'development';
 
-import { fileURLToPath } from 'url';
+import {fileURLToPath} from 'url';
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const { NODE_ENV } = process.env;
+const {NODE_ENV} = process.env;
 
 console.log(NODE_ENV)
 
@@ -32,4 +33,4 @@ if (NODE_ENV === 'production') {
     });
 }
 
-export { sequelize }; // Export sequelize here
+export {sequelize}; // Export sequelize here

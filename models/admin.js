@@ -1,6 +1,6 @@
-import { sequelize } from "../config/sequelize.js";
-import { Sequelize, DataTypes } from "sequelize";
-import { v4 as uuidv4 } from "uuid";
+import {sequelize} from "../config/sequelize.js";
+import {Sequelize, DataTypes} from "sequelize";
+import {v4 as uuidv4} from "uuid";
 
 const Admin = sequelize.define('Admin', {
     username: {
@@ -29,4 +29,4 @@ Admin.beforeCreate((admin) => {
 //for dev
 // Admin.sync();
 
-export { Admin };
+export {Admin};

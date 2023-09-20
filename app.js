@@ -1,6 +1,6 @@
-import { router } from './routes/auth.js'
+import {router} from './routes/auth.js'
 
-import express, { response } from 'express';
+import express, {response} from 'express';
 import passport from 'passport';
 import session from 'express-session';
 import connectSqlite3 from 'connect-sqlite3';
@@ -15,14 +15,14 @@ const corsOptions = {
     origin: 'http://localhost:5173', // Replace with your frontend domain, e.g., 'https://cvapps.net'
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true, // Allow credentials (cookies)
-  };
+};
 
 
 // cors setup
 app.use(cors(corsOptions));
 
 // Express middleware setup
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({extended: true}));
 
 // Configure session with connect-sqlite3
 app.use(
