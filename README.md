@@ -1,12 +1,19 @@
 # cvhs-locker-backend
 
-What to do for dev setup:
+### What to do for dev setup:
 1. clone repo
 2. run ```npm i``` to install the node modules
-3. open sequelize.js in the config folder and make sure dev db is uncommented and comment out prod db
-4. cd into tools and run sync-db.js this will create the local database
-5. in the same tools folder run test.js to create a testing user on the loal dev db
-6. cd into the root of the project and run ```node app.js``` to start the backend server
+3. run ```npm run sync-dev``` to create and sync the local dev db
+4. run ```npm run start-dev``` to start the backend with the dev db
+
+
+
+### What to do for production setup:
+1. clone repo
+2. run ```npm i``` to install the node modules
+3. verify env var is set for mysql password
+4. run ```npm run sync-prod``` to syc the production db
+5. run ```npm run start-prod``` to start the backend for production
 
 
 
