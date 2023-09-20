@@ -75,7 +75,29 @@ router.get('/login', (req, res) => {
 //     })
 // );
 
-router.post('/login', (req, res, next) => {
+// router.post('/login', (req, res, next) => {
+//   passport.authenticate('local', (err, user, info) => {
+//     if (err) {
+//       return next(err); // Handle unexpected errors
+//     }
+//     if (!user) {
+//       // Authentication failed, send a 401 Unauthorized status
+//       return res.status(401).json({ authenticated: false, message: 'Authentication failed' });
+//     }
+
+//     req.login(user, (loginErr) => {
+//       if (loginErr) {
+//         return next(loginErr);
+//       }
+
+//       // Authentication successful, send a 200 OK status
+//       return res.status(200).json({ authenticated: true, user: user.username });
+//     });
+//   })(req, res, next);
+// });
+
+
+router.post('/login', express.json(), (req, res, next) => {
   passport.authenticate('local', (err, user, info) => {
     if (err) {
       return next(err); // Handle unexpected errors
@@ -95,6 +117,8 @@ router.post('/login', (req, res, next) => {
     });
   })(req, res, next);
 });
+
+
 
 router.get('/logout', (req, res, next) => {
   req.logout((err) => {
