@@ -2,17 +2,35 @@ name: Docker Image CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main
   pull_request:
-    branches: [ "main" ]
+    branches:
+      - main
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag cvhs-locker-backend:$(date +%s)
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Build the Docker image
+        run: |
+          docker buildx create --use
+          docker buildx build . \
+            --file Dockerfile \
+            --tag cvhs-locker-backend:latest \
+            --tag cvhs-locker-backend:$(date +%s) \
+            --push
+
+      - name: Login to Docker Hub
+        run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
+
+      - name: Push Docker image to Docker Hub
+        run: docker push cvhs-locker-backend:latest && docker push cvhs-locker-backend:$(date +%s)
