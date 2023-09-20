@@ -12,8 +12,10 @@ const SQLiteStore = connectSqlite3(session);
 const app = express();
 
 const corsOptions = {
-    origin: 'http://localhost:5173',
-};
+    origin: 'http://localhost:5173', // Replace with your frontend domain, e.g., 'https://cvapps.net'
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true, // Allow credentials (cookies)
+  };
 
 
 // cors setup
