@@ -91,7 +91,7 @@ router.post('/login', (req, res, next) => {
       }
 
       // Authentication successful, send a 200 OK status
-      return res.status(200).json({ authenticated: true });
+      return res.status(200).json({ authenticated: true, user: user.username });
     });
   })(req, res, next);
 });
