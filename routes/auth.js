@@ -67,8 +67,8 @@ router.post('/logout', (req, res, next) => {
         if (err) {
             return next(err);
         }
+        res.status(204)
     });
-    res.status(204)
 });
 
 router.get('/checkauth', (req, res) => {
