@@ -26,6 +26,7 @@ if (NODE_ENV === 'production') {
     });
 } else {
     // Dev database configuration
+    console.log("weird")
     sequelize = new Sequelize({
         dialect: 'sqlite',
         storage: path.join(__dirname, '../local-db', 'devDb.sqlite'),
