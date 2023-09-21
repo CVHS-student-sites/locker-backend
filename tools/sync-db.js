@@ -9,9 +9,11 @@ async function syncDatabase() {
   try {
     // Sync all defined models with the database
     // await sequelize.sync(); // Use force: true to recreate tables on every run
+    await sequelize.sync({force: true})
     await Admin.sync({force: true});
-    await User.sync({force: true});
     await Locker.sync({force: true});
+    await User.sync({force: true});
+
 
     // If you don't want to recreate tables every time, use this instead:
     // await sequelize.sync();
