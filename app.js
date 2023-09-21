@@ -1,4 +1,4 @@
-import {router} from './routes/auth.js'
+import {authRouter} from './routes/auth.js'
 
 import express, {response} from 'express';
 import passport from 'passport';
@@ -46,7 +46,7 @@ app.use(passport.session());
 
 
 //routes
-app.use('/', router)
+app.use('/', authRouter)
 
 
 // Start the server
