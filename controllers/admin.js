@@ -3,7 +3,7 @@ import {Admin} from "../models/admin.js";
 
 const saltRounds = 10;
 
-export async function createUser(username, plainpassword) {
+export async function createAdminUser(username, plainpassword) {
     try {
         const hash = await bcrypt.hash(plainpassword, saltRounds);
         await Admin.create({username: username, password: hash});
@@ -15,7 +15,7 @@ export async function createUser(username, plainpassword) {
     }
 }
 
-export async function validateUser(username, plainpassword) {
+export async function validateAdminUser(username, plainpassword) {
     try {
         const user = await Admin.findOne({where: {username}});
         if (user) {
@@ -30,7 +30,7 @@ export async function validateUser(username, plainpassword) {
     }
 }
 
-export async function getId(username) {
+export async function getAdminId(username) {
     try {
         const user = await Admin.findOne({where: {username}});
         if (user) {
@@ -42,7 +42,7 @@ export async function getId(username) {
     }
 }
 
-export async function getUser(username) {
+export async function getAdminUser(username) {
     try {
         const user = await Admin.findOne({where: {username}});
 
@@ -55,7 +55,7 @@ export async function getUser(username) {
     }
 }
 
-export async function getUserfromId(userId) {
+export async function getAdminUserfromId(userId) {
     try {
         const user = await Admin.findOne({where: {userId}});
         if (user) {
