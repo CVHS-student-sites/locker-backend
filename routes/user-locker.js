@@ -12,7 +12,7 @@ userlockerRouter.get('/lookuplocker/:stusendId', (req, res) => {
     // Assuming you have some database or data source to look up locker information
     // Replace the following with your actual data retrieval logic
     const lockerData = getUser(studentId)
-  
+    console.log(lockerData)
     // Send the locker data as JSON response
     if (lockerData) {
         // Send the locker data as JSON response if it exists
