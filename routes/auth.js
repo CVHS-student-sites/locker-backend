@@ -4,7 +4,7 @@ import express from 'express';
 import passport from 'passport';
 import {Strategy as LocalStrategy} from 'passport-local';
 
-export const router = express.Router();
+export const authRouter = express.Router();
 
 
 // Passport configuration
@@ -40,7 +40,7 @@ function ensureAuthenticated(req, res, next) {
 }
 
 
-router.post('/login', express.json(), (req, res, next) => {
+authRouter.post('/login', express.json(), (req, res, next) => {
     passport.authenticate('local', (err, user, info) => {
         if (err) {
             return next(err); // Handle unexpected errors
@@ -62,7 +62,7 @@ router.post('/login', express.json(), (req, res, next) => {
 });
 
 
-router.post('/logout', (req, res, next) => {
+authRouter.post('/logout', (req, res, next) => {
   req.logout((err) => {
       if (err) {
           return next(err);
@@ -72,7 +72,7 @@ router.post('/logout', (req, res, next) => {
 });
 
 
-router.get('/checkauth', (req, res) => {
+authRouter.get('/checkauth', (req, res) => {
     // Check the user's authentication status (you need to implement this logic)
     const isAuthenticated = req.isAuthenticated();
 
