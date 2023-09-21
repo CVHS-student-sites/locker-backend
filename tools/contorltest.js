@@ -17,11 +17,11 @@ import {createUser, validateUser, getId, getUser, getUserfromId} from '../contro
 
 // student controllers
 
-// let test = await createUser(415633, 'marc test', 'as@stu.gusd.net')
+let tesst = await createUser(415633, 'marc test', 'as@stu.gusd.net')
 
-// let test = await createLocker('73-13A', '7000')
+let tessst = await createLocker('73-13A', '7000')
 
-// let test = await joinUsertoLocker(415631, '73-13A');
+let test = await joinUsertoLocker(415633, '73-13A');
 
 // let test = await getUser(415633)
 
