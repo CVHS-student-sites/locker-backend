@@ -1,17 +1,13 @@
 import { sequelize } from "../config/sequelize.js";
 import { Sequelize, DataTypes } from "sequelize";
-import User from "./user.js";
+import { User } from './user.js';
 
 const Locker = sequelize.define('Locker', {
   // Define locker attributes (e.g., locker number, location, etc.)
-  id: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true,
-  },
   lockerNumber: {
     type: DataTypes.STRING,
     allowNull: false,
+    primaryKey: true,
     unique: true,
   },
   location: {
@@ -22,7 +18,9 @@ const Locker = sequelize.define('Locker', {
 });
 
 // Define the association between User and Locker
-User.hasOne(Locker);
-Locker.belongsTo(User);
+// Define the association between User and Locker
+Locker.hasMany(User);
+User.belongsTo(Locker);
+
 
 export {Locker};

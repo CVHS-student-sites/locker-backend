@@ -4,10 +4,9 @@ import { Sequelize, DataTypes } from "sequelize";
 
 const User = sequelize.define('User', {
     // Define user attributes (e.g., name, email, etc.)
-    id: {
+    studentId: {
         type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
+        primaryKey: true
     },
     name: {
         type: DataTypes.STRING,
@@ -21,4 +20,4 @@ const User = sequelize.define('User', {
     // Add any other user attributes you need
 });
 
-export {User};
+export  {User};
