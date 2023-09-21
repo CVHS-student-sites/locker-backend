@@ -21,7 +21,7 @@ if (NODE_ENV === 'production') {
         host: '10.1.13.12',
         username: 'birdpump',
         password: 'ggfdlkgg4',
-        database: 'test',
+        database: 'cvhs',
         logging: false,
     });
 } else {
