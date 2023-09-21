@@ -25,4 +25,4 @@ const Locker = sequelize.define('Locker', {
 User.hasOne(Locker);
 Locker.belongsTo(User);
 
-export default Locker;
+export {Locker};

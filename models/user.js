@@ -21,4 +21,4 @@ const User = sequelize.define('User', {
     // Add any other user attributes you need
 });
 
-export default User;
+export {User};
