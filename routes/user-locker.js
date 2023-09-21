@@ -5,7 +5,7 @@ import express from 'express';
 export const userlockerRouter = express.Router();
 
 
-userlockerRouter.get('/lookuplocker/:stusendId', (req, res) => {
+userlockerRouter.get('/lookuplocker/:studentId', (req, res) => {
     // Get the locker number from the request parameters
     const studentId = req.params.studentId;
     console.log(studentId)
