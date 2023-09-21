@@ -1,6 +1,6 @@
 import { createUser, createLocker, createUserjoinLocker, getUser, getLocker, joinUsertoLocker } from "../controllers/user-locker.js";
 
-import { validateUser, getId, getUser, getUserfromId} from '../controllers/admin.js'
+import { validateUser, getId, getUserfromId} from '../controllers/admin.js'
 
 
 // admin controllers
