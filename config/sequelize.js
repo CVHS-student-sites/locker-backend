@@ -10,7 +10,7 @@ const __dirname = path.dirname(__filename);
 
 const {NODE_ENV} = process.env;
 
-console.log(NODE_ENV)
+console.log(process.env.USER_ID)
 
 let sequelize; // Declare sequelize here
 
@@ -26,7 +26,7 @@ if (NODE_ENV == 'production') {
     });
 } else {
     // Dev database configuration
-    
+
     sequelize = new Sequelize({
         dialect: 'sqlite',
         storage: path.join(__dirname, '../local-db', 'devDb.sqlite'),
