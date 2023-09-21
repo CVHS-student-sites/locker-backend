@@ -21,7 +21,7 @@ if (true) {
         host: '10.1.13.12',
         username: 'birdpump',
         password: 'ggfdlkgg4',
-        database: 'cvhs',
+        database: 'test',
         logging: false,
     });
 } else {
