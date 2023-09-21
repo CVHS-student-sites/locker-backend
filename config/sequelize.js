@@ -14,7 +14,7 @@ console.log(NODE_ENV)
 
 let sequelize; // Declare sequelize here
 
-if (true) {
+if (NODE_ENV === 'production') {
     // Production database configuration
     sequelize = new Sequelize({
         dialect: 'mysql',
@@ -26,7 +26,6 @@ if (true) {
     });
 } else {
     // Dev database configuration
-    console.log("weird")
     sequelize = new Sequelize({
         dialect: 'sqlite',
         storage: path.join(__dirname, '../local-db', 'devDb.sqlite'),
