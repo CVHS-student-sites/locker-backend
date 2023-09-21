@@ -1,4 +1,5 @@
 import {authRouter} from './routes/auth.js'
+import { userlockerRouter } from './routes/user-locker.js';
 
 import express, {response} from 'express';
 import passport from 'passport';
@@ -47,6 +48,7 @@ app.use(passport.session());
 
 //routes
 app.use('/', authRouter)
+app.use('/', userlockerRouter)
 
 
 // Start the server
