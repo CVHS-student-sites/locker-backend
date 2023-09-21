@@ -14,7 +14,7 @@ console.log(NODE_ENV)
 
 let sequelize; // Declare sequelize here
 
-if (NODE_ENV === 'production') {
+if (true) {
     // Production database configuration
     sequelize = new Sequelize({
         dialect: 'mysql',
