@@ -1,13 +1,11 @@
-import { User } from "../models/user.js";
-import { Locker } from "../models/locker.js";
-import { sequelize } from "../config/sequelize.js";
+import {User} from "../models/user.js";
+import {Locker} from "../models/locker.js";
 
 
 export async function createLocker(lockerNumber, location) {
     try {
         let locker = await Locker.create({
-            lockerNumber: lockerNumber,
-            location: location,
+            lockerNumber: lockerNumber, location: location,
         });
         return locker;
     } catch (err) {
@@ -21,9 +19,7 @@ export async function createLocker(lockerNumber, location) {
 export async function createUser(studentId, name, email) {
     try {
         let user = await User.create({
-            studentId: studentId,
-            name: name,
-            email: email,
+            studentId: studentId, name: name, email: email,
         });
         return user;
     } catch (err) {
@@ -34,8 +30,6 @@ export async function createUser(studentId, name, email) {
 }
 
 export async function joinUsertoLocker(studentId, lockerNumber) {
-
-
 
 
     // Find the user by ID
@@ -74,13 +68,10 @@ export async function joinUsertoLocker(studentId, lockerNumber) {
 }
 
 
-
 export async function createUserjoinLocker(studentId, name, email, lockerNumber) {
     try {
         let user = await User.create({
-            studentId: studentId,
-            name: name,
-            email: email,
+            studentId: studentId, name: name, email: email,
         }).then((newUser) => {
             return Locker.findByPk(lockerNumber)
                 .then((existingLocker) => {
@@ -107,9 +98,6 @@ export async function createUserjoinLocker(studentId, name, email, lockerNumber)
 }
 
 
-
-
-
 export async function getUser(studentId) {
     try {
         // Query the user by student ID and include the associated locker
@@ -121,8 +109,7 @@ export async function getUser(studentId) {
 
         if (user) {
             // Access the user's locker through the association and return it
-            const userLocker = user.toJSON();
-            return userLocker;
+            return user.toJSON();
         } else {
             console.log("User not found.");
             return null; // Return null or throw an error as needed
@@ -134,15 +121,13 @@ export async function getUser(studentId) {
 }
 
 
-
 export async function getLocker(lockerNumber) {
     try {
         // Query the locker by locker number and include the associated users
         const locker = await Locker.findOne({
             where: {
                 lockerNumber: lockerNumber,
-            },
-            include: {
+            }, include: {
                 model: User, // Include the User model
             },
         });

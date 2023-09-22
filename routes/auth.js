@@ -63,12 +63,12 @@ authRouter.post('/login', express.json(), (req, res, next) => {
 
 
 authRouter.post('/logout', (req, res, next) => {
-  req.logout((err) => {
-      if (err) {
-          return next(err);
-      }
-      res.status(204).end(); // Send a response with status code 204 and end the response
-  });
+    req.logout((err) => {
+        if (err) {
+            return next(err);
+        }
+        res.status(204).end(); // Send a response with status code 204 and end the response
+    });
 });
 
 

@@ -9,9 +9,9 @@ const __dirname = path.dirname(__filename);
 import dotenv from 'dotenv';
 
 try {
-  dotenv.config();
+    dotenv.config();
 } catch (error) {
-  console.error('Error loading .env file:', error);
+    console.error('Error loading .env file:', error);
 }
 
 
@@ -19,7 +19,7 @@ let sequelize; // Declare sequelize here
 
 let deployType = process.env.DEPLOY_TYPE;
 
-console.log("sequlize conf",deployType);
+console.log("sequlize conf", deployType);
 
 if (deployType == 'production') {
     // Production database configuration
