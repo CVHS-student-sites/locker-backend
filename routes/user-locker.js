@@ -9,12 +9,10 @@ userlockerRouter.get('/lookuplocker/:studentId', async (req, res) => {
     try {
       // Get the locker number from the request parameters
       const studentId = req.params.studentId;
-      console.log(studentId);
   
       // Assuming you have some database or data source to look up locker information
       // Replace the following with your actual data retrieval logic
       const lockerData = await getUser(studentId);
-      console.log(lockerData);
   
       // Send the locker data as JSON response
       if (lockerData) {
