@@ -1,7 +1,7 @@
 # cvhs-locker-backend
 
 ### Todo
-_ validate async operation
+- validate async operation
 
 ### What to do for dev setup:
 1. clone repo
