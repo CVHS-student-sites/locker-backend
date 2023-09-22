@@ -5,26 +5,37 @@ import express from 'express';
 export const userlockerRouter = express.Router();
 
 
-userlockerRouter.get('/lookuplocker/:studentId', async (req, res) => {
-    try {
-      // Get the locker number from the request parameters
-      const studentId = req.params.studentId;
-  
-      // Assuming you have some database or data source to look up locker information
-      // Replace the following with your actual data retrieval logic
-      const lockerData = await getUser(studentId);
-  
-      // Send the locker data as JSON response
-      if (lockerData) {
-        // Send the locker data as JSON response if it exists
-        res.json(lockerData);
-      } else {
-        // Send an error status code (e.g., 404 Not Found) and an error message as JSON response
-        res.status(404).json({ error: 'User not found' });
-      }
-    } catch (error) {
-      // Handle any errors that occur during the data retrieval or processing
-      res.status(500).json({ error: 'Internal server error' });
+//get the users locker
+userlockerRouter.get('/lookup-user/:studentId', async (req, res) => {
+  try {
+    const studentId = req.params.studentId;
+
+    const userData = await getUser(studentId);
+
+    if (userData) {
+      res.json(userData);
+    } else {
+      res.status(404).json({ error: 'User not found' });
     }
-  });
-  
+  } catch (error) {
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
+//get the users locker
+userlockerRouter.get('/lookup-locker/:lockerNumber', async (req, res) => {
+  try {
+    const lockerNumber = req.params.lockerNumber;
+
+    const lockerData = await getLocker(lockerNumber);
+
+    if (lockerData) {
+      res.json(lockerData);
+    } else {
+      res.status(404).json({ error: 'Locker not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});

@@ -1,43 +1,40 @@
-import {User} from "../models/user.js";
-import {Locker} from "../models/locker.js";
+import { User } from "../models/user.js";
+import { Locker } from "../models/locker.js";
 
 
 export async function createLocker(lockerNumber, location) {
     try {
         let locker = await Locker.create({
-            lockerNumber: lockerNumber, location: location,
+            lockerNumber: lockerNumber,
+            location: location,
         });
         return locker;
     } catch (err) {
-        console.error("Error creating locker:", err);
         return false;
     }
-
 }
 
 
 export async function createUser(studentId, name, email) {
     try {
         let user = await User.create({
-            studentId: studentId, name: name, email: email,
+            studentId: studentId,
+            name: name,
+            email: email,
         });
         return user;
     } catch (err) {
-        console.error("Error creating user:", err);
         return false;
     }
-
 }
 
+
 export async function joinUsertoLocker(studentId, lockerNumber) {
-
-
-    // Find the user by ID
     User.findByPk(studentId)
         .then((user) => {
             if (!user) {
                 console.log("User not found.");
-                return;
+                return false;
             }
 
             // Find the locker by ID
@@ -45,26 +42,29 @@ export async function joinUsertoLocker(studentId, lockerNumber) {
                 .then((locker) => {
                     if (!locker) {
                         console.log("Locker not found.");
-                        return;
+                        return false;
                     }
 
                     // Associate the user with the locker
                     user.setLocker(locker)
                         .then(() => {
                             console.log("User has been associated with the locker.");
+                            return true;
                         })
                         .catch((error) => {
                             console.error("Error associating user with locker:", error);
+                            return false;
                         });
                 })
                 .catch((error) => {
                     console.error("Error finding locker:", error);
+                    return false;
                 });
         })
         .catch((error) => {
             console.error("Error finding user:", error);
+            return false;
         });
-
 }
 
 
@@ -138,7 +138,7 @@ export async function getLocker(lockerNumber) {
             return lockerUsers;
         } else {
             console.log("Locker not found.");
-            return null; // Return null or throw an error as needed
+            return false; // Return null or throw an error as needed
         }
     } catch (error) {
         console.error("Error:", error);
