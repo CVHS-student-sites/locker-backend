@@ -1,5 +1,8 @@
 # cvhs-locker-backend
 
+### Todo
+_ validate async operation
+
 ### What to do for dev setup:
 1. clone repo
 2. run ```npm i``` to install the node modules
