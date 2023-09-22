@@ -10,8 +10,13 @@ const Locker = sequelize.define('Locker', {
     unique: true,
   },
 
-  location: {
-    type: DataTypes.STRING,
+  building: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+
+  floor: {
+    type: DataTypes.INTEGER,
     allowNull: false,
   },
 
