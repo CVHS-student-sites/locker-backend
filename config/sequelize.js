@@ -22,6 +22,8 @@ let sequelize; // Declare sequelize here
 
 let deployType = process.env.DEPLOY_TYPE;
 
+console.log("sequlize conf",deployType);
+
 if (deployType == 'production') {
     // Production database configuration
     sequelize = new Sequelize({
