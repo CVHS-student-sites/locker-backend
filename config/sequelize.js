@@ -7,9 +7,15 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 import dotenv from 'dotenv';
-dotenv.config();
 
-console.log(process.env.DEPLOY_TYPE);
+try {
+  dotenv.config();
+} catch (error) {
+  console.error('Error loading .env file:', error);
+}
+
+
+console.log(process.env.USERNAME);
 
 
 let sequelize; // Declare sequelize here
@@ -21,8 +27,8 @@ if (deployType == 'production') {
     sequelize = new Sequelize({
         dialect: 'mysql',
         host: '10.1.13.12',
-        username: 'birdpump',
-        password: 'ggfdlkgg4',
+        username: process.env.USERNAME,
+        password: process.env.PASSOWRD,
         database: 'test',
         logging: false,
     });

@@ -1,5 +1,3 @@
-
-
 import {authRouter} from './routes/auth.js'
 import { userlockerRouter } from './routes/user-locker.js';
 

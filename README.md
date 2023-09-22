@@ -19,6 +19,10 @@
 5. run ```npm run start-prod``` to start the backend for production
 
 
+set enviorment variables for mysql login with 
+
+export USERNAME= && export PASSWORD=
+
 
 nodemon --watch "**/*.js" --ext "js" app.js
 
