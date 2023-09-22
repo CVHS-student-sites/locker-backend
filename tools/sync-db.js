@@ -5,6 +5,9 @@ import { Admin } from '../models/admin.js';
 import { User }  from '../models/user.js'
 import { Locker } from '../models/locker.js'
 
+
+console.log(process.env.DEPLOY_TYPE); // This will output "development"
+
 async function syncDatabase() {
   try {
     // Sync all defined models with the database

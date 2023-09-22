@@ -5,10 +5,10 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "sync-dev": "NODE_ENV=development cd tools; node sync-db.js",
-    "sync-prod": "USER_ID=239482 cd tools && node sync-db.js",
-    "start-dev": "NODE_ENV=development node app.js",
-    "start-prod": "cross-env NODE_ENV=production node app.js"
+    "sync-dev": "cd tools && cross-env DEPLOY_TYPE=development node sync-db.js",
+    "sync-prod": "cd tools && cross-env DEPLOY_TYPE=production node sync-db.js",
+    "start-dev": "cross-env DEPLOY_TYPE=development node app.js",
+    "start-prod": "cross-env DEPLOY_TYPE=production node app.js"
   },
   "author": "",
   "license": "ISC",
@@ -17,6 +17,7 @@
     "connect-sqlite3": "^0.9.13",
     "cors": "^2.8.5",
     "cross-env": "^7.0.3",
+    "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "express-session": "^1.17.3",
     "mysql2": "^3.6.1",

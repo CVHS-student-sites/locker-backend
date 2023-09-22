@@ -1,3 +1,5 @@
+
+
 import {authRouter} from './routes/auth.js'
 import { userlockerRouter } from './routes/user-locker.js';
 
@@ -7,6 +9,11 @@ import session from 'express-session';
 import connectSqlite3 from 'connect-sqlite3';
 import cors from 'cors';
 
+// gets enviorment vaiable from run command, accessed from other modules
+
+export let deployType = process.env.DEPLOY_TYPE;
+
+console.log("test",deployType)
 
 const SQLiteStore = connectSqlite3(session);
 

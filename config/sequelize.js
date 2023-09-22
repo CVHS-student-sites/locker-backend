@@ -1,20 +1,22 @@
 import {Sequelize} from "sequelize";
 import path from 'path';
 
-// process.env.NODE_ENV = 'development';
-
 import {fileURLToPath} from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const {NODE_ENV} = process.env;
+import dotenv from 'dotenv';
+dotenv.config();
 
-console.log(process.env.USER_ID)
+console.log(process.env.DEPLOY_TYPE);
+
 
 let sequelize; // Declare sequelize here
 
-if (NODE_ENV == 'production') {
+let deployType = process.env.DEPLOY_TYPE;
+
+if (deployType == 'production') {
     // Production database configuration
     sequelize = new Sequelize({
         dialect: 'mysql',
