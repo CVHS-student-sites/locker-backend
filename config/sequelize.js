@@ -34,7 +34,7 @@ if (deployType == 'production') {
     });
 } else {
     // Dev database configuration
-
+    console.log("sir we have a problem")
     sequelize = new Sequelize({
         dialect: 'sqlite',
         storage: path.join(__dirname, '../local-db', 'devDb.sqlite'),
