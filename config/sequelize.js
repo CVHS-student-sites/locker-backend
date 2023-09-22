@@ -28,7 +28,7 @@ if (deployType == 'production') {
         dialect: 'mysql',
         host: '10.1.13.12',
         username: process.env.USERNAME,
-        password: process.env.PASSOWRD,
+        password: process.env.PASSWORD,
         database: 'test',
         logging: false,
     });
