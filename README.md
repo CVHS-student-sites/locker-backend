@@ -19,15 +19,11 @@
 5. run ```npm run start-prod``` to start the backend for production
 
 
-set enviorment variables for mysql login with 
-
-export USERNAME= && export PASSWORD=
+set enviorment variables: ```export USERNAME= && export PASSWORD=```
 
 
-nodemon --watch "**/*.js" --ext "js" app.js
+```nodemon --watch "**/*.js" --ext "js" app.js```
 
-build:
-docker build -t cvhs-locker-backend .
+build: ```docker build -t cvhs-locker-backend .```
 
-run:
-docker run --name locker-backend -d -p 3000:3000 cvhs-locker-backend
+run: ```docker run --name locker-backend -d -p 3000:3000 cvhs-locker-backend```
