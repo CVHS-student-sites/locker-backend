@@ -5,7 +5,7 @@ import express from 'express';
 export const userlockerRouter = express.Router();
 
 
-//get the users locker
+//get the users locker and data from student id
 userlockerRouter.get('/lookup-user/:studentId', async (req, res) => {
   try {
     const studentId = req.params.studentId;
@@ -23,7 +23,7 @@ userlockerRouter.get('/lookup-user/:studentId', async (req, res) => {
 });
 
 
-//get the users locker
+//get the lockers users and data from locker number
 userlockerRouter.get('/lookup-locker/:lockerNumber', async (req, res) => {
   try {
     const lockerNumber = req.params.lockerNumber;
@@ -39,3 +39,4 @@ userlockerRouter.get('/lookup-locker/:lockerNumber', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
+
