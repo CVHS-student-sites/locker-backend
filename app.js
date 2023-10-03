@@ -50,6 +50,8 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+//setup express json middleware
+app.use(express.json());
 
 //routes
 app.use('/', authRouter)

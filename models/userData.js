@@ -2,19 +2,19 @@ import { sequelize } from "../config/sequelize.js";
 import { Sequelize, DataTypes } from "sequelize";
 
 
-const User = sequelize.define('User', {
+const UserData = sequelize.define('UserData', {
     studentId: {
         type: DataTypes.INTEGER,
-        primaryKey: true
+        primaryKey: true,
+        allowNull: false
     },
     name: {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    email: {
-        type: DataTypes.STRING,
+    grade: {
+        type: DataTypes.INTEGER,
         allowNull: false,
-        unique: true,
     },
 });
 

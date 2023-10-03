@@ -26,7 +26,4 @@ Admin.beforeCreate((admin) => {
     admin.userId = uuidv4();
 });
 
-//for dev
-// Admin.sync();
-
 export {Admin};
