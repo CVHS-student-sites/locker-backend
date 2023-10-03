@@ -8,10 +8,6 @@ const UserData = sequelize.define('UserData', {
         primaryKey: true,
         allowNull: false
     },
-    name: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
     grade: {
         type: DataTypes.INTEGER,
         allowNull: false,
