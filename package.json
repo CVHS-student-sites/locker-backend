@@ -9,7 +9,7 @@
     "create-dev": "cd tools && cross-env DEPLOY_TYPE=development node contorltest.js",
     "sync-dev": "cd tools && cross-env DEPLOY_TYPE=development node sync-db.js",
     "sync-prod": "cd tools && cross-env DEPLOY_TYPE=production node sync-db.js",
-    "start-dev": "cross-env DEPLOY_TYPE=development node app.js",
+    "start-dev": "cross-env DEPLOY_TYPE=development nodemon --watch \"**/*.js\" --ext \"js\" app.js",
     "start-prod": "cross-env DEPLOY_TYPE=production node app.js"
   },
   "author": "",
