@@ -14,7 +14,7 @@ jobs:
     
     - name: Test GitHub Token
       run: |
-          # Use the GitHub token to make an API request to fetch user information
+          # Use the GitHub token to mke an API request to fetch user information
           curl -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
                https://api.github.com/user
 
