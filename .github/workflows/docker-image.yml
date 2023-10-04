@@ -18,3 +18,10 @@ jobs:
         github-token: ${{ secrets.GITHUB_TOKEN }} # Provide GITHUB_TOKEN to login into the GitHub Packages
         image-name: cvhs-locker-backend # Provide only Docker image name, tag will be automatically set to latest
         dockerfile: Dockerfile # Provide custom Dockerfile name
+
+    - name: Notify Server
+      if: ${{ success() }} # Run this step only if previous steps were successful
+      run: |
+        WEBHOOK_URL="https://hook.cvapps.net"
+        curl -X POST $WEBHOOK_URL
+
