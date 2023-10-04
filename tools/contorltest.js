@@ -21,7 +21,7 @@ let tesst = await createUser(415633, 'marc test', 'as@stu.gusd.net')
 
 let tesst1 = await createUser(415631, 'marc hyeler', 'ashashas@stu.gusd.net')
 
-let tessst = await createLocker('73-13A', '7000')
+let tessst = await createLocker('73-13A', )
 
 let test = await joinUsertoLocker(415633, '73-13A');
 

@@ -9,17 +9,10 @@ const Locker = sequelize.define('Locker', {
     primaryKey: true,
     unique: true,
   },
-
-  building: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
+  location: {
+    type: DataTypes.JSON,
+    allowNull: true,
   },
-
-  floor: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-  },
-
   status:{
     type: DataTypes.INTEGER,
     allowNull: true,
