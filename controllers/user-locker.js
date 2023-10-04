@@ -1,7 +1,7 @@
-import { User } from "../models/user.js";
-import { Locker } from "../models/locker.js";
+import {User} from "../models/user.js";
+import {Locker} from "../models/locker.js";
 
-
+//todo fix async
 export async function createLocker(lockerNumber, location) {
     try {
         let locker = await Locker.create({
@@ -14,7 +14,7 @@ export async function createLocker(lockerNumber, location) {
     }
 }
 
-
+//todo fix async
 export async function createUser(studentId, name, email) {
     try {
         let user = await User.create({
@@ -134,8 +134,7 @@ export async function getLocker(lockerNumber) {
 
         if (locker) {
             // Access the locker's users through the association and return it
-            const lockerUsers = locker.toJSON();
-            return lockerUsers;
+            return locker.toJSON();
         } else {
             console.log("Locker not found.");
             return false; // Return null or throw an error as needed

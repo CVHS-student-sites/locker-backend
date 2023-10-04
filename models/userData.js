@@ -14,4 +14,4 @@ const UserData = sequelize.define('UserData', {
     },
 });
 
-export {User};
+export {UserData};
