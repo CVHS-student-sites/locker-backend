@@ -25,6 +25,7 @@ set enviorment variables: ```export USERNAME= && export PASSWORD=```
 ```nodemon --watch "**/*.js" --ext "js" app.js```
 
 
+
 build docker: ```docker build -t cvhs-locker-backend .```
 
 run: ```docker run --name locker-backend -d -p 3000:3000 cvhs-locker-backend```
