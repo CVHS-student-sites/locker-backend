@@ -23,6 +23,7 @@ set enviorment variables: ```export USERNAME= && export PASSWORD=```
 
 ```nodemon --watch "**/*.js" --ext "js" app.js```
 
+sudo docker run -d --name watchtower -v /var/run/docker.sock:/var/run/docker.sock containrrr/watchtower -i 60 locker-backend
 
 
 build docker: ```docker build -t cvhs-locker-backend .```
