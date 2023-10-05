@@ -20,7 +20,6 @@
 
 
 set enviorment variables: ```export USERNAME= && export PASSWORD=```
-need to get a secrtes manager
 
 ```nodemon --watch "**/*.js" --ext "js" app.js```
 
