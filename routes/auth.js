@@ -31,12 +31,15 @@ passport.deserializeUser(async (id, cb) => {
 
 
 // middleware function to check if the user is authenticated
-function ensureAuthenticated(req, res, next) {
+export function ensureAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
         return next(); // User is authenticated, proceed to the next middleware or route
     }
     // User is not authenticated, redirect to the login page or send an error message
-    res.redirect('/login'); // You can customize the login route as needed
+    res.status(401).json({
+        authenticated: false,
+        error: 'Authentication required for route',
+    });
 }
 
 

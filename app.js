@@ -1,5 +1,6 @@
 import {authRouter} from './routes/auth.js'
 import { userlockerRouter } from './routes/user-locker.js';
+import { adminRouter } from './routes/admin.js';
 
 import express, {response} from 'express';
 import passport from 'passport';
@@ -7,18 +8,12 @@ import session from 'express-session';
 import connectSqlite3 from 'connect-sqlite3';
 import cors from 'cors';
 
-// gets enviorment vaiable from run command, accessed from other modules
-
-export let deployType = process.env.DEPLOY_TYPE;
-
-console.log("test",deployType)
-
 const SQLiteStore = connectSqlite3(session);
 
 const app = express();
 
 const corsOptions = {
-    origin: 'http://localhost:5173', // Replace with your frontend domain, e.g., 'https://cvapps.net'
+    origin: 'http://locker.cvapps.net', // Replace with your frontend domain, e.g., 'https://cvapps.net'
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true, // Allow credentials (cookies)
 };
@@ -54,9 +49,9 @@ app.use(passport.session());
 app.use(express.json());
 
 //routes
-app.use('/', authRouter)
-app.use('/', userlockerRouter)
-
+app.use('/auth/', authRouter)
+app.use('/public/', userlockerRouter)
+app.use('/admin/', adminRouter)
 
 // Start the server
 const port = process.env.PORT || 3000;
