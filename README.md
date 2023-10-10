@@ -29,3 +29,6 @@ sudo docker run -d --name watchtower -v /var/run/docker.sock:/var/run/docker.soc
 build docker: ```docker build -t cvhs-locker-backend .```
 
 run: ```docker run --name locker-backend -d -p 3000:3000 cvhs-locker-backend```
+
+run with env:
+docker run --name locker-backend -d -p 3000:3000 -e USERNAME="####" -e PASSWORD="####" ghcr.io/birdpump/cvhs-locker-backend/cvhs-locker-backend:latest
