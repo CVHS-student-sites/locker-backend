@@ -13,6 +13,7 @@ async function syncDatabase() {
     // Sync all defined models with the database
     // await sequelize.sync(); // Use force: true to recreate tables on every run
     await sequelize.sync({force: true})
+    console.log("run sync")
     // await Admin.sync({force: true});
     // await Locker.sync({force: true});
     // await User.sync({force: true});

@@ -37,6 +37,8 @@ services:
     image: containrrr/watchtower
     container_name: watchtower
     command: -i 60 locker-backend locker-frontend
+    environment:
+      WATCHTOWER_CLEANUP: true
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 

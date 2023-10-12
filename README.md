@@ -2,6 +2,7 @@
 
 ### Todo
 - validate async operation
+- make sure mysql is persistant on a volume
 
 ### What to do for dev setup:
 1. clone repo
