@@ -32,3 +32,8 @@ run: ```docker run --name locker-backend -d -p 3000:3000 cvhs-locker-backend```
 
 run with env:
 docker run --name locker-backend -d -p 3000:3000 -e USERNAME="####" -e PASSWORD="####" ghcr.io/birdpump/cvhs-locker-backend/cvhs-locker-backend:latest
+
+
+commands to run phpadmin and mysql
+sudo docker run -d --name phpmyadmin-container --network mynetwork -e PMA_HOST=mysql-container -p 8080:80 phpmyadmin/phpmyadmin:latest
+sudo docker run -d --name mysql-container --network mynetwork -e MYSQL_ROOT_PASSWORD=mysecretpassword -p 3306:3306
