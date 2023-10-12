@@ -16,7 +16,5 @@ COPY . .
 # Expose the port that your app will run on (change as needed)
 EXPOSE 3000
 
-# Define the command to start your Node.js application
-CMD ["npm", "run", "sync-prod"]
 
-CMD ["npm", "run", "start-prod"]
+CMD ["npm", "run", "start-prod-both"]
