@@ -1,0 +1,44 @@
+services:
+  locker-frontend:
+    image: ghcr.io/birdpump/cvhs-locker-frontend/cvhs-locker-frontend:latest
+    container_name: locker-frontend
+    ports:
+      - "4000:4000"
+
+  locker-backend:
+    image: ghcr.io/birdpump/cvhs-locker-backend/cvhs-locker-backend:latest
+    container_name: locker-backend
+    ports:
+      - "3000:3000"
+    env_file:
+      - stack.env
+    
+  phpmyadmin-container:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: phpmyadmin-container
+    environment:
+      PMA_HOST: mysql-container
+    ports:
+      - "8080:80"
+    networks:
+      - mynetwork
+
+  mysql-container:
+    image: mysql:latest
+    container_name: mysql-container
+    env_file:
+      - stack.env
+    ports:
+      - "3306:3306"
+    networks:
+      - mynetwork
+
+  watchtower:
+    image: containrrr/watchtower
+    container_name: watchtower
+    command: -i 60 locker-backend locker-frontend
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+networks:
+  mynetwork:
