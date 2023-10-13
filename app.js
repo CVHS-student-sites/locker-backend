@@ -13,7 +13,7 @@ const SQLiteStore = connectSqlite3(session);
 const app = express();
 
 const corsOptions = {
-    origin: 'https://locker.cvapps.net', // Replace with your frontend domain, e.g., 'https://cvapps.net'
+    origin: '*', // Replace with your frontend domain, e.g., 'https://cvapps.net'
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true, // Allow credentials (cookies)
 };
