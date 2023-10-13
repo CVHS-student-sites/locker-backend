@@ -13,7 +13,7 @@ const SQLiteStore = connectSqlite3(session);
 const app = express();
 
 const corsOptions = {
-    origin: 'https://cvapps.net', // Replace with your frontend domain, e.g., 'https://cvapps.net'
+    origin: 'https://*.cvapps.net', // Replace with your frontend domain, e.g., 'https://cvapps.net'
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true, // Allow credentials (cookies)
 };
@@ -36,7 +36,7 @@ app.use(
         saveUninitialized: false,
         cookie: {
             maxAge: 1800000, // Set the session timeout to 30 minutes (in milliseconds) 1800000
-            // domain: 'cvapps.net',
+            domain: '.cvapps.net',
         },
     })
 );
