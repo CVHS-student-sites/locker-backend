@@ -25,7 +25,7 @@ if (deployType == 'production') {
     // Production database configuration
     sequelize = new Sequelize({
         dialect: 'mysql',
-        host: '10.1.13.11',
+        host: 'mysql-container',
         username: process.env.USERNAME,
         password: process.env.PASSWORD,
         database: 'test',
