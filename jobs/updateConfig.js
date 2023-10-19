@@ -1,0 +1,1 @@
+//todo will need to store config in mysql or somewhere stateless

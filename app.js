@@ -13,7 +13,7 @@ const SQLiteStore = connectSqlite3(session);
 const app = express();
 
 const corsOptions = {
-    origin: ["https://locker-api.cvapps.net0", "https://locker.cvapps.net"], // Replace with your frontend domain, e.g., 'https://cvapps.net'
+    origin: ["https://locker-api.cvapps.net", "https://locker.cvapps.net"], // Replace with your frontend domain, e.g., 'https://cvapps.net'
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true, // Allow credentials (cookies)
 };
@@ -48,7 +48,7 @@ app.use(passport.session());
 //setup express json middleware
 app.use(express.json());
 
-//routes
+//define routes
 app.use('/auth/', authRouter)
 app.use('/public/', userlockerRouter)
 app.use('/admin/', adminRouter)

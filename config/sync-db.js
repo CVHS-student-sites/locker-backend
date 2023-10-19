@@ -1,5 +1,5 @@
 import { format } from 'mysql2';
-import { sequelize } from '../config/sequelize.js'
+import { sequelize } from './sequelize.js'
 
 import { Admin } from '../models/admin.js';
 import { User }  from '../models/user.js'

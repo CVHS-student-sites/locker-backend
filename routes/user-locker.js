@@ -44,6 +44,6 @@ userlockerRouter.get('/lookup-locker/:lockerNumber', async (req, res) => {
 //regiser a locker
 userlockerRouter.post('/register-locker/', async (req, res) => {
    let data = req.body;
-    
+    //todo needs to go with the algo to pick locker locations, will need to be realtime
   
 });

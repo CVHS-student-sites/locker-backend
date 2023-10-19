@@ -1,6 +1,7 @@
 import {User} from "../models/user.js";
 import {Locker} from "../models/locker.js";
 
+//todo remove all logs
 //todo fix async
 export async function createLocker(lockerNumber, location) {
     try {
@@ -28,7 +29,7 @@ export async function createUser(studentId, name, email) {
     }
 }
 
-
+//todo fix spagetti code, dont need 3 catches
 export async function joinUsertoLocker(studentId, lockerNumber) {
     User.findByPk(studentId)
         .then((user) => {
