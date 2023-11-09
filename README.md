@@ -11,7 +11,6 @@
 4. run ```npm run start-dev``` to start the backend with the dev db
 
 
-
 ### What to do for production setup:
 1. clone repo
 2. run ```npm i``` to install the node modules
