@@ -1,0 +1,17 @@
+# username for backend config mysql
+USERNAME=
+
+# password for backend config mysql
+PASSWORD=
+
+# password for mysql
+MYSQL_ROOT_PASSWORD=
+
+# removes old images tags
+WATCHTOWER_CLEANUP=true
+
+# watchtower auth username
+REPO_USER=
+
+# watchtower auth password - github token
+REPO_PASS=
