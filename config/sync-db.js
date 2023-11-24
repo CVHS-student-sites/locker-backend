@@ -4,6 +4,7 @@ import { sequelize } from './sequelize.js'
 import { Admin } from '../models/admin.js';
 import { User }  from '../models/user.js'
 import { Locker } from '../models/locker.js'
+import {LockerData } from "../models/lockerData.js";
 
 
 console.log(process.env.DEPLOY_TYPE); // This will output "development"
@@ -14,7 +15,9 @@ async function syncDatabase() {
     // await sequelize.sync(); // Use force: true to recreate tables on every run
     await sequelize.sync({force: true})
     console.log("run sync")
-    // await Admin.sync({force: true});
+
+    await LockerData.sync({force: true});
+
     // await Locker.sync({force: true});
     // await User.sync({force: true});
 
