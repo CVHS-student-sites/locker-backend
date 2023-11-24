@@ -5,6 +5,8 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
+    "test-csv": "cd tools && cross-env DEPLOY_TYPE=production node testcsv.js",
+
     "create-prod": "cd tools && cross-env DEPLOY_TYPE=production node contorltest.js",
     "create-dev": "cd tools && cross-env DEPLOY_TYPE=development node contorltest.js",
     "sync-dev": "cd config && cross-env DEPLOY_TYPE=development node sync-db.js",

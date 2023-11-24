@@ -13,7 +13,7 @@ const convertStringValuesToNumbers = (obj) => {
     result.Num = parseInt(obj.Num);
     result.Location = {
         Building: parseFloat(obj.Building),
-        TopBottom: obj.TopBottom === 'bottom' ? 0 : 1,
+        TopBottom: obj.TopBottom === 'bottom' ? 0 : 1, //todo fix this
         Floor: parseFloat(obj.Floor),
         X: parseFloat(obj.X),
         Y: parseFloat(obj.Y),
