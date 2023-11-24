@@ -3,6 +3,9 @@ import { parse } from 'csv-parse';
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 
+import { LockerData } from "../models/lockerData.js";
+// import { Locker } from "../models/locker.js";
+
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const convertStringValuesToNumbers = (obj) => {
@@ -10,7 +13,7 @@ const convertStringValuesToNumbers = (obj) => {
     result.Num = parseInt(obj.Num);
     result.Location = {
         Building: parseFloat(obj.Building),
-        TopBottom: obj.TopBottom === 'bottom' ? 0 : 1,
+        TopBottom: obj.TopBottom === 'bottom' ? 0 : 1, //todo fix this
         Floor: parseFloat(obj.Floor),
         X: parseFloat(obj.X),
         Y: parseFloat(obj.Y),
@@ -34,7 +37,29 @@ const processFile = async () => {
     return records;
 };
 
-const records = await processFile();
-const convertedData = records.map(convertStringValuesToNumbers);
+export async function createLocker(lockerNumber, location) {
+    try {
+        let locker = await LockerData.create({
+            lockerNumber: lockerNumber,
+            location: location,
+        });
+        return locker;
+    } catch (err) {
+        console.error(err);
+        return false;
+    }
+}
 
-console.log(convertedData);
+const importData = async () => {
+    const records = await processFile();
+    const convertedData = records.map(convertStringValuesToNumbers);
+
+    for (const record of convertedData) {
+        const lockerNumber = record.Num;
+        const location = record.Location;
+
+        await createLocker(lockerNumber, location);
+    }
+};
+
+await importData();
