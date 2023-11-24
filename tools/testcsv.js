@@ -4,7 +4,7 @@ import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 
 import { LockerData } from "../models/lockerData.js";
-import { Locker } from "../models/locker.js";
+// import { Locker } from "../models/locker.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -39,7 +39,7 @@ const processFile = async () => {
 
 export async function createLocker(lockerNumber, location) {
     try {
-        let locker = await Locker.create({
+        let locker = await LockerData.create({
             lockerNumber: lockerNumber,
             location: location,
         });
