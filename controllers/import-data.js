@@ -29,6 +29,18 @@ export async function createdataLocker(lockerNumber, location) {
     }
 }
 
+
+export async function createdataLockerBatch(data) {
+    try {
+
+        let locker = await LockerData.bulkCreate(data);
+        return locker;
+    } catch (err) {
+        console.error(err);
+        throw err; // Throw the error to propagate it to the calling function
+    }
+}
+
 export async function loadUsers(fileBuffer) {
     return new Promise((resolve, reject) => {
         const parsedData = [];
@@ -50,6 +62,15 @@ export async function loadUsers(fileBuffer) {
 
                         await createdataLocker(lockerNumber, location);
                     }
+
+                    // let batchSize = 40;
+                    // for (let i = 0; i < final.length; i += batchSize) {
+                    //     // Slice the array to get a batch of elements
+                    //     const batch = final.slice(i, i + batchSize);
+                    //
+                    //     // Call the callback function to process the batch
+                    //     await createdataLockerBatch(batch);
+                    // }
 
                     resolve(true);
                 } catch (error) {
