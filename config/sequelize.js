@@ -23,14 +23,21 @@ console.log("sequlize conf", deployType);
 
 if (deployType == 'production') {
     // Production database configuration
-    sequelize = new Sequelize({
+    const sequelize = new Sequelize({
         dialect: 'mysql',
         host: 'mysql-container',
         username: process.env.USERNAME,
         password: process.env.PASSWORD,
         database: 'test',
         logging: false,
+        pool: {
+            max: 10,
+            min: 0,
+            acquire: 30000,
+            idle: 10000,
+        },
     });
+
 } else {
     // Dev database configuration
     sequelize = new Sequelize({
