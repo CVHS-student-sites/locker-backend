@@ -21,9 +21,9 @@ let deployType = process.env.DEPLOY_TYPE;
 
 console.log("sequlize conf", deployType);
 
-if (deployType == 'production') {
+if (deployType === 'production') {
     // Production database configuration
-    const sequelize = new Sequelize({
+    sequelize = new Sequelize({
         dialect: 'mysql',
         host: 'mysql-container',
         username: process.env.USERNAME,
