@@ -8,9 +8,11 @@ import multer from "multer";
 
 export const adminRouter = express.Router();
 
+adminRouter.use(ensureAuthenticated);
+
 
 //get the users locker and data from student id
-adminRouter.get('/lookup-user/:studentId', ensureAuthenticated, async (req, res) => {
+adminRouter.get('/lookup-user/:studentId', async (req, res) => {
     try {
         const studentId = req.params.studentId;
 
@@ -29,7 +31,7 @@ adminRouter.get('/lookup-user/:studentId', ensureAuthenticated, async (req, res)
 
 const storage = multer.memoryStorage(); // Store the file in memory
 const upload = multer({storage: storage});
-adminRouter.post('/upload', upload.single('csvFile'), ensureAuthenticated, async (req, res) => {
+adminRouter.post('/upload', upload.single('csvFile'), async (req, res) => {
 
     // Access the uploaded file buffer
     const fileBuffer = req.file.buffer.toString('utf8');
@@ -43,6 +45,6 @@ adminRouter.post('/upload', upload.single('csvFile'), ensureAuthenticated, async
     } catch (error) {
         // Handle errors and send an error response
         console.error(error);
-        res.status(500).json({ status: 'error', message: 'Internal Server Error' });
+        res.status(500).json({ error: 'error uploading csv' });
     }
 });
