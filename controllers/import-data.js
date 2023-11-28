@@ -29,24 +29,29 @@ export async function createdataLocker(lockerNumber, location) {
 }
 
 export async function loadUsers(fileBuffer) {
-    let final;
-    const parsedData = [];
-    Readable.from(fileBuffer) // Use Readable.from to create a readable stream
-        .pipe(csvParser({
-            columns: true, bom: true,
-        }))
-        .on('data', (row) => {
-            parsedData.push(row);
-        })
-        .on('end', async () => {
+    return new Promise((resolve, reject) => {
+        const parsedData = [];
+        Readable.from(fileBuffer) // Use Readable.from to create a readable stream
+            .pipe(csvParser({
+                columns: true, bom: true,
+            }))
+            .on('data', (row) => {
+                parsedData.push(row);
+            })
+            .on('end', async () => {
+                const final = parsedData.map(convertStringValuesToNumbers);
 
-            final = parsedData.map(convertStringValuesToNumbers);
-            // res.json({ data: final });
-            for (const record of final) {
-                const lockerNumber = record.Num;
-                const location = record.Location;
+                for (const record of final) {
+                    const lockerNumber = record.Num;
+                    const location = record.Location;
 
-                await createdataLocker(lockerNumber, location);
-            }
-        });
+                    await createdataLocker(lockerNumber, location);
+                }
+
+                resolve(true); // Resolve the promise when all operations are complete
+            })
+            .on('error', (error) => {
+                reject(error); // Reject the promise if there's an error
+            });
+    });
 }
