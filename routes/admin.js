@@ -87,5 +87,6 @@ adminRouter.post('/upload', upload.single('csvFile'), async (req, res) => {
 
           await createdataLocker(lockerNumber, location);
         }
+        res.status(200).json({ error: 'upload successful' });
       });
 });
