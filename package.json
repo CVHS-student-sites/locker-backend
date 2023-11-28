@@ -6,7 +6,6 @@
   "main": "index.js",
   "scripts": {
     "test-csv": "cd tools && cross-env DEPLOY_TYPE=production node testcsv.js",
-
     "create-prod": "cd tools && cross-env DEPLOY_TYPE=production node contorltest.js",
     "create-dev": "cd tools && cross-env DEPLOY_TYPE=development node contorltest.js",
     "sync-dev": "cd config && cross-env DEPLOY_TYPE=development node sync-db.js",
@@ -23,9 +22,11 @@
     "cors": "^2.8.5",
     "cross-env": "^7.0.3",
     "csv": "^6.3.5",
+    "csv-parser": "^3.0.0",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "express-session": "^1.17.3",
+    "multer": "^1.4.5-lts.1",
     "mysql2": "^3.6.1",
     "nodemon": "^3.0.1",
     "passport": "^0.6.0",
