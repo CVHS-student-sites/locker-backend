@@ -1,47 +1,25 @@
-import fs from 'fs';
-import { parse } from 'csv-parse';
-import { dirname } from 'path';
-import { fileURLToPath } from 'url';
+import {LockerData} from "../models/lockerData.js";
 
-import { LockerData } from "../models/lockerData.js";
-// import { Locker } from "../models/locker.js";
+import {Readable} from "stream";
+import csvParser from "csv-parser";
+import multer from "multer";
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
+//begin new code todo test all of this
 
 const convertStringValuesToNumbers = (obj) => {
     const result = {};
     result.Num = parseInt(obj.Num);
     result.Location = {
-        Building: parseFloat(obj.Building),
-        TopBottom: obj.TopBottom === 'bottom' ? 0 : 1, //todo fix this
-        Floor: parseFloat(obj.Floor),
-        X: parseFloat(obj.X),
-        Y: parseFloat(obj.Y),
+        Building: parseFloat(obj.Building), TopBottom: obj.TopBottom === 'bottom' ? 0 : 1, //todo fix this
+        Floor: parseFloat(obj.Floor), X: parseFloat(obj.X), Y: parseFloat(obj.Y),
     };
     return result;
 };
 
-const processFile = async () => {
-    const records = [];
-    const parser = fs
-        .createReadStream(`${__dirname}/l.csv`)
-        .pipe(parse({
-            columns: true,
-            bom: true,
-        }));
-
-    for await (const record of parser) {
-        records.push(record);
-    }
-
-    return records;
-};
-
-export async function createLocker(lockerNumber, location) {
+export async function createdataLocker(lockerNumber, location) {
     try {
         let locker = await LockerData.create({
-            lockerNumber: lockerNumber,
-            location: location,
+            lockerNumber: lockerNumber, location: location,
         });
         return locker;
     } catch (err) {
@@ -50,16 +28,25 @@ export async function createLocker(lockerNumber, location) {
     }
 }
 
-const importData = async () => {
-    const records = await processFile();
-    const convertedData = records.map(convertStringValuesToNumbers);
+export async function loadUsers(fileBuffer) {
+    let final;
+    const parsedData = [];
+    Readable.from(fileBuffer) // Use Readable.from to create a readable stream
+        .pipe(csvParser({
+            columns: true, bom: true,
+        }))
+        .on('data', (row) => {
+            parsedData.push(row);
+        })
+        .on('end', async () => {
 
-    for (const record of convertedData) {
-        const lockerNumber = record.Num;
-        const location = record.Location;
+            final = parsedData.map(convertStringValuesToNumbers);
+            // res.json({ data: final });
+            for (const record of final) {
+                const lockerNumber = record.Num;
+                const location = record.Location;
 
-        await createLocker(lockerNumber, location);
-    }
-};
-
-await importData();
+                await createdataLocker(lockerNumber, location);
+            }
+        });
+}
