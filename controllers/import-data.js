@@ -94,7 +94,7 @@ export async function loadUsers(fileBuffer) {
                 try {
                     const final = parsedData.map(formatUserData);
 
-                    await createLockerBatch(final);
+                    await createUserBatch(final);
 
                     resolve(true);
                 } catch (error) {
