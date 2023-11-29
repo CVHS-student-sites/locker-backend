@@ -41,10 +41,10 @@ adminRouter.post('/upload', upload.single('csvFile'), async (req, res) => {
         await loadUsers(fileBuffer);
 
         // Send a success response if the loadUsers function completes without errors
-        res.status(200).json({ status: 'upload successful' });
+        res.status(200).json({status: 'upload successful'});
     } catch (error) {
         // Handle errors and send an error response
         console.error(error);
-        res.status(500).json({ error: 'error uploading csv' });
+        res.status(500).json({error: 'error uploading csv'});
     }
 });

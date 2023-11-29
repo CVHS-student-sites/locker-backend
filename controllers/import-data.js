@@ -1,7 +1,6 @@
-import { LockerData } from "../models/lockerData.js";
-import { Readable } from "stream";
+import {LockerData} from "../models/lockerData.js";
+import {Readable} from "stream";
 import csvParser from "csv-parser";
-import multer from "multer";
 
 const convertStringValuesToNumbers = (obj) => {
     const result = {};
@@ -16,21 +15,7 @@ const convertStringValuesToNumbers = (obj) => {
     return result;
 };
 
-export async function createdataLocker(lockerNumber, location) {
-    try {
-        let locker = await LockerData.create({
-            lockerNumber: lockerNumber,
-            location: location,
-        });
-        return locker;
-    } catch (err) {
-        console.error(err);
-        throw err; // Throw the error to propagate it to the calling function
-    }
-}
-
-
-export async function createdataLockerBatch(data) {
+async function createdataLockerBatch(data) {
     try {
 
         let locker = await LockerData.bulkCreate(data);
@@ -56,21 +41,12 @@ export async function loadUsers(fileBuffer) {
                 try {
                     const final = parsedData.map(convertStringValuesToNumbers);
 
-                    // // Separate the creation of individual records and batch processing
-                    // for (const record of final) {
-                    //     const lockerNumber = record.Num;
-                    //     const location = record.Location;
-                    //     console.log()
-                    //     await createdataLocker(lockerNumber, location);
-                    // }
-
                     // Convert the data array to match the structure of individual records
-                    const batchData = final.map(({ Num, Location }) => ({
+                    const batchData = final.map(({Num, Location}) => ({
                         lockerNumber: Num,
                         location: Location,
                     }));
 
-                    // Batch processing using bulkCreate
                     await createdataLockerBatch(batchData);
 
                     resolve(true);
