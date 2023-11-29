@@ -45,7 +45,7 @@ export async function loadLockers(fileBuffer) {
                         lockerNumber: Num,
                         location: Location,
                     }));
-                    console.log(batchData)
+                    console.log(batchData[5])
                     await createLockerBatch(batchData);
 
                     resolve(true);
@@ -99,7 +99,7 @@ export async function loadUsers(fileBuffer) {
                         grade: grade,
                     }));
 
-                    console.log(batchData)
+                    console.log(batchData[5])
                     await createUserBatch(batchData);
 
                     resolve(true);
