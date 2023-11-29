@@ -1,7 +1,8 @@
 import {LockerData} from "../models/lockerData.js";
 import {UserData} from "../models/userData.js";
 import {Readable} from "stream";
-import csvParser from "csv-parser";
+
+import { parse } from 'csv-parse';
 
 const formatLockerData = (obj) => {
     const result = {};
@@ -27,14 +28,47 @@ async function createLockerBatch(data) {
 
 export async function loadLockers(fileBuffer) {
     return new Promise((resolve, reject) => {
+        // const parsedData = [];
+        // Readable.from(fileBuffer)
+        //     .pipe(csvParser({
+        //         columns: true,
+        //         bom: true,
+        //     }))
+        //     .on('data', (row) => {
+        //         parsedData.push(row);
+        //     })
+        //     .on('end', async () => {
+        //         try {
+        //             const final = parsedData.map(formatLockerData);
+        //
+        //             // Convert the data array to match the structure of individual records
+        //             const batchData = final.map(({Num, Location}) => ({
+        //                 lockerNumber: Num,
+        //                 location: Location,
+        //             }));
+        //             console.log(batchData[5])
+        //             await createLockerBatch(batchData);
+        //
+        //             resolve(true);
+        //         } catch (error) {
+        //             reject(error);
+        //         }
+        //     })
+        //     .on('error', (error) => {
+        //         reject(error);
+        //     });
+
+
         const parsedData = [];
-        Readable.from(fileBuffer)
-            .pipe(csvParser({
-                columns: true,
+        Readable.from(fileBuffer)  // Use Readable.from to create a readable stream
+            .pipe(parse({
                 bom: true,
+                delimiter: ',', // Add any other options you need
+                columns: true,
             }))
-            .on('data', (row) => {
-                parsedData.push(row);
+            .on('data', (record) => {
+                // Your transformation logic here (if needed)
+                parsedData.push(record);
             })
             .on('end', async () => {
                 try {
@@ -56,6 +90,7 @@ export async function loadLockers(fileBuffer) {
             .on('error', (error) => {
                 reject(error);
             });
+
     });
 }
 
@@ -83,9 +118,10 @@ export async function loadUsers(fileBuffer) {
     return new Promise((resolve, reject) => {
         const parsedData = [];
         Readable.from(fileBuffer)
-            .pipe(csvParser({
-                columns: true,
+            .pipe(parse({
                 bom: true,
+                delimiter: ',', // Add any other options you need
+                columns: true,
             }))
             .on('data', (row) => {
                 parsedData.push(row);
