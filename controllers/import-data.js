@@ -56,21 +56,22 @@ export async function loadUsers(fileBuffer) {
                 try {
                     const final = parsedData.map(convertStringValuesToNumbers);
 
+                    // // Separate the creation of individual records and batch processing
                     // for (const record of final) {
                     //     const lockerNumber = record.Num;
                     //     const location = record.Location;
-                    //
+                    //     console.log()
                     //     await createdataLocker(lockerNumber, location);
                     // }
 
-                    let batchSize = 80;
-                    for (let i = 0; i < final.length; i += batchSize) {
-                        // Slice the array to get a batch of elements
-                        const batch = final.slice(i, i + batchSize);
+                    // Convert the data array to match the structure of individual records
+                    const batchData = final.map(({ Num, Location }) => ({
+                        lockerNumber: Num,
+                        location: Location,
+                    }));
 
-                        // Call the callback function to process the batch
-                        await createdataLockerBatch(batch);
-                    }
+                    // Batch processing using bulkCreate
+                    await createdataLockerBatch(batchData);
 
                     resolve(true);
                 } catch (error) {
