@@ -118,10 +118,9 @@ export async function loadUsers(fileBuffer) {
     return new Promise((resolve, reject) => {
         const parsedData = [];
         Readable.from(fileBuffer)
-            .pipe(parse({
-                bom: true,
-                delimiter: ',', // Add any other options you need
+            .pipe(csvParser({
                 columns: true,
+                bom: true,
             }))
             .on('data', (row) => {
                 parsedData.push(row);
