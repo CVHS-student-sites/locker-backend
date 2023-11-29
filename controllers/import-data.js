@@ -28,36 +28,6 @@ async function createLockerBatch(data) {
 
 export async function loadLockers(fileBuffer) {
     return new Promise((resolve, reject) => {
-        // const parsedData = [];
-        // Readable.from(fileBuffer)
-        //     .pipe(csvParser({
-        //         columns: true,
-        //         bom: true,
-        //     }))
-        //     .on('data', (row) => {
-        //         parsedData.push(row);
-        //     })
-        //     .on('end', async () => {
-        //         try {
-        //             const final = parsedData.map(formatLockerData);
-        //
-        //             // Convert the data array to match the structure of individual records
-        //             const batchData = final.map(({Num, Location}) => ({
-        //                 lockerNumber: Num,
-        //                 location: Location,
-        //             }));
-        //             console.log(batchData[5])
-        //             await createLockerBatch(batchData);
-        //
-        //             resolve(true);
-        //         } catch (error) {
-        //             reject(error);
-        //         }
-        //     })
-        //     .on('error', (error) => {
-        //         reject(error);
-        //     });
-
 
         const parsedData = [];
         Readable.from(fileBuffer)  // Use Readable.from to create a readable stream
