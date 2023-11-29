@@ -56,21 +56,21 @@ export async function loadUsers(fileBuffer) {
                 try {
                     const final = parsedData.map(convertStringValuesToNumbers);
 
-                    for (const record of final) {
-                        const lockerNumber = record.Num;
-                        const location = record.Location;
-
-                        await createdataLocker(lockerNumber, location);
-                    }
-
-                    // let batchSize = 40;
-                    // for (let i = 0; i < final.length; i += batchSize) {
-                    //     // Slice the array to get a batch of elements
-                    //     const batch = final.slice(i, i + batchSize);
+                    // for (const record of final) {
+                    //     const lockerNumber = record.Num;
+                    //     const location = record.Location;
                     //
-                    //     // Call the callback function to process the batch
-                    //     await createdataLockerBatch(batch);
+                    //     await createdataLocker(lockerNumber, location);
                     // }
+
+                    let batchSize = 80;
+                    for (let i = 0; i < final.length; i += batchSize) {
+                        // Slice the array to get a batch of elements
+                        const batch = final.slice(i, i + batchSize);
+
+                        // Call the callback function to process the batch
+                        await createdataLockerBatch(batch);
+                    }
 
                     resolve(true);
                 } catch (error) {
