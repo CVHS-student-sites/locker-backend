@@ -38,14 +38,14 @@ export async function loadLockers(fileBuffer) {
             })
             .on('end', async () => {
                 try {
+                    console.log(parsedData[5])
                     const final = parsedData.map(formatLockerData);
-
+                    console.log(final[5])
                     // Convert the data array to match the structure of individual records
                     const batchData = final.map(({Num, Location}) => ({
                         lockerNumber: Num,
                         location: Location,
                     }));
-                    console.log(batchData[5])
                     await createLockerBatch(batchData);
 
                     resolve(true);
