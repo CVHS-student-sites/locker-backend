@@ -45,7 +45,7 @@ export async function loadLockers(fileBuffer) {
                         lockerNumber: Num,
                         location: Location,
                     }));
-
+                    console.log(batchData)
                     await createLockerBatch(batchData);
 
                     resolve(true);
@@ -94,7 +94,13 @@ export async function loadUsers(fileBuffer) {
                 try {
                     const final = parsedData.map(formatUserData);
 
-                    await createUserBatch(final);
+                    const batchData = final.map(({studentId, grade}) => ({
+                        studentId: studentId,
+                        grade: grade,
+                    }));
+
+                    console.log(batchData)
+                    await createUserBatch(batchData);
 
                     resolve(true);
                 } catch (error) {
