@@ -1,6 +1,6 @@
 import {sequelize} from './sequelize.js'
 import {LockerData} from "../models/lockerData.js";
-
+import {UserData} from "../models/userData.js";
 
 console.log(process.env.DEPLOY_TYPE); // This will output "development"
 
@@ -12,6 +12,7 @@ async function syncDatabase() {
         console.log("run sync")
 
         await LockerData.sync({force: true});
+        await UserData.sync({force: true});
 
         // await Locker.sync({force: true});
         // await User.sync({force: true});

@@ -1,5 +1,6 @@
 import {getUser} from "../controllers/user-locker.js";
 import {loadUsers} from "../controllers/import-data.js";
+import {loadLockers} from "../controllers/import-data.js";
 
 import {ensureAuthenticated} from "./auth.js";
 
@@ -29,9 +30,30 @@ adminRouter.get('/lookup-user/:studentId', async (req, res) => {
 });
 
 
-const storage = multer.memoryStorage(); // Store the file in memory
-const upload = multer({storage: storage});
-adminRouter.post('/upload', upload.single('csvFile'), async (req, res) => {
+const lockerStorage = multer.memoryStorage(); // Store the file in memory
+const lockerUpload = multer({storage: lockerStorage});
+adminRouter.post('/lockerUpload', lockerUpload.single('csvFile'), async (req, res) => {
+
+    // Access the uploaded file buffer
+    const fileBuffer = req.file.buffer.toString('utf8');
+
+    try {
+        // Use await to wait for the loadUsers function to complete
+        await loadLockers(fileBuffer);
+
+        // Send a success response if the loadUsers function completes without errors
+        res.status(200).json({status: 'upload successful'});
+    } catch (error) {
+        // Handle errors and send an error response
+        console.error(error);
+        res.status(500).json({error: 'error uploading csv'});
+    }
+});
+
+
+const userStorage = multer.memoryStorage(); // Store the file in memory
+const userUpload = multer({storage: userStorage});
+adminRouter.post('/userUpload', lockerUpload.single('csvFile'), async (req, res) => {
 
     // Access the uploaded file buffer
     const fileBuffer = req.file.buffer.toString('utf8');
