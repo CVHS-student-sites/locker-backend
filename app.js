@@ -7,6 +7,7 @@ import passport from 'passport';
 import session from 'express-session';
 import connectSqlite3 from 'connect-sqlite3';
 import cors from 'cors';
+import {addTestUsers} from "./config/setupDB.js";
 
 const SQLiteStore = connectSqlite3(session);
 
@@ -52,6 +53,8 @@ app.use(express.json());
 app.use('/auth/', authRouter)
 app.use('/public/', userlockerRouter)
 app.use('/admin/', adminRouter)
+
+await addTestUsers()
 
 // Start the server
 const port = process.env.PORT || 3000;
