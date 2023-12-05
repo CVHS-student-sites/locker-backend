@@ -1,6 +1,7 @@
 import {createAdminUser} from "../controllers/admin.js";
 import {createLocker, createUser, joinUsertoLocker} from "../controllers/user-locker.js";
 
+//TODO will set root user from environment variables
 export async function addTestUsers(){
     await createAdminUser('birdpump','test')
 

@@ -19,7 +19,6 @@ const corsOptions = {
     credentials: true, // Allow credentials (cookies)
 };
 
-
 // cors setup
 app.use(cors(corsOptions));
 
@@ -54,6 +53,7 @@ app.use('/auth/', authRouter)
 app.use('/public/', userlockerRouter)
 app.use('/admin/', adminRouter)
 
+//create root user
 await addTestUsers()
 
 // Start the server
