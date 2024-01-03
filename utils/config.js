@@ -16,11 +16,7 @@ export async function editConfig(key, newValue) {
         const [updatedRows] = await Config.update({value: newValue}, {
             where: {key},
         });
-        if (updatedRows > 0) {
-            console.log('Config updated successfully.');
-        } else {
-            console.log('Config not found.');
-        }
+        return updatedRows > 0;
     } catch (error) {
         console.error('Error updating config:', error);
     }
