@@ -15,7 +15,6 @@ adminRouter.use(ensureAuthenticated);
 
 adminRouter.post('/management/grade-restrictions', async (req, res) => {
     const data = req.body;
-    console.log(data)
 
     if (await setGradeRestriction(data)) {
         res.status(200);
