@@ -54,7 +54,7 @@ app.use('/public/', userlockerRouter)
 app.use('/admin/', adminRouter)
 
 //create root user
-await addTestUsers()
+await addTestUsers();
 
 // Start the server
 const port = process.env.PORT || 3000;
