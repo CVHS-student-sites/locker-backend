@@ -4,6 +4,7 @@ import {Readable} from "stream";
 
 import { parse } from 'csv-parse';
 
+//todo fix locker level import type
 const formatLockerData = (obj) => {
     const result = {};
     result.Num = parseInt(obj.Num);

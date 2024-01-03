@@ -12,8 +12,9 @@
     "sync-prod": "cd config && cross-env DEPLOY_TYPE=production node sync-db.js",
     "start-dev": "cross-env DEPLOY_TYPE=development nodemon --watch \"**/*.js\" --ext \"js\" app.js",
     "start-prod": "cross-env DEPLOY_TYPE=production node app.js",
-    "start-prod-both": "npm run sync-prod && npm run start-prod"
+    "start-prod-both": "npm run sync-prod && npm run start-prod",
 
+    "test_config": "cd tools && node config.js"
   },
   "author": "",
   "license": "ISC",
