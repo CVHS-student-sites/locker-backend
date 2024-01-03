@@ -17,7 +17,7 @@ adminRouter.post('/management/grade-restrictions', async (req, res) => {
     const data = req.body;
 
     if (await setGradeRestriction(data)) {
-        res.status(200);
+        res.status(200).json({status: 'upload successful'});
     } else {
         res.status(500);
     }
