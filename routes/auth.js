@@ -32,10 +32,22 @@ passport.deserializeUser(async (id, cb) => {
 
 // middleware function to check if the user is authenticated
 export function ensureAuthenticated(req, res, next) {
+    // Check if the user is authenticated using sessions
     if (req.isAuthenticated()) {
         return next(); // User is authenticated, proceed to the next middleware or route
     }
-    // User is not authenticated, redirect to the login page or send an error message
+
+    // Check if an API key is provided in the request headers
+    const apiKey = req.headers['x-api-key'];
+
+    if (apiKey) {
+        // Validate the API key (replace 'your_secret_api_key' with your actual API key)
+        if (apiKey === '123456789') {
+            return next(); // API key is valid, proceed to the next middleware or route
+        }
+    }
+
+    // User is not authenticated and no valid API key is provided
     res.status(401).json({
         authenticated: false,
         error: 'Authentication required for route',
