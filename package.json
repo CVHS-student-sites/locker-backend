@@ -14,7 +14,7 @@
     "start-prod": "cross-env DEPLOY_TYPE=production node app.js",
     "start-prod-both": "npm run sync-prod && npm run start-prod",
 
-    "test_config": "cd tools && node config.js"
+    "test_config": "cd tools && cross-env DEPLOY_TYPE=production node config.js"
   },
   "author": "",
   "license": "ISC",
