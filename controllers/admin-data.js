@@ -2,7 +2,7 @@ import {createConfig, readConfig, editConfig} from "../utils/config.js";
 
 export async function setGradeRestriction(data){
     try {
-        console.log(JSON.parse(data));
+        // console.log(JSON.parse(data));
         let test = {
             "grade_9": true,
             "grade_10": false,
