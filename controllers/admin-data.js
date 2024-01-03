@@ -8,8 +8,9 @@ export async function setGradeRestriction(data){
             "grade_11": false,
             "grade_12": false
         }
-        console.log(data)
-        if(await editConfig('enabled_grades', data)) return true;
+        let demo = await editConfig('enabled_grades', data);
+        console.log(demo)
+        if(demo) return true;
 
     }catch (err){
         return false;
