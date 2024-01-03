@@ -1,5 +1,6 @@
 import {createAdminUser} from "../controllers/admin.js";
 import {createLocker, createUser, joinUsertoLocker} from "../controllers/user-locker.js";
+import {createConfig} from "../utils/config.js";
 
 //TODO will set root user from environment variables
 export async function addTestUsers(){
@@ -14,4 +15,38 @@ export async function addTestUsers(){
     await joinUsertoLocker(415633, '73-13A');
 
     await joinUsertoLocker(415631, '73-13A');
+}
+
+
+export async function setDefaultConfigs(){
+    const grades = {
+        grade_12: false,
+        grade_11: false,
+        grade_10: false,
+        grade_9: false,
+    }
+    await createConfig('enabled_grades', grades)
+
+    const areas = {
+        building_1000: {
+            floor_1: false,
+            floor_3: false,
+        },
+        building_2000: {
+            floor_1: false,
+            floor_2: false,
+            floor_3: false,
+        },
+        building_5000: {
+            floor_2: false,
+            floor_3: false,
+        },
+        building_7000: {
+            floor_1: false,
+            floor_2: false,
+            floor_3: false,
+        },
+    }
+    await createConfig('restricted_areas', areas)
+
 }

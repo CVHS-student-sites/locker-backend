@@ -1,6 +1,7 @@
 import {getUser} from "../controllers/user-locker.js";
-import {loadUsers} from "../controllers/import-data.js";
-import {loadLockers} from "../controllers/import-data.js";
+import {loadUsers} from "../utils/import-data.js";
+import {loadLockers} from "../utils/import-data.js";
+import {setGradeRestriction} from "../controllers/admin-data.js";
 
 import {ensureAuthenticated} from "./auth.js";
 
@@ -12,22 +13,17 @@ export const adminRouter = express.Router();
 adminRouter.use(ensureAuthenticated);
 
 
-//get the users locker and data from student id
-adminRouter.get('/lookup-user/:studentId', async (req, res) => {
-    try {
-        const studentId = req.params.studentId;
+adminRouter.post('/management/grade-restrictions', async (req, res) => {
+    const data = req.body;
 
-        const userData = await getUser(studentId);
-
-        if (userData) {
-            res.json(userData);
-        } else {
-            res.status(404).json({error: 'User not found'});
-        }
-    } catch (error) {
-        res.status(500).json({error: 'Internal server error'});
+    if (await setGradeRestriction(data)) {
+        res.status(200);
+    } else {
+        res.status(500);
     }
+
 });
+
 
 
 const lockerStorage = multer.memoryStorage(); // Store the file in memory
