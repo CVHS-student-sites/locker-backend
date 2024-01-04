@@ -1,7 +1,7 @@
 import {getUser} from "../controllers/user-locker.js";
 import {loadUsers} from "../utils/import-data.js";
 import {loadLockers} from "../utils/import-data.js";
-import {setGradeRestriction} from "../controllers/admin-data.js";
+import {setGradeRestriction, setAreaRestriction} from "../controllers/admin-data.js";
 
 import {ensureAuthenticated} from "./auth.js";
 
@@ -19,7 +19,18 @@ adminRouter.post('/management/grade-restrictions', async (req, res) => {
     if (await setGradeRestriction(data)) {
         res.status(200).json({status: 'upload successful'});
     } else {
-        res.status(500);
+        res.status(500).json({status: 'error'});
+    }
+
+});
+
+adminRouter.post('/management/area-restrictions', async (req, res) => {
+    const data = req.body;
+
+    if (await setAreaRestriction(data)) {
+        res.status(200).json({status: 'upload successful'});
+    } else {
+        res.status(500).json({status: 'error'});
     }
 
 });
