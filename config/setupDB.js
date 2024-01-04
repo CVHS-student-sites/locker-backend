@@ -17,7 +17,7 @@ export async function addTestUsers(){
     await joinUsertoLocker(415631, '73-13A');
 }
 
-
+//todo check if db is null only run if null
 export async function setDefaultConfigs(){
     const grades = {
         grade_12: false,
