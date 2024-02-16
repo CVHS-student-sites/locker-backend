@@ -48,5 +48,4 @@ export async function setDefaultConfigs(){
         },
     }
     await createConfig('restricted_areas', areas)
-
 }

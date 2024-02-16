@@ -6,7 +6,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 
-let sequelize; // Declare sequelize here
+let sequelize;
 
 let deployType = process.env.DEPLOY_TYPE;
 
@@ -30,4 +30,4 @@ if (deployType === 'production') {
     });
 }
 
-export {sequelize}; // Export sequelize here
+export {sequelize};
