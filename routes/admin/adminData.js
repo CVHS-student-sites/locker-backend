@@ -1,6 +1,6 @@
-import {getUser} from "../../controllers/app/appData.js";
-import {loadUsers, loadLockers} from "../../controllers/admin/adminImportData.js";
-import {setGradeRestriction, setAreaRestriction} from "../../controllers/admin/adminAction.js";
+import {loadLockers, loadUsers} from "../../controllers/admin/adminImportData.js";
+import {setAreaRestriction, setGradeRestriction} from "../../controllers/admin/adminAction.js";
+import {queryAreaRestriction, queryGradeRestriction} from "../../controllers/admin/adminData.js";
 
 import {ensureAuthenticated} from "./adminAuth.js";
 
@@ -23,6 +23,21 @@ adminRouter.post('/management/grade-restrictions', async (req, res) => {
 
 });
 
+adminRouter.get('/management/grade-restrictions', async (req, res) => {
+    try {
+
+        const data = await queryGradeRestriction();
+
+        if (data) {
+            res.json(data);
+        } else {
+            res.status(404).json({error: 'No config found'});
+        }
+    } catch (error) {
+        res.status(500).json({error: 'Internal server error'});
+    }
+});
+
 adminRouter.post('/management/area-restrictions', async (req, res) => {
     const data = req.body;
 
@@ -32,6 +47,21 @@ adminRouter.post('/management/area-restrictions', async (req, res) => {
         res.status(500).json({status: 'error'});
     }
 
+});
+
+adminRouter.get('/management/area-restrictions', async (req, res) => {
+    try {
+
+        const data = await queryAreaRestriction();
+
+        if (data) {
+            res.json(data);
+        } else {
+            res.status(404).json({error: 'No config found'});
+        }
+    } catch (error) {
+        res.status(500).json({error: 'Internal server error'});
+    }
 });
 
 

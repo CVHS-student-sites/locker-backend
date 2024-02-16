@@ -1,10 +1,10 @@
-import { authRouter } from './routes/admin/adminAuth.js'
-import { appRouter } from './routes/app/appData.js';
-import { adminRouter } from './routes/admin/adminData.js';
+import {authRouter} from './routes/admin/adminAuth.js'
+import {appRouter} from './routes/app/appData.js';
+import {adminRouter} from './routes/admin/adminData.js';
 
 import {addTestUsers, setDefaultConfigs} from "./config/setupDB.js";
 
-import express, {response} from 'express';
+import express from 'express';
 import passport from 'passport';
 import session from 'express-session';
 import connectSqlite3 from 'connect-sqlite3';

@@ -29,7 +29,7 @@ export async function readConfig(key) {
             where: {key},
         });
         if (config) {
-            return config;
+            return config.value;
         } else {
             return false;
         }
