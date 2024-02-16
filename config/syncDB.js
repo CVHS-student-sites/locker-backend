@@ -19,12 +19,13 @@ async function syncDatabase() {
         await sequelize.sync({force: true})
 
         //todo find why this is needed
-        await LockerData.sync({force: true});
-        await UserData.sync({force: true});
-        await User.sync({force: true});
-        await Locker.sync({force: true});
-        await Admin.sync({force: true});
-        await Config.sync({force: true});
+
+        // await LockerData.sync({force: true});
+        // await UserData.sync({force: true});
+        // await User.sync({force: true});
+        // await Locker.sync({force: true});
+        // await Admin.sync({force: true});
+        // await Config.sync({force: true});
 
         // If you don't want to recreate tables every time, use this instead:
         // await sequelize.sync();
