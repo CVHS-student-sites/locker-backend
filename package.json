@@ -5,16 +5,11 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "test-csv": "cd tools && cross-env DEPLOY_TYPE=production node testcsv.js",
-    "create-prod": "cd tools && cross-env DEPLOY_TYPE=production node contorltest.js",
-    "create-dev": "cd tools && cross-env DEPLOY_TYPE=development node contorltest.js",
-    "sync-dev": "cd config && cross-env DEPLOY_TYPE=development node sync-db.js",
+    "sync-dev": "cd config && cross-env DEPLOY_TYPE=development node syncDB.js",
     "sync-prod": "cd config && cross-env DEPLOY_TYPE=production node sync-db.js",
     "start-dev": "cross-env DEPLOY_TYPE=development nodemon --watch \"**/*.js\" --ext \"js\" app.js",
     "start-prod": "cross-env DEPLOY_TYPE=production node app.js",
-    "start-prod-both": "npm run sync-prod && npm run start-prod",
-
-    "test_config": "cd tools && cross-env DEPLOY_TYPE=production node config.js"
+    "start-prod-both": "npm run sync-prod && npm run start-prod"
   },
   "author": "",
   "license": "ISC",

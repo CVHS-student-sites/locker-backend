@@ -1,6 +1,6 @@
-import {createAdminUser} from "../controllers/admin.js";
-import {createLocker, createUser, joinUsertoLocker} from "../controllers/user-locker.js";
-import {createConfig} from "../utils/config.js";
+import {createAdminUser} from "../controllers/admin/adminUser.js";
+import {createLocker, createUser, joinUsertoLocker} from "../controllers/app/appData.js";
+import {createConfig} from "../utils/admin/configManager.js";
 
 //TODO will set root user from environment variables
 export async function addTestUsers(){

@@ -1,5 +1,5 @@
-import { User } from "../models/user.js";
-import { Locker } from "../models/locker.js";
+import { User } from "../../models/user.js";
+import { Locker } from "../../models/locker.js";
 
 //todo remove all logs
 //todo fix async

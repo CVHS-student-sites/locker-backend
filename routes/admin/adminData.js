@@ -1,9 +1,8 @@
-import {getUser} from "../controllers/user-locker.js";
-import {loadUsers} from "../utils/import-data.js";
-import {loadLockers} from "../utils/import-data.js";
-import {setGradeRestriction, setAreaRestriction} from "../controllers/admin-data.js";
+import {getUser} from "../../controllers/app/appData.js";
+import {loadUsers, loadLockers} from "../../controllers/admin/adminImportData.js";
+import {setGradeRestriction, setAreaRestriction} from "../../controllers/admin/adminAction.js";
 
-import {ensureAuthenticated} from "./auth.js";
+import {ensureAuthenticated} from "./adminAuth.js";
 
 import express from 'express';
 import multer from "multer";
@@ -36,7 +35,7 @@ adminRouter.post('/management/area-restrictions', async (req, res) => {
 });
 
 
-
+//todo maybe move file upload and handling to adminData.js
 const lockerStorage = multer.memoryStorage(); // Store the file in memory
 const lockerUpload = multer({storage: lockerStorage});
 adminRouter.post('/lockerUpload', lockerUpload.single('csvFile'), async (req, res) => {

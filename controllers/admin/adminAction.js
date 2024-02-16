@@ -1,4 +1,6 @@
-import {createConfig, readConfig, editConfig} from "../utils/config.js";
+// used for admin routes that need to change system configs and settings and system events
+
+import {createConfig, readConfig, editConfig} from "../../utils/admin/configManager.js";
 
 export async function setGradeRestriction(data){
     try {

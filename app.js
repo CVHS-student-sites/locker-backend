@@ -1,13 +1,15 @@
-import {authRouter} from './routes/auth.js'
-import { userlockerRouter } from './routes/user-locker.js';
-import { adminRouter } from './routes/admin.js';
+import { authRouter } from './routes/admin/adminAuth.js'
+import { appRouter } from './routes/app/appData.js';
+import { adminRouter } from './routes/admin/adminData.js';
+
+import {addTestUsers, setDefaultConfigs} from "./config/setupDB.js";
 
 import express, {response} from 'express';
 import passport from 'passport';
 import session from 'express-session';
 import connectSqlite3 from 'connect-sqlite3';
 import cors from 'cors';
-import {addTestUsers, setDefaultConfigs} from "./config/setupDB.js";
+
 
 const SQLiteStore = connectSqlite3(session);
 
@@ -50,7 +52,7 @@ app.use(express.json());
 
 //define routes
 app.use('/auth/', authRouter)
-app.use('/public/', userlockerRouter)
+app.use('/public/', appRouter)
 app.use('/admin/', adminRouter)
 
 //create root user
@@ -61,5 +63,5 @@ await setDefaultConfigs();
 // Start the server
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
+    console.log(`Locker backend started`);
 });

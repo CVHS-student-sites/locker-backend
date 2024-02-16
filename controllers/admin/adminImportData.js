@@ -1,5 +1,5 @@
-import {LockerData} from "../models/lockerData.js";
-import {UserData} from "../models/userData.js";
+import {LockerData} from "../../models/lockerData.js";
+import {UserData} from "../../models/userData.js";
 import {Readable} from "stream";
 
 import { parse } from 'csv-parse';

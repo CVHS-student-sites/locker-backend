@@ -1,5 +1,5 @@
 import bcrypt from "bcrypt";
-import {Admin} from "../models/admin.js";
+import {Admin} from "../../models/admin.js";
 
 const saltRounds = 10;
 
@@ -7,10 +7,9 @@ export async function createAdminUser(username, plainpassword) {
     try {
         const hash = await bcrypt.hash(plainpassword, saltRounds);
         await Admin.create({username: username, password: hash});
-        // console.log("User created successfully.")
         return true;
     } catch (err) {
-        console.error("Error creating user:", err);
+        // console.error("Error creating user:", err);
         return false;
     }
 }
@@ -50,7 +49,7 @@ export async function getAdminUser(username) {
             return user.toJSON();
         }
     } catch (error) {
-        console.error("Error finding user:", error.message);
+        // console.error("Error finding user:", error.message);
         return false;
     }
 }

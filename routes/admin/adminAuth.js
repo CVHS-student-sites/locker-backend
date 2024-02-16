@@ -1,4 +1,4 @@
-import {createAdminUser, validateAdminUser, getAdminId, getAdminUser, getAdminUserfromId} from '../controllers/admin.js'
+import {createAdminUser, validateAdminUser, getAdminId, getAdminUser, getAdminUserfromId} from '../../controllers/admin/adminUser.js'
 
 import express from 'express';
 import passport from 'passport';
