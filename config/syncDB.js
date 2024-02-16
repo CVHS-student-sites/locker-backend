@@ -14,8 +14,6 @@ async function syncDatabase() {
     try {
         console.log("run sync")
 
-        // Sync all defined models with the database
-        // await sequelize.sync(); // Use force: true to recreate tables on every run
         await sequelize.sync({force: true})
 
         //todo find why this is needed

@@ -17,7 +17,7 @@ if (deployType === 'production') {
         host: 'mysql-container',
         username: process.env.USERNAME,
         password: process.env.PASSWORD,
-        database: 'test',
+        database: 'locker',
         logging: false
     });
 
