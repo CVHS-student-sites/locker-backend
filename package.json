@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "sync-dev": "cd config && cross-env DEPLOY_TYPE=development node syncDB.js",
-    "sync-prod": "cd config && cross-env DEPLOY_TYPE=production node sync-db.js",
+    "sync-prod": "cd config && cross-env DEPLOY_TYPE=production node syncDB.js",
     "start-dev": "cross-env DEPLOY_TYPE=development nodemon --watch \"**/*.js\" --ext \"js\" app.js",
     "start-prod": "cross-env DEPLOY_TYPE=production node app.js",
     "start-prod-both": "npm run sync-prod && npm run start-prod"
