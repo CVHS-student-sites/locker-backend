@@ -1,8 +1,10 @@
 //used for getting and interacting with locker data for admins
 
-//todo will have functions for getting data for dashboard, locker lists, user lists
+import {User} from "../../models/user.js";
+import {Locker} from "../../models/locker.js";
 
-import {createConfig, readConfig, editConfig} from "../../utils/admin/configManager.js";
+//todo will have functions for getting data for dashboard, locker lists, user lists
+import {readConfig} from "../../utils/admin/configManager.js";
 
 
 export async function queryGradeRestriction(){
@@ -21,4 +23,31 @@ export async function queryAreaRestriction(){
     }catch (err){
         return false;
     }
+}
+
+export async function queryStats(){
+    let userCount;
+    let lockerCount;
+
+    await User.count()
+        .then(count => {
+            userCount = count;
+        })
+        .catch(err => {
+            return false;
+        });
+
+    await Locker.count()
+        .then(count => {
+            lockerCount = count;
+            console.log(lockerCount)
+        })
+        .catch(err => {
+            return false;
+        });
+
+    return {
+        "users": userCount,
+        "lockers": lockerCount,
+    };
 }
