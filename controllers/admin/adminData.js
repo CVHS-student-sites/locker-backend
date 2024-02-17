@@ -77,7 +77,7 @@ export async function queryStats() {
     // Calculate the timestamp for one hour ago
     const oneHourAgo = new Date(new Date() - 60 * 60 * 1000);
     // Count the number of rows created less than one hour ago
-    Locker.count({
+    await Locker.count({
         where: {
             createdAt: {
                 [Op.lt]: oneHourAgo // createdAt < one hour ago
@@ -95,7 +95,7 @@ export async function queryStats() {
 
     const oneDayAgo = new Date(new Date() - 24 * 60 * 60 * 1000);
     // Count the number of rows created less than one hour ago
-    Locker.count({
+    await Locker.count({
         where: {
             createdAt: {
                 [Op.lt]: oneDayAgo // createdAt < one hour ago
