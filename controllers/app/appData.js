@@ -148,7 +148,6 @@ export async function validateIDs(students) {
             },
         });
         console.log(await locker)
-        if (locker.Locker !== null) return "exists";
 
     }
     return "ok";
