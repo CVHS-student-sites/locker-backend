@@ -12,8 +12,6 @@ const formatLockerData = (obj) => {
         Building: parseInt(obj.Building),
         Level: parseInt(obj.Level),
         Floor: parseInt(obj.Floor),
-        X: parseFloat(obj.X),
-        Y: parseFloat(obj.Y),
     };
     return result;
 };
