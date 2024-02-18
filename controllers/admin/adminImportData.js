@@ -16,6 +16,7 @@ const formatLockerData = (obj) => {
     return result;
 };
 
+//todo empty db before upload for import locker and users
 async function createLockerBatch(data) {
     try {
         return await LockerData.bulkCreate(data);
