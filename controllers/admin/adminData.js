@@ -13,7 +13,6 @@ import {readConfig} from "../../utils/admin/configManager.js";
 
 export async function queryGradeRestriction() {
     try {
-        console.log(await readConfig('enabled_grades'))
         return await readConfig('enabled_grades');
 
     } catch (err) {
@@ -49,7 +48,6 @@ export async function queryStats() {
     await Locker.count()
         .then(count => {
             lockerCount = count;
-            console.log(lockerCount)
         })
         .catch(err => {
             return false;
@@ -58,7 +56,6 @@ export async function queryStats() {
     await LockerData.count()
         .then(count => {
             totalLockers = count;
-            console.log(lockerCount)
         })
         .catch(err => {
             return false;
@@ -67,7 +64,6 @@ export async function queryStats() {
     await UserData.count()
         .then(count => {
             totalUsers = count;
-            console.log(lockerCount)
         })
         .catch(err => {
             return false;
