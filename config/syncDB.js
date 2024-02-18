@@ -14,7 +14,7 @@ async function syncDatabase() {
     try {
         console.log("run sync")
 
-        await sequelize.sync({force: true})
+        await sequelize.sync()
 
         //todo find why this is needed
 
