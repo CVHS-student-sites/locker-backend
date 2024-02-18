@@ -142,5 +142,6 @@ export async function validateIDs(students) {
         const student = await UserData.findByPk(studentId);
         if (student === null) return false;
     }
+    console.log("works")
     return true;
 }
