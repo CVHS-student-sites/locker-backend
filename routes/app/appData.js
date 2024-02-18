@@ -43,7 +43,7 @@ appRouter.get('/lookup-locker/:lockerNumber', async (req, res) => {
 
 appRouter.get('/validate-IDs', async (req, res) => {
     if (await validateIDs(req.body)) {
-        res.status(200);
+        res.status(200).end();
     } else {
         res.status(400).json({error: 'invalid id'});
     }
