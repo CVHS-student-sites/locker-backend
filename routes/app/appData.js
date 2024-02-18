@@ -42,16 +42,22 @@ appRouter.get('/lookup-locker/:lockerNumber', async (req, res) => {
 
 
 appRouter.get('/validate-IDs', async (req, res) => {
-    if (await validateIDs(req.body)) {
+    let result = await validateIDs(req.body);
+    if (result==="ok"){
         res.status(200).end();
-    } else {
+    }
+    if (result==="invalid"){
         res.status(400).json({error: 'invalid id'});
+    }
+    if(result==="exists"){
+        res.status(400).json({error: 'locker exists'});
     }
 
 });
 
 
-//regiser a locker
+
+//register a locker
 appRouter.post('/register-locker/', async (req, res) => {
     let data = req.body;
     //todo needs to go with the algo to pick locker locations, will need to be realtime

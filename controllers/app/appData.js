@@ -137,9 +137,18 @@ export async function getLocker(lockerNumber) {
 }
 
 export async function validateIDs(students) {
+
     for (const studentId of students) {
         const student = await UserData.findByPk(studentId);
-        if (student === null) return false;
+        if (student === null) return "invalid";
+
+        const locker = await User.findByPk(studentId, {
+            include: {
+                model: Locker,
+            },
+        });
+        if (locker.Locker !== null) return "exists";
+
     }
-    return true;
+    return "ok";
 }
