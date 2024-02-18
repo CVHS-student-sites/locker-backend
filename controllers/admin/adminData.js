@@ -118,3 +118,7 @@ export async function queryStats() {
         "lastDay": lastDay,
     };
 }
+
+export async function querySystemStats() {
+
+}

@@ -10,7 +10,7 @@ const formatLockerData = (obj) => {
     result.Num = parseInt(obj.Num);
     result.Location = {
         Building: parseInt(obj.Building),
-        TopBottom: obj.TopBottom === 'bottom' ? 0 : 1,
+        Level: parseInt(obj.Level),
         Floor: parseInt(obj.Floor),
         X: parseFloat(obj.X),
         Y: parseFloat(obj.Y),
