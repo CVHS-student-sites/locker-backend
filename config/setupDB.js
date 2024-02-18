@@ -1,11 +1,11 @@
 import {createAdminUser} from "../controllers/admin/adminUser.js";
 import {createLocker, createUser, joinUsertoLocker} from "../controllers/app/appData.js";
-import {createConfig} from "../utils/admin/configManager.js";
+import {createConfig, readConfig} from "../utils/admin/configManager.js";
 
 //TODO will set root user from environment variables
-export async function addTestUsers(){
-    try{
-        await createAdminUser('birdpump','test')
+export async function addTestUsers() {
+    try {
+        await createAdminUser('birdpump', 'test')
 
         await createUser(415633, 'marc test', 'as@stu.gusd.net')
 
@@ -16,21 +16,21 @@ export async function addTestUsers(){
         await joinUsertoLocker(415633, '73-13A');
 
         await joinUsertoLocker(415631, '73-13A');
-    }catch(err){
+    } catch (err) {
         console.log("sync-err")
     }
 
 }
 
 //todo check if db is null only run if null
-export async function setDefaultConfigs(){
+export async function setDefaultConfigs() {
     const grades = {
         grade_12: false,
         grade_11: false,
         grade_10: false,
         grade_9: false,
     }
-    await createConfig('enabled_grades', grades)
+    if (await readConfig('enabled_grades') === null) await createConfig('enabled_grades', grades);
 
     const areas = {
         building_1000: {
@@ -52,5 +52,5 @@ export async function setDefaultConfigs(){
             floor_3: false,
         },
     }
-    await createConfig('restricted_areas', areas)
+    if (await readConfig('restricted_areas') === null) await createConfig('restricted_areas', areas)
 }
