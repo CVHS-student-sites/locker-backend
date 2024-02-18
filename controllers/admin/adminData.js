@@ -80,7 +80,7 @@ export async function queryStats() {
     await Locker.count({
         where: {
             createdAt: {
-                [Op.lt]: oneHourAgo // createdAt < one hour ago
+                [Op.gt]: oneHourAgo // createdAt < one hour ago
             }
         }
     })
@@ -98,7 +98,7 @@ export async function queryStats() {
     await Locker.count({
         where: {
             createdAt: {
-                [Op.lt]: oneDayAgo // createdAt < one hour ago
+                [Op.gt]: oneDayAgo // createdAt < one hour ago
             }
         }
     })
