@@ -147,6 +147,7 @@ export async function validateIDs(students) {
                 model: Locker,
             },
         });
+        console.log(locker)
         if (locker.Locker !== null) return "exists";
 
     }
