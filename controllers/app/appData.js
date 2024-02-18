@@ -1,5 +1,6 @@
-import { User } from "../../models/user.js";
-import { Locker } from "../../models/locker.js";
+import {User} from "../../models/user.js";
+import {Locker} from "../../models/locker.js";
+import {UserData} from "../../models/userData.js";
 
 //todo remove all logs
 //todo fix async
@@ -133,4 +134,12 @@ export async function getLocker(lockerNumber) {
         console.error("Error:", error);
         throw error;
     }
+}
+
+export async function validateIDs(students) {
+    for (const studentId of students) {
+        const student = await UserData.findByPk(studentId);
+        if (student === null) return false;
+    }
+    return true;
 }

@@ -1,4 +1,4 @@
-import {getLocker, getUser} from "../../controllers/app/appData.js";
+import {getLocker, getUser, validateIDs} from "../../controllers/app/appData.js";
 
 import express from 'express';
 
@@ -38,6 +38,16 @@ appRouter.get('/lookup-locker/:lockerNumber', async (req, res) => {
     } catch (error) {
         res.status(500).json({error: 'Internal server error'});
     }
+});
+
+
+appRouter.get('/validate-IDs', async (req, res) => {
+    if (await validateIDs(req.body)) {
+        res.status(200);
+    } else {
+        res.status(400).json({error: 'invalid id'});
+    }
+
 });
 
 
