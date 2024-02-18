@@ -4,17 +4,22 @@ import {createConfig} from "../utils/admin/configManager.js";
 
 //TODO will set root user from environment variables
 export async function addTestUsers(){
-    await createAdminUser('birdpump','test')
+    try{
+        await createAdminUser('birdpump','test')
 
-    await createUser(415633, 'marc test', 'as@stu.gusd.net')
+        await createUser(415633, 'marc test', 'as@stu.gusd.net')
 
-    await createUser(415631, 'marc hyeler', 'ashashas@stu.gusd.net')
+        await createUser(415631, 'marc hyeler', 'ashashas@stu.gusd.net')
 
-    await createLocker('73-13A', {"building": 2, "row": 8})
+        await createLocker('73-13A', {"building": 2, "row": 8})
 
-    await joinUsertoLocker(415633, '73-13A');
+        await joinUsertoLocker(415633, '73-13A');
 
-    await joinUsertoLocker(415631, '73-13A');
+        await joinUsertoLocker(415631, '73-13A');
+    }catch(err){
+        console.log("sync-err")
+    }
+
 }
 
 //todo check if db is null only run if null
