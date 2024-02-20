@@ -6,9 +6,8 @@ import { Locker } from "../../models/locker.js";
 import { LockerData } from "../../models/lockerData.js";
 import { UserData } from "../../models/userData.js";
 
-
-//todo will have functions for getting data for dashboard, locker lists, user lists
 import { readConfig } from "../../utils/admin/configManager.js";
+
 
 //todo implement try catch for all routes
 export async function queryGradeRestriction() {
@@ -16,7 +15,7 @@ export async function queryGradeRestriction() {
         return await readConfig('enabled_grades');
 
     } catch (err) {
-        return false;
+        throw err;
     }
 }
 
@@ -24,7 +23,7 @@ export async function queryAreaRestriction() {
     try {
         return await readConfig('restricted_areas');
     } catch (err) {
-        return false;
+        throw err;
     }
 }
 

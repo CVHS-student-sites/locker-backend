@@ -26,19 +26,14 @@ adminRouter.post('/management/grade-restrictions', async (req, res) => {
 
 adminRouter.get('/management/grade-restrictions', async (req, res) => {
     try {
-
         const data = await queryGradeRestriction();
-
-        if (data) {
-            res.json(data);
-        } else {
-            res.status(404).json({error: 'No config found'});
-        }
+        res.json(data);
     } catch (error) {
         res.status(500).json({error: 'Internal server error'});
     }
 });
 
+//todo make try catch block
 adminRouter.post('/management/area-restrictions', async (req, res) => {
     const data = req.body;
 
@@ -52,14 +47,8 @@ adminRouter.post('/management/area-restrictions', async (req, res) => {
 
 adminRouter.get('/management/area-restrictions', async (req, res) => {
     try {
-
         const data = await queryAreaRestriction();
-
-        if (data) {
-            res.json(data);
-        } else {
-            res.status(404).json({error: 'No config found'});
-        }
+        res.json(data);
     } catch (error) {
         res.status(500).json({error: 'Internal server error'});
     }
@@ -68,6 +57,7 @@ adminRouter.get('/management/area-restrictions', async (req, res) => {
 
 //todo getStatistics
 //total users, total lockers, last hour,
+
 //todo use this as example for other functions
 adminRouter.get('/management/get-statistics', async (req, res) => {
     try {
