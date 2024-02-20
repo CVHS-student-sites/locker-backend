@@ -19,7 +19,7 @@ adminRouter.post('/management/grade-restrictions', async (req, res) => {
     if (await setGradeRestriction(data)) {
         res.status(200).json({status: 'upload successful'});
     } else {
-        res.status(500).json({status: 'error'});
+        res.status(500).json({status: 'Internal server error'});
     }
 
 });
@@ -45,7 +45,7 @@ adminRouter.post('/management/area-restrictions', async (req, res) => {
     if (await setAreaRestriction(data)) {
         res.status(200).json({status: 'upload successful'});
     } else {
-        res.status(500).json({status: 'error'});
+        res.status(500).json({status: 'Internal server error'});
     }
 
 });
@@ -68,16 +68,17 @@ adminRouter.get('/management/area-restrictions', async (req, res) => {
 
 //todo getStatistics
 //total users, total lockers, last hour,
+//todo use this as example for other functions
 adminRouter.get('/management/get-statistics', async (req, res) => {
-
-    const data = await queryStats();
-    if (data) {
+    try {
+        const data = await queryStats();
         res.json(data);
-    } else {
-        res.status(500).json({error: 'Internal server error'});
+    } catch (error) {
+        console.error('Error fetching statistics:', error);
+        res.status(500).json({ error: 'Internal server error' });
     }
-
 });
+
 
 
 
