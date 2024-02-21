@@ -7,15 +7,15 @@ export async function addTestUsers() {
     try {
         await createAdminUser('birdpump', 'test')
 
-        await createUser(415633, 'marc test', 'as@stu.gusd.net')
+        await createUser(415633, 'marc test', 'ashl3452@stu.gusd.net')
 
-        await createUser(415631, 'marc hyeler', 'ashashas@stu.gusd.net')
+        await createUser(415631, 'marc hyeler', 'mhye5631@stu.gusd.net')
 
-        await createLocker('73-13A', {"building": 2, "row": 8})
+        await createLocker('2024', {"building": 2000, "level": 0, "floor": 2})
 
-        await joinUsertoLocker(415633, '73-13A');
+        await joinUsertoLocker(415633, '2024');
 
-        await joinUsertoLocker(415631, '73-13A');
+        await joinUsertoLocker(415631, '2024');
     } catch (err) {
         console.log("sync-err")
     }
