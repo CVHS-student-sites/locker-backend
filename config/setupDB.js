@@ -30,7 +30,7 @@ export async function setDefaultConfigs() {
         grade_10: false,
         grade_9: false,
     }
-    if (await readConfig('enabled_grades') === null) await createConfig('enabled_grades', grades);
+    if (await readConfig('enabled_grades') === false) await createConfig('enabled_grades', grades);
 
     const areas = {
         building_1000: {
@@ -52,5 +52,5 @@ export async function setDefaultConfigs() {
             floor_3: false,
         },
     }
-    if (await readConfig('restricted_areas') === null) await createConfig('restricted_areas', areas)
+    if (await readConfig('restricted_areas') === false) await createConfig('restricted_areas', areas)
 }
