@@ -9,9 +9,9 @@ export async function addTestUsers() {
     try {
         await createAdminUser('birdpump', 'test')
 
-        await createUser(415633, 'marc test', 'ashl3452@stu.gusd.net')
+        await createUser(415633, 'marc test', 9, 'ashl3452@stu.gusd.net')
 
-        await createUser(415631, 'marc hyeler', 'mhye5631@stu.gusd.net')
+        await createUser(415631, 'marc hyeler', 10, 'mhye5631@stu.gusd.net')
 
         await createLocker('2024', {"building": 2000, "level": 0, "floor": 2})
 

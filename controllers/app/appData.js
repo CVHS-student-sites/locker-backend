@@ -17,11 +17,12 @@ export async function createLocker(lockerNumber, location) {
 }
 
 //todo fix async
-export async function createUser(studentId, name, email) {
+export async function createUser(studentId, name, grade, email) {
     try {
         let user = await User.create({
             studentId: studentId,
             name: name,
+            grade: grade,
             email: email,
         });
         return user;
@@ -69,6 +70,7 @@ export function joinUsertoLocker(studentId, lockerNumber) {
         });
 }
 
+//todo add grade in function if required later
 export async function createUserjoinLocker(studentId, name, email, lockerNumber) {
     try {
         const newUser = await User.create({
@@ -150,5 +152,5 @@ export async function validateIDs(students) {
         if (locker !== null) return "exists";
 
     }
-    return "ok";
+    return "ok"; //todo find better callbacks
 }
