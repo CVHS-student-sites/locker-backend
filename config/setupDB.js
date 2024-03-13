@@ -13,13 +13,13 @@ export async function addTestUsers() {
 
         await createUser(415631, 'marc hyeler', 10, 'mhye5631@stu.gusd.net')
 
-        await createLocker('2024', {"building": 2000, "level": 0, "floor": 2})
+        // await createLocker('2024', {"building": 2000, "level": 0, "floor": 2})
 
-        await joinUsertoLocker(415633, '2024');
+        // await joinUsertoLocker(415633, '1029');
 
-        await joinUsertoLocker(415631, '2024');
+        // await joinUsertoLocker(415631, '1029');
     } catch (err) {
-        console.log("sync-err")
+        console.log("sync-err", err)
     }
 
 }

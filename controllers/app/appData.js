@@ -154,3 +154,15 @@ export async function validateIDs(students) {
     }
     return "ok"; //todo find better callbacks
 }
+
+//todo this needs to return a list of all avalible locker locations
+export async function queryAvailableLockers(){
+
+    let count = await Locker.count({
+        where: {
+            'jsonAttribute.location.Building': 2000,
+        },
+    });
+    console.log(count);
+    return count;
+}

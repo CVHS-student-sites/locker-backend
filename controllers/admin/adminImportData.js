@@ -1,4 +1,5 @@
 import {LockerData} from "../../models/lockerData.js";
+import { Locker } from "../../models/locker.js";
 import {UserData} from "../../models/userData.js";
 import {Readable} from "stream";
 
@@ -15,10 +16,12 @@ const formatLockerData = (obj) => {
     return result;
 };
 
+//todo if making single unified db, check here if lockers allready exist or force override
+
 //todo empty db before upload for import locker and users
 async function createLockerBatch(data) {
     try {
-        return await LockerData.bulkCreate(data);
+        return await Locker.bulkCreate(data);
     } catch (err) {
         console.error(err);
         throw err;
