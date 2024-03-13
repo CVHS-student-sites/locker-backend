@@ -33,7 +33,7 @@ export async function setDefaultConfigs() {
         grade_9: false,
     }
     if (await readConfig('enabled_grades') === false) await createConfig('enabled_grades', grades);
-
+    //todo in order for locker selection to work, this needs to be in the same format as the existing model
     const areas = {
         building_1000: {
             floor_1: false,

@@ -29,6 +29,8 @@ export async function queryAreaRestriction() {
 
 export async function queryStats() {
     let targetGrades = [9, 10, 11, 12];
+    //todo there needs to be a list of buildings that can be added to the model. this can steal from enabled areas
+
     try {
         let userCount = await User.count();
         let lockerCount = await Locker.count();

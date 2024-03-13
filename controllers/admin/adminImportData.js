@@ -4,13 +4,12 @@ import {Readable} from "stream";
 
 import { parse } from 'csv-parse';
 
-//todo fix locker level import type
 const formatLockerData = (obj) => {
     const result = {};
     result.Num = parseInt(obj.Num);
     result.Location = {
         Building: parseInt(obj.Building),
-        Level: obj.Level,
+        Level: obj.Level, //todo idk what type this is supposed to be, decide that fast! seems like should be int 0-3
         Floor: parseInt(obj.Floor),
     };
     return result;
@@ -63,6 +62,7 @@ export async function loadLockers(fileBuffer) {
 
     });
 }
+
 
 
 
