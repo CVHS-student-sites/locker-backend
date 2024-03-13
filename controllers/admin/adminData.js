@@ -1,12 +1,12 @@
 //used for getting and interacting with locker data for admins
-import { Op } from "sequelize";
+import {Op} from "sequelize";
 
-import { User } from "../../models/user.js";
-import { Locker } from "../../models/locker.js";
-import { LockerData } from "../../models/lockerData.js";
-import { UserData } from "../../models/userData.js";
+import {User} from "../../models/user.js";
+import {Locker} from "../../models/locker.js";
+import {LockerData} from "../../models/lockerData.js";
+import {UserData} from "../../models/userData.js";
 
-import { readConfig } from "../../utils/admin/configManager.js";
+import {readConfig} from "../../utils/admin/configManager.js";
 
 
 //todo implement try catch for all routes
@@ -36,15 +36,14 @@ export async function queryStats() {
         let lockerCount = await Locker.count();
         let totalUsers = await UserData.count();
         let totalLockers = await LockerData.count();
-        let gradeCounts = [];
+        let gradeCounts = {};
 
         for (const targetGrade of targetGrades) {
-            const count = await User.count({
+            gradeCounts[targetGrade] = await User.count({
                 where: {
                     grade: targetGrade,
                 },
             });
-            gradeCounts.push({ grade: targetGrade, count });
         }
 
         const oneHourAgo = new Date(new Date() - 60 * 60 * 1000);
