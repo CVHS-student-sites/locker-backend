@@ -3,6 +3,8 @@ import {createLocker, createUser, joinUsertoLocker} from "../controllers/app/app
 import {createConfig, readConfig} from "../utils/admin/configManager.js";
 
 //TODO will set root user from environment variables
+//todo check if db is null only run if null
+
 export async function addTestUsers() {
     try {
         await createAdminUser('birdpump', 'test')
@@ -22,7 +24,7 @@ export async function addTestUsers() {
 
 }
 
-//todo check if db is null only run if null
+
 export async function setDefaultConfigs() {
     const grades = {
         grade_12: false,
