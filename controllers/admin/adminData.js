@@ -28,11 +28,22 @@ export async function queryAreaRestriction() {
 }
 
 export async function queryStats() {
+    let targetGrades = [9, 10, 11, 12];
     try {
         let userCount = await User.count();
         let lockerCount = await Locker.count();
         let totalUsers = await UserData.count();
         let totalLockers = await LockerData.count();
+        let gradeCounts = [];
+
+        for (const targetGrade of targetGrades) {
+            const count = await User.count({
+                where: {
+                    grade: targetGrade,
+                },
+            });
+            gradeCounts.push({ grade: targetGrade, count });
+        }
 
         const oneHourAgo = new Date(new Date() - 60 * 60 * 1000);
         let lastHour = await Locker.count({
@@ -54,6 +65,7 @@ export async function queryStats() {
 
         return {
             "regUsers": userCount,
+            "regUsersByGrade": gradeCounts,
             "regLockers": lockerCount,
             "totalUsers": totalUsers,
             "totalLockers": totalLockers,
