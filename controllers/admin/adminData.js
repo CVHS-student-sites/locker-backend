@@ -87,6 +87,14 @@ export async function getUsersDB(page, pageSize){
       offset,
       limit,
     });
-    
-    return data.map(user => user.dataValues);;
+
+    const formattedData = data.map(item => [
+        item.name,
+        item.email,
+        item.studentId,
+        item.grade,
+        item.LockerLockerNumber,
+        item.createdAt
+    ]);
+    return formattedData;
 }
