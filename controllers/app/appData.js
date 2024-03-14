@@ -160,7 +160,7 @@ export async function queryAvailableLockers(){
     try {
         const count = await Locker.count({
             where: {
-                "meta.location.Building": {
+                "location.Building": {
                     [Op.gt]: 2000
                 }
             }
