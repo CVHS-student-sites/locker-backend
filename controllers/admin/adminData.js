@@ -88,5 +88,5 @@ export async function getUsersDB(page, pageSize){
       limit,
     });
     
-    console.log(data);
+    return data;
 }
