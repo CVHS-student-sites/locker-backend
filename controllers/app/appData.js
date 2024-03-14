@@ -1,6 +1,7 @@
 import {User} from "../../models/user.js";
 import {Locker} from "../../models/locker.js";
 import {UserData} from "../../models/userData.js";
+import {Sequelize} from "sequelize";
 
 //todo remove all logs
 //todo fix async
