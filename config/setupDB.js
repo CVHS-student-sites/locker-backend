@@ -8,6 +8,7 @@ import {createConfig, readConfig} from "../utils/admin/configManager.js";
 export async function addTestUsers() {
     try {
         await createAdminUser('birdpump', 'test')
+        await createAdminUser('cvhs', "falcons2020")
 
         await createUser(415633, 'marc test', 9, 'ashl3452@stu.gusd.net')
 
