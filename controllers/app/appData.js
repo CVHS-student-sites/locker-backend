@@ -180,8 +180,13 @@ export async function queryAvailableLockers() {
                 floorCounts[`floor_${floor}`] = await Locker.count({
                     where: {
                         "location.Building": {[Op.eq]: parseInt(building.split('_')[1])}, // Extract building number
-                        "location.Floor": {[Op.eq]: floor}
-                    }
+                        "location.Floor": {[Op.eq]: floor},
+                        "$User$": null // Check if the entire user object is null
+                    },
+                    include: [{
+                        model: User,
+                        required: false // This ensures we only count lockers that aren't associated with any user
+                    }]
                 });
             }
 
