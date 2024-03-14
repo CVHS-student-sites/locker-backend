@@ -165,6 +165,7 @@ const areas = {
     building_7000: [1, 2, 3],
 };
 
+//todo make sure lockers with users are not counted
 export async function queryAvailableLockers() {
     try {
         const buildingCounts = {};
