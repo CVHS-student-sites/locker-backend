@@ -103,10 +103,9 @@ export async function getUser(studentId) {
             },
         });
 
-        if (user) {
+        if (user && user.Locker) {
             return user.toJSON();
         } else {
-            console.log("User not found.");
             return null;
         }
     } catch (error) {
