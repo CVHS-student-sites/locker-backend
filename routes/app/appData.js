@@ -1,4 +1,5 @@
 import {getLocker, getUser, validateIDs} from "../../controllers/app/appData.js";
+import { queryAvailableLockers } from "../../controllers/app/appData.js";
 
 import express from 'express';
 
@@ -58,8 +59,8 @@ appRouter.get('/validate-IDs', async (req, res) => {
 
 
 //register a locker
-appRouter.post('/register-locker/', async (req, res) => {
-    let data = req.body;
-    //todo needs to go with the algo to pick locker locations, will need to be realtime
+appRouter.get('/register-locker/', async (req, res) => {
+    let counts = await queryAvailableLockers();
+    res.status(200);
 
 });
