@@ -75,7 +75,7 @@ adminRouter.get('/data/user-data', async (req, res) => {
     const pageSize = parseInt(req.query.pageSize);
 
     try {
-        let data = getUsersDB(page, pageSize);
+        let data = await getUsersDB(page, pageSize);
         res.json(data);
     } catch (error) {
         console.error('Error fetching data:', error);

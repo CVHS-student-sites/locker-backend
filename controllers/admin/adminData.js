@@ -82,14 +82,11 @@ export async function getUsersDB(page, pageSize){
     const offset = (page - 1) * pageSize;
     const limit = pageSize;
 
-    console.log(offset)
-    console.log(limit)
     // Fetch projects for the specified page
     const data = await User.findAll({
       offset,
       limit,
     });
-
-    console.log(data)
-    return data;
+    
+    return data.map(user => user.dataValues);;
 }
