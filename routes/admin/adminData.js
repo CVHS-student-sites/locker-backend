@@ -1,6 +1,6 @@
 import {loadLockers, loadUsers} from "../../controllers/admin/adminImportData.js";
 import {setAreaRestriction, setGradeRestriction} from "../../controllers/admin/adminAction.js";
-import {queryAreaRestriction, queryGradeRestriction, queryStats} from "../../controllers/admin/adminData.js";
+import {queryAreaRestriction, queryGradeRestriction, queryStats, getUsersDB} from "../../controllers/admin/adminData.js";
 
 import {ensureAuthenticated} from "./adminAuth.js";
 
@@ -70,6 +70,18 @@ adminRouter.get('/management/get-statistics', async (req, res) => {
 });
 
 
+adminRouter.get('/data/user-data', async (req, res) => {
+    const offset = req.query.page;
+    const limit = req.query.pageSize;
+
+    try {
+        let data = getUsersDB(page, pageSize);
+        res.json(data);
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
 
 
 
