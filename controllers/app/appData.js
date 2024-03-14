@@ -1,7 +1,7 @@
 import {User} from "../../models/user.js";
 import {Locker} from "../../models/locker.js";
 import {UserData} from "../../models/userData.js";
-import {Sequelize} from "sequelize";
+import {Op, Sequelize} from "sequelize";
 
 //todo remove all logs
 //todo fix async
@@ -159,7 +159,12 @@ export async function validateIDs(students) {
 export async function queryAvailableLockers(){
     try {
         const count = await Locker.count({
-            where: Sequelize.json('location.Level', 'top')
+            where: {
+                "meta.location.Building": {
+                    [Op.gt]: 2000
+                }
+            }
+
         });
         console.log(count);
         return count;
