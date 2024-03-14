@@ -71,8 +71,8 @@ adminRouter.get('/management/get-statistics', async (req, res) => {
 
 
 adminRouter.get('/data/user-data', async (req, res) => {
-    const offset = req.query.page;
-    const limit = req.query.pageSize;
+    const page = req.query.page;
+    const pageSize = req.query.pageSize;
 
     try {
         let data = getUsersDB(page, pageSize);
