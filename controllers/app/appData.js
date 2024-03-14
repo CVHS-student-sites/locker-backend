@@ -159,7 +159,7 @@ export async function validateIDs(students) {
 export async function queryAvailableLockers(){
     try {
         const count = await Locker.count({
-            where: Sequelize.json('location', 'Building', 2000)
+            where: Sequelize.json('location', 'Level', 'top')
         });
         console.log(count);
         return count;
