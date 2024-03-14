@@ -1,7 +1,7 @@
 import {User} from "../../models/user.js";
 import {Locker} from "../../models/locker.js";
 import {UserData} from "../../models/userData.js";
-import {Op, Sequelize} from "sequelize";
+import {Op} from "sequelize";
 
 //todo remove all logs
 //todo fix async
@@ -156,21 +156,43 @@ export async function validateIDs(students) {
 }
 
 //todo this needs to return a list of all available locker locations
-export async function queryAvailableLockers(){
+
+
+const areas = {
+    building_1000: [1, 3],
+    building_2000: [1, 2, 3],
+    building_5000: [2, 3],
+    building_7000: [1, 2, 3],
+};
+
+export async function queryAvailableLockers() {
     try {
-        const count = await Locker.count({
-            where: {
-                "location.Building": {
-                    [Op.gt]: 2000
-                }
+        const buildingCounts = {};
+
+        // Iterate over each building
+        for (const building in areas) {
+            const floors = areas[building];
+            const floorCounts = {};
+
+            // Iterate over each floor in the current building
+            for (const floor of floors) {
+                // Store the count for the current floor
+                floorCounts[`floor_${floor}`] = await Locker.count({
+                    where: {
+                        "location.Building": {[Op.eq]: parseInt(building.split('_')[1])}, // Extract building number
+                        "location.Floor": {[Op.eq]: floor}
+                    }
+                });
             }
 
-        });
-        console.log(count);
-        return count;
+            // Store the counts for the current building
+            buildingCounts[building] = floorCounts;
+        }
+
+        console.log(buildingCounts);
+        return buildingCounts;
     } catch (err) {
         console.log(err);
         return null;
     }
-
 }
