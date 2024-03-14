@@ -188,11 +188,9 @@ export async function queryAvailableLockers() {
             // Store the counts for the current building
             buildingCounts[building] = floorCounts;
         }
-
-        console.log(buildingCounts);
         return buildingCounts;
-    } catch (err) {
-        console.log(err);
-        return null;
+    } catch (error) {
+        console.log(error);
+        throw error;
     }
 }

@@ -42,6 +42,7 @@ appRouter.get('/lookup-locker/:lockerNumber', async (req, res) => {
 });
 
 
+//todo try catch
 appRouter.get('/validate-IDs', async (req, res) => {
     let result = await validateIDs(req.body);
     if (result==="ok"){
@@ -57,10 +58,10 @@ appRouter.get('/validate-IDs', async (req, res) => {
 });
 
 
-
-//register a locker
-appRouter.get('/register-locker/', async (req, res) => {
-    let counts = await queryAvailableLockers();
-    res.status(200);
-
+appRouter.get('/available-lockers/', async (req, res) => {
+    try {
+        res.json(await queryAvailableLockers());
+    } catch (error) {
+        res.status(500).json({error: 'Internal server error'});
+    }
 });
