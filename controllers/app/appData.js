@@ -156,12 +156,15 @@ export async function validateIDs(students) {
 
 //todo this needs to return a list of all avalible locker locations
 export async function queryAvailableLockers(){
-
-    let count = await Locker.count({
-        where: {
-            'jsonAttribute.location.Building': 2000,
-        },
-    });
-    console.log(count);
-    return count;
+    try {
+        const count = await Locker.count({
+            where: Sequelize.json('jsonAttribute', 'location.Building', 2000)
+        });
+        console.log(count);
+        return count;
+    } catch (err) {
+        console.log(err);
+        return null;
+    }
+    
 }
