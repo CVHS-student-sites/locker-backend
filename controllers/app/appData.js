@@ -155,11 +155,11 @@ export async function validateIDs(students) {
     return "ok"; //todo find better callbacks
 }
 
-//todo this needs to return a list of all avalible locker locations
+//todo this needs to return a list of all available locker locations
 export async function queryAvailableLockers(){
     try {
         const count = await Locker.count({
-            where: Sequelize.json('location', 'Level', 'top')
+            where: Sequelize.json('location.Level', 'top')
         });
         console.log(count);
         return count;
@@ -167,5 +167,5 @@ export async function queryAvailableLockers(){
         console.log(err);
         return null;
     }
-    
+
 }
