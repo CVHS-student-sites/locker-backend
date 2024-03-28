@@ -75,6 +75,7 @@ const formatUserData = (obj) => {
     const result = {};
     result.studentId = parseInt(obj.studentId);
     result.grade = parseInt(obj.grade);
+    result.email = obj.email;
     return result;
 };
 
@@ -87,6 +88,7 @@ async function createUserBatch(data) {
     }
 }
 
+//todo make sure email field works
 export async function loadUsers(fileBuffer) {
     return new Promise((resolve, reject) => {
         const parsedData = [];
@@ -105,9 +107,10 @@ export async function loadUsers(fileBuffer) {
                     const final = parsedData.map(formatUserData);
                     console.log(final[5])
 
-                    const batchData = final.map(({studentId, grade}) => ({
+                    const batchData = final.map(({studentId, grade, email}) => ({
                         studentId: studentId,
                         grade: grade,
+                        email: email
                     }));
 
                     console.log(batchData[5])

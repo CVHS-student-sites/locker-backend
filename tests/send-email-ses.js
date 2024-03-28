@@ -16,6 +16,7 @@ const params = {
     },
     Message: {
         Body: {
+
             Text: {
                 Data: 'press this code to continue' // Change this to your email body
             }

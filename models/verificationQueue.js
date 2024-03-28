@@ -17,6 +17,11 @@ const verificationQueue = sequelize.define('verificationQueue', {
         allowNull: false,
         unique: true,
     },
+    uuid:{
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
+    }
 });
 
 export {verificationQueue};

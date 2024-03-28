@@ -3,6 +3,9 @@ import {Locker} from "../../models/locker.js";
 import {UserData} from "../../models/userData.js";
 import {Op} from "sequelize";
 
+import {v4 as uuidv4} from 'uuid';
+
+
 //todo remove all logs
 //todo fix async
 export async function createLocker(lockerNumber, location) {
@@ -199,4 +202,10 @@ export async function queryAvailableLockers() {
         console.log(error);
         throw error;
     }
+}
+
+//todo make sure uuid does not repeat and cause error
+export async function sendVerification(studentID, email){
+    let myuuid = uuidv4();
+
 }

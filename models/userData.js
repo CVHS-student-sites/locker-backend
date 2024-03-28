@@ -12,6 +12,10 @@ const UserData = sequelize.define('UserData', {
         type: DataTypes.INTEGER,
         allowNull: false,
     },
+    email:{
+        type: DataTypes.STRING,
+        allowNull: false,
+    }
 });
 
 export {UserData};
