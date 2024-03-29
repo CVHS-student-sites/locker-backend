@@ -9,7 +9,6 @@ const sesClient = new SESClient({
     }
 });
 
-
 export async function sendEmail(email, subject, body) {
     const params = {
         Destination: {
@@ -34,4 +33,3 @@ export async function sendEmail(email, subject, body) {
         throw err;
     }
 }
-await sendEmail('birdpump@gmail.com', 'test email', 'hell this is a test')
