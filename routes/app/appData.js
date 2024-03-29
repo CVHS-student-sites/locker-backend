@@ -1,7 +1,8 @@
-import {getLocker, getUser, validateIDs} from "../../controllers/app/appData.js";
+import {getLocker, getUser, validateIDs, sendVerification} from "../../controllers/app/appData.js";
 import { queryAvailableLockers } from "../../controllers/app/appData.js";
 
 import express from 'express';
+import {UserData} from "../../models/userData.js";
 
 export const appRouter = express.Router();
 
@@ -57,10 +58,35 @@ appRouter.get('/validate-IDs', async (req, res) => {
 
 });
 
-
 appRouter.get('/available-lockers/', async (req, res) => {
     try {
         res.json(await queryAvailableLockers());
+    } catch (error) {
+        res.status(500).json({error: 'Internal server error'});
+    }
+});
+
+appRouter.post('/send-verify-student/:studentId', async (req, res) => {
+    const studentId = req.params.studentId;
+
+    // let user = await UserData.findByPk(studentId);
+
+    try {
+        await sendVerification(studentId, 'birdpump@gmail.com')
+        // console.log(user.email)
+    } catch (error) {
+        res.status(500).json({error: 'Internal server error'});
+    }
+});
+
+appRouter.get('/verify-student/:studentId', async (req, res) => {
+    const studentId = req.params.studentId;
+
+    // let user = await UserData.findByPk(studentId);
+
+    try {
+        await sendVerification(studentId, 'birdpump@gmail.com')
+        // console.log(user.email)
     } catch (error) {
         res.status(500).json({error: 'Internal server error'});
     }

@@ -6,7 +6,7 @@ import {User} from "../models/user.js";
 import {Locker} from "../models/locker.js";
 import {Admin} from "../models/admin.js";
 import {Config} from "../models/config.js";
-
+import {verificationQueue} from "../models/verificationQueue.js";
 
 //todo make sure force is removed
 

@@ -1,6 +1,9 @@
 import {User} from "../../models/user.js";
 import {Locker} from "../../models/locker.js";
 import {UserData} from "../../models/userData.js";
+import {verificationQueue} from "../../models/verificationQueue.js";
+import {sendEmail} from "../../utils/app/sendEmail.js";
+
 import {Op} from "sequelize";
 
 import {v4 as uuidv4} from 'uuid';
@@ -205,7 +208,23 @@ export async function queryAvailableLockers() {
 }
 
 //todo make sure uuid does not repeat and cause error
-export async function sendVerification(studentID, email){
-    let myuuid = uuidv4();
+export async function sendVerification(studentID, email) {
+    let id = uuidv4();
+
+    try {
+        await verificationQueue.create({
+            studentId: studentID,
+            status: "unverified",
+            email: email,
+            uuid: id
+        });
+        await sendEmail(email, 'locker verify', `https://locker-api.cvapps.net/public/verify-email/${id}`)
+    } catch (err) {
+
+        throw err;
+    }
+}
+
+export async function verifyStudent(uuid){
 
 }
