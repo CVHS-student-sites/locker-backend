@@ -83,7 +83,7 @@ appRouter.get('/verify-student/:studentId', async (req, res) => {
     const studentId = req.params.studentId;
 
     // let user = await UserData.findByPk(studentId);
-
+    //todo check is uuid is in table and add add student to users table
     try {
         await sendVerification(studentId, 'birdpump@gmail.com')
         // console.log(user.email)
