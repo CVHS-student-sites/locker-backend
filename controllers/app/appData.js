@@ -240,6 +240,7 @@ export async function verifyStudent(token) {
         await createUser(student.studentId, student.name, student.grade, student.email);
         // Further operations with student
 
+        //something broken here
         await verificationQueue.destroy({
             where: {
                 primaryKeyField: token
