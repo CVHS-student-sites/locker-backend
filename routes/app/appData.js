@@ -1,4 +1,4 @@
-import {getLocker, getUser, validateIDs, sendVerification, verifyStudent} from "../../controllers/app/appData.js";
+import {getLocker, getUser, validateID, sendVerification, verifyStudent} from "../../controllers/app/appData.js";
 import { queryAvailableLockers } from "../../controllers/app/appData.js";
 
 import express from 'express';
@@ -44,8 +44,10 @@ appRouter.get('/lookup-locker/:lockerNumber', async (req, res) => {
 
 
 //todo try catch
-appRouter.get('/validate-IDs', async (req, res) => {
-    let result = await validateIDs(req.body);
+appRouter.get('/validate-ID/:studentId', async (req, res) => {
+    const studentId = req.params.studentId;
+
+    let result = await validateID(studentId);
     if (result==="ok"){
         res.status(200).end();
     }

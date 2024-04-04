@@ -144,26 +144,20 @@ export async function getLocker(lockerNumber) {
     }
 }
 
-export async function validateIDs(students) {
+export async function validateID(studentId) {
+    const student = await UserData.findByPk(studentId);
+    if (student === null) return "invalid";
+    const locker = await User.findByPk(studentId, {
+        include: {
+            model: Locker,
+        },
+    });
+    if (locker !== null) return "exists";
 
-    for (const studentId of students) {
-        const student = await UserData.findByPk(studentId);
-        if (student === null) return "invalid";
-
-        const locker = await User.findByPk(studentId, {
-            include: {
-                model: Locker,
-            },
-        });
-        if (locker !== null) return "exists";
-
-    }
-    return "ok"; //todo find better callbacks
+    return "ok";
 }
 
 //todo this needs to return a list of all available locker locations
-
-
 const areas = {
     building_1000: [1, 3],
     building_2000: [1, 2, 3],
@@ -229,7 +223,7 @@ export async function sendVerification(studentID, email) {
 
 //todo needs a service that empties expired rows in queue every minute
 export async function verifyStudent(token) {
-    //todo check is uuid is in table and add add student to users table
+    //todo might be good to run verify student before
 
     let queueUser = await verificationQueue.findByPk(token);
 
@@ -248,6 +242,7 @@ export async function verifyStudent(token) {
             })
         }catch(err){
             console.log(err);
+            throw err;
         }
     } else {
         //todo send message, token expired or invalid
