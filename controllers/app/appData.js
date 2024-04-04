@@ -241,11 +241,15 @@ export async function verifyStudent(token) {
         // Further operations with student
 
         //something broken here
-        await verificationQueue.destroy({
-            where: {
-                primaryKeyField: token
-            }
-        })
+        try{
+            await verificationQueue.destroy({
+                where: {
+                    primaryKeyField: token
+                }
+            })
+        }catch(err){
+            console.log(err);
+        }
     } else {
         //todo send message, token expired or invalid
         console.log("Token not found");
