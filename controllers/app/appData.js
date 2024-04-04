@@ -188,7 +188,6 @@ export async function queryAvailableLockers() {
                     where: {
                         "location.Building": {[Op.eq]: parseInt(building.split('_')[1])}, // Extract building number
                         "location.Floor": {[Op.eq]: floor},
-                        "$User$": null // Check if the entire user object is null
                     },
                     include: [{
                         model: User,
@@ -224,11 +223,11 @@ export async function sendVerification(studentID, email) {
         });
         await sendEmail(email, 'locker verify', `https://locker.cvapps.net/verify?token=${id}`)
     } catch (err) {
-
         throw err;
     }
 }
 
+//todo needs a service that empties expired rows in queue every minute
 export async function verifyStudent(token) {
     //todo check is uuid is in table and add add student to users table
 
