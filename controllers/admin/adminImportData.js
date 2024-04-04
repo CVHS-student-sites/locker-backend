@@ -76,6 +76,7 @@ const formatUserData = (obj) => {
     result.studentId = parseInt(obj.studentId);
     result.grade = parseInt(obj.grade);
     result.email = obj.email;
+    result.name = obj.name;
     return result;
 };
 
@@ -110,7 +111,8 @@ export async function loadUsers(fileBuffer) {
                     const batchData = final.map(({studentId, grade, email}) => ({
                         studentId: studentId,
                         grade: grade,
-                        email: email
+                        email: email,
+                        name: name
                     }));
 
                     console.log(batchData[5])

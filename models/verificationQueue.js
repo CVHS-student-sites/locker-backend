@@ -12,15 +12,15 @@ const verificationQueue = sequelize.define('verificationQueue', {
         type: DataTypes.INTEGER,
         unique: true,
     },
-    status: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
     email: {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
     },
+    expiration:{
+        type: DataTypes.DATE,
+        allowNull: false,
+    }
 
 });
 

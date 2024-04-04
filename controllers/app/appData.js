@@ -211,12 +211,16 @@ export async function queryAvailableLockers() {
 export async function sendVerification(studentID, email) {
     let id = uuidv4();
 
+    let currentTime = new Date();
+    // Add 30 minutes to the current time for expiration
+    let futureTime = new Date(currentTime.getTime() + 30 * 60000);
+
     try {
         await verificationQueue.create({
             studentId: studentID,
-            status: "unverified",
             email: email,
-            uuid: id
+            uuid: id,
+            expiration: futureTime
         });
         await sendEmail(email, 'locker verify', `https://locker.cvapps.net/verify?token=${id}`)
     } catch (err) {
@@ -225,6 +229,18 @@ export async function sendVerification(studentID, email) {
     }
 }
 
-export async function verifyStudent(uuid){
+export async function verifyStudent(token) {
+    //todo check is uuid is in table and add add student to users table
 
+    let queueUser = await verificationQueue.findByPk(token);
+
+    if (queueUser !== null) {
+        let student = await UserData.findByPk(queueUser.studentId);
+
+        await createUser(student.studentId, student.name, student.grade, student.email);
+        // Further operations with student
+    } else {
+        // Handle the case when no matching token is found
+        console.log("Token not found");
+    }
 }
