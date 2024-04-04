@@ -244,7 +244,7 @@ export async function verifyStudent(token) {
         try{
             await verificationQueue.destroy({
                 where: {
-                    primaryKeyField: token
+                    uuid: token
                 }
             })
         }catch(err){
