@@ -73,7 +73,8 @@ appRouter.post('/send-verify-student/:studentId', async (req, res) => {
 
 
     try {
-        await sendVerification(studentId, user.email)
+        await sendVerification(studentId, user.email);
+        res.status(200).end();
         // console.log(user.email)
     } catch (error) {
         res.status(500).json({error: 'Internal server error'});
