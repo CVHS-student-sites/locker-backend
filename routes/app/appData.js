@@ -69,10 +69,11 @@ appRouter.get('/available-lockers/', async (req, res) => {
 appRouter.post('/send-verify-student/:studentId', async (req, res) => {
     const studentId = req.params.studentId;
 
-    // let user = await UserData.findByPk(studentId);
+    let user = await UserData.findByPk(studentId);
+
 
     try {
-        await sendVerification(studentId, 'birdpump@gmail.com')
+        await sendVerification(studentId, user.email)
         // console.log(user.email)
     } catch (error) {
         res.status(500).json({error: 'Internal server error'});
