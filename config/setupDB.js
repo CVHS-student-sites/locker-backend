@@ -10,18 +10,18 @@ export async function addTestUsers() {
         await createAdminUser('birdpump', 'test')
         await createAdminUser('cvhs', "falcons2020")
 
-        await createUser(415633, 'marc test', 9, 'ashl3452@stu.gusd.net')
-
-        await createUser(415631, 'marc hyeler', 10, 'mhye5631@stu.gusd.net')
-        
-        await createUser(589589, 'test user', 12, 'falcon589@stu.gusd.net')
+        // await createUser(415633, 'marc test', 9, 'ashl3452@stu.gusd.net')
+        //
+        // await createUser(415631, 'marc hyeler', 10, 'mhye5631@stu.gusd.net')
+        //
+        // await createUser(589589, 'test user', 12, 'falcon589@stu.gusd.net')
         // await createLocker('2024', {"building": 2000, "level": 0, "floor": 2})
 
         // await joinUsertoLocker(415633, '1029');
 
         // await joinUsertoLocker(415631, '1029');
     } catch (err) {
-        console.log("sync-err", err)
+        console.log("sync-err")
     }
 
 }

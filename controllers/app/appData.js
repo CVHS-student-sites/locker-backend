@@ -239,8 +239,14 @@ export async function verifyStudent(token) {
 
         await createUser(student.studentId, student.name, student.grade, student.email);
         // Further operations with student
+
+        await verificationQueue.destroy({
+            where: {
+                primaryKeyField: token
+            }
+        })
     } else {
-        // Handle the case when no matching token is found
+        //todo send message, token expired or invalid
         console.log("Token not found");
     }
 }
