@@ -1,8 +1,16 @@
-import {getLocker, getUser, validateID, sendVerification, verifyStudent} from "../../controllers/app/appData.js";
-import { queryAvailableLockers } from "../../controllers/app/appData.js";
+import {
+    getLocker,
+    getUser,
+    queryAvailableLockers,
+    sendVerification,
+    validateID,
+    verifyStudent
+} from "../../controllers/app/appData.js";
+import {queryAreaRestriction} from "../../controllers/admin/adminData.js";
 
 import express from 'express';
 import {UserData} from "../../models/userData.js";
+
 
 export const appRouter = express.Router();
 
@@ -48,13 +56,13 @@ appRouter.get('/validate-ID/:studentId', async (req, res) => {
     const studentId = req.params.studentId;
 
     let result = await validateID(studentId);
-    if (result==="ok"){
+    if (result === "ok") {
         res.status(200).end();
     }
-    if (result==="invalid"){
+    if (result === "invalid") {
         res.status(400).json({error: 'invalid id'});
     }
-    if(result==="exists"){
+    if (result === "exists") {
         res.status(400).json({error: 'locker exists'});
     }
 
@@ -63,6 +71,14 @@ appRouter.get('/validate-ID/:studentId', async (req, res) => {
 appRouter.get('/available-lockers/', async (req, res) => {
     try {
         res.json(await queryAvailableLockers());
+    } catch (error) {
+        res.status(500).json({error: 'Internal server error'});
+    }
+});
+
+appRouter.get('/available-grades/', async (req, res) => {
+    try {
+        res.json(await queryAreaRestriction());
     } catch (error) {
         res.status(500).json({error: 'Internal server error'});
     }
