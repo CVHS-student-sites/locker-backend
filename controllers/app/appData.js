@@ -153,7 +153,7 @@ export async function validateID(studentId) {
         },
     });
     console.log(locker);
-    if (locker.lockerNumber !== null) return "exists";
+    if (locker.Locker !== null) return "exists";
 
     return "ok";
 }
