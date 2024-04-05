@@ -98,8 +98,12 @@ appRouter.post('/send-verify-student/:studentId', async (req, res) => {
     let user = await UserData.findByPk(studentId);
 
     try {
-        await sendVerification(studentId, user.email);
-        res.status(200).end();
+        let status = await sendVerification(studentId, user.email);
+        if (status){
+            res.status(200).end();
+        }else{
+            res.status(400).end();
+        }
     } catch (error) {
         res.status(500).json({error: 'Internal server error'});
     }

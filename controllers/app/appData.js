@@ -205,11 +205,13 @@ export async function queryAvailableLockers() {
 //todo make sure uuid does not repeat and cause error
 export async function sendVerification(studentID, email) {
     let id = uuidv4();
+    //todo check if student is already verified
 
     let currentTime = new Date();
     // Add 30 minutes to the current time for expiration
     let futureTime = new Date(currentTime.getTime() + 30 * 60000);
 
+    if (await checkVerification(studentID)) return false;
     try {
         await verificationQueue.create({
             studentId: studentID,
@@ -221,6 +223,7 @@ export async function sendVerification(studentID, email) {
     } catch (err) {
         throw err;
     }
+    return true;
 }
 
 //todo needs a service that empties expired rows in queue every minute
