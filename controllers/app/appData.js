@@ -250,3 +250,13 @@ export async function verifyStudent(token) {
         console.log("Token not found");
     }
 }
+
+
+export async function checkVerification(studentId){
+    try{
+        const student = await User.findByPk(studentId);
+        return student !== null;
+    }catch(error){
+        throw error;
+    }
+}

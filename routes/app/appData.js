@@ -1,4 +1,5 @@
 import {
+    checkVerification,
     getLocker,
     getUser,
     queryAvailableLockers,
@@ -110,6 +111,22 @@ appRouter.get('/verify-student/:token', async (req, res) => {
     try {
         await verifyStudent(token);
         res.status(200).end();
+    } catch (error) {
+        res.status(500).json({error: 'Internal server error'});
+    }
+});
+
+appRouter.get('/check-verification/:studentId', async (req, res) => {
+    const studentId = req.params.studentId;
+
+    try {
+
+        if(await checkVerification(studentId)){
+            res.status(200).json({verified: true});
+        }else{
+            res.status(200).json({verified: false});
+        }
+
     } catch (error) {
         res.status(500).json({error: 'Internal server error'});
     }
