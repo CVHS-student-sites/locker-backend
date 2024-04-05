@@ -152,7 +152,8 @@ export async function validateID(studentId) {
             model: Locker,
         },
     });
-    console.log(locker);
+    if (locker === null) return "ok";
+
     if (locker.Locker !== null) return "exists";
 
     return "ok";
