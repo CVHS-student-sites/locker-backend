@@ -6,7 +6,7 @@ import {
     validateID,
     verifyStudent
 } from "../../controllers/app/appData.js";
-import {queryAreaRestriction} from "../../controllers/admin/adminData.js";
+import {queryAreaRestriction, queryGradeRestriction} from "../../controllers/admin/adminData.js";
 
 import express from 'express';
 import {UserData} from "../../models/userData.js";
@@ -78,7 +78,7 @@ appRouter.get('/available-lockers/', async (req, res) => {
 
 appRouter.get('/available-grades/', async (req, res) => {
     try {
-        res.json(await queryAreaRestriction());
+        res.json(await queryGradeRestriction());
     } catch (error) {
         res.status(500).json({error: 'Internal server error'});
     }
