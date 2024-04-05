@@ -84,6 +84,14 @@ appRouter.get('/available-grades/', async (req, res) => {
     }
 });
 
+appRouter.get('/available-areas/', async (req, res) => {
+    try {
+        res.json(await queryAreaRestriction());
+    } catch (error) {
+        res.status(500).json({error: 'Internal server error'});
+    }
+});
+
 appRouter.post('/send-verify-student/:studentId', async (req, res) => {
     const studentId = req.params.studentId;
     let user = await UserData.findByPk(studentId);
