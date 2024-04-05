@@ -221,6 +221,7 @@ export async function sendVerification(studentID, email) {
         });
         await sendEmail(email, 'locker verify', `https://locker.cvapps.net/verify?token=${id}`)
     } catch (err) {
+        console.log(err);
         throw err;
     }
     return true;
