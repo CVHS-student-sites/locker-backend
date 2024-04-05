@@ -4,7 +4,7 @@ import {UserData} from "../../models/userData.js";
 import {verificationQueue} from "../../models/verificationQueue.js";
 import {sendEmail} from "../../utils/app/sendEmail.js";
 
-import {Op} from "sequelize";
+import {Op, where} from "sequelize";
 
 import {v4 as uuidv4} from 'uuid';
 
@@ -211,7 +211,16 @@ export async function sendVerification(studentID, email) {
     // Add 30 minutes to the current time for expiration
     let futureTime = new Date(currentTime.getTime() + 30 * 60000);
 
+    let queueUser = await verificationQueue.findAll({
+        where: {
+            studentId: studentID
+        }
+    });
+
+    if (queueUser !== null) return false;
     if (await checkVerification(studentID)) return false;
+
+
     try {
         await verificationQueue.create({
             studentId: studentID,
