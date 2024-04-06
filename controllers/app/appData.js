@@ -218,6 +218,8 @@ export async function sendVerification(studentID, email) {
     });
 
     if (queueUser !== null) return false;
+
+    //todo something broken here
     if (await checkVerification(studentID)) return false;
 
 
