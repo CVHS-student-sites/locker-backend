@@ -217,7 +217,9 @@ export async function sendVerification(studentID, email) {
         }
     });
 
+    console.log(queueUser);
     if (queueUser !== null) return false;
+    
 
     //todo something broken here
     if (await checkVerification(studentID)) return false;
