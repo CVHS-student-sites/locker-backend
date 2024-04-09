@@ -221,7 +221,8 @@ export async function sendVerification(studentID, email) {
     if (queueUser !== null) return false;
     
 
-    //todo something broken here
+    //todo i think this is fxed, kinda confusing
+    console.log(await checkVerification(studentID));
     if (await checkVerification(studentID)) return false;
 
 
