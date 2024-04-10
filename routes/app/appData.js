@@ -140,12 +140,7 @@ appRouter.get('/check-verification/:studentId', async (req, res) => {
 
 
 appRouter.post('/register-locker', async (req, res) => {
-    // const data = req.body;
-
-    let data = {
-        "students": [415631],
-        "location": {"building": 1000, "floor": 3, "level": "Top"}
-    }
+    const data = req.body;
 
     try {
         let status = await registerUserToLocker(data);
