@@ -3,6 +3,9 @@
 import { User } from "../../models/user.js";
 import { Locker } from "../../models/locker.js";
 
+import {Op} from "sequelize";
+
+
 
 export async function registerUserToLocker(data) {
     //studentID, building, floor, level
@@ -17,18 +20,15 @@ export async function registerUserToLocker(data) {
     // - check if there are allready people in a locker > 2
 
 
-    try{
-        let lockerArray = await Locker.findAll({
-            where: {
-                "location.Building": { [Op.eq]: location.building },
-                "location.Floor": { [Op.eq]: location.floor },
-                "location.Level": { [Op.eq]: location.level },
-            }
-        });
-    }catch(error){
-        console.log(error);
-        throw error;
-    }
+    
+    let lockerArray = await Locker.findAll({
+        where: {
+            "location.Building": { [Op.eq]: location.building },
+            "location.Floor": { [Op.eq]: location.floor },
+            "location.Level": { [Op.eq]: location.level },
+        }
+    });
+    
     
 
     //todo write some logic to do something if lockerArray is empty (no lockers avalible in the selected area)
