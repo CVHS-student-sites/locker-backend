@@ -4,14 +4,24 @@ import { User } from "../../models/user.js";
 import { Locker } from "../../models/locker.js";
 
 
-export async function registerUserToLocker(studentID, building, floor, level) {
+export async function registerUserToLocker(data) {
+    //studentID, building, floor, level
+
+    
+
+    let students = data.stduents;
+    let location = data.location;
+
 
     //todo run a ton of data checks here, this is critical logic that will inevitably break
+    // - check if there are allready people in a locker > 2
+
+
     let lockerArray = await Locker.findAll({
         where: {
-            "location.Building": { [Op.eq]: building },
-            "location.Floor": { [Op.eq]: floor },
-            "location.Level": { [Op.eq]: level },
+            "location.Building": { [Op.eq]: location.building },
+            "location.Floor": { [Op.eq]: location.floor },
+            "location.Level": { [Op.eq]: location.level },
         }
     });
 
@@ -19,26 +29,19 @@ export async function registerUserToLocker(studentID, building, floor, level) {
 
     let selectedLocker = lockerArray[0]; //todo find a better way to select lockers, this would work but seems kinda low tech 
 
-    let selectedUser = await User.findByPk(studentID);
- 
-    selectedUser.setLocker(selectedLocker)
-        .then(() => {
-            console.log("User has been associated with the locker.");
+    for (let student of students) {
+        let selectedUser = await User.findByPk(student);
 
-            return true;
-        })
-        .catch((error) => {
-            console.log(error);
-            return false;
-        });
-
-
-
-
-
+        selectedUser.setLocker(selectedLocker)
+            .then(() => {
+                console.log("User has been associated with the locker.");
+            })
+            .catch((error) => {
+                console.log(error);
+                return false;
+            });
+    }
 
     console.log(lockerArray);
-
-
-
+    return true;
 }

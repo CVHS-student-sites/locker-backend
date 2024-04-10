@@ -7,6 +7,8 @@ import {
     validateID,
     verifyStudent
 } from "../../controllers/app/appData.js";
+import {registerUserToLocker} from "../../controllers/app/appRegister.js"
+
 import {queryAreaRestriction, queryGradeRestriction} from "../../controllers/admin/adminData.js";
 
 import express from 'express';
@@ -131,6 +133,27 @@ appRouter.get('/check-verification/:studentId', async (req, res) => {
             res.status(200).json({verified: false});
         }
 
+    } catch (error) {
+        res.status(500).json({error: 'Internal server error'});
+    }
+});
+
+
+appRouter.post('/register-locker', async (req, res) => {
+    // const data = req.body;
+
+    let data = {
+        "students": [415631],
+        "location": {"building": 1000, "floor": 3, "level": "Top"}
+    }
+
+    try {
+        let status = await registerUserToLocker(data);
+        if (status){
+            res.status(200).end();
+        }else{
+            res.status(400).end();
+        }
     } catch (error) {
         res.status(500).json({error: 'Internal server error'});
     }
