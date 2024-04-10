@@ -12,7 +12,7 @@ export async function registerUserToLocker(data) {
 
     
 
-    let students = data.stduents;
+    let students = data.students;
     let location = data.location;
 
 
