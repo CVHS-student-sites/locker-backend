@@ -3,14 +3,13 @@
 import { User } from "../../models/user.js";
 import { Locker } from "../../models/locker.js";
 
-import {Op} from "sequelize";
+import { Op } from "sequelize";
 
 
 
 export async function registerUserToLocker(data) {
     //studentID, building, floor, level
 
-    
 
     let students = data.students;
     let location = data.location;
@@ -20,7 +19,6 @@ export async function registerUserToLocker(data) {
     // - check if there are allready people in a locker > 2
 
 
-    
     let lockerArray = await Locker.findAll({
         where: {
             "location.Building": { [Op.eq]: location.building },
@@ -28,8 +26,8 @@ export async function registerUserToLocker(data) {
             "location.Level": { [Op.eq]: location.level },
         }
     });
-    
-    
+
+
 
     //todo write some logic to do something if lockerArray is empty (no lockers avalible in the selected area)
 
@@ -39,15 +37,10 @@ export async function registerUserToLocker(data) {
         let selectedUser = await User.findByPk(student);
 
         selectedUser.setLocker(selectedLocker)
-            .then(() => {
-                console.log("User has been associated with the locker.");
-            })
             .catch((error) => {
                 console.log(error);
                 return false;
             });
     }
-
-    console.log(lockerArray);
     return true;
 }
