@@ -211,7 +211,7 @@ export async function sendVerification(studentID, email) {
     // Add 30 minutes to the current time for expiration
     let futureTime = new Date(currentTime.getTime() + 30 * 60000);
 
-    let queueUser = await verificationQueue.findAll({
+    let queueUser = await verificationQueue.findOne({
         where: {
             studentId: studentID
         }
@@ -219,7 +219,7 @@ export async function sendVerification(studentID, email) {
 
     console.log(queueUser);
     if (queueUser !== null) return false;
-    
+
 
     //todo i think this is fxed, kinda confusing
     console.log(await checkVerification(studentID));
