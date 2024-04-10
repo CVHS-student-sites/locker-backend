@@ -4,8 +4,8 @@ import {SendEmailCommand, SESClient} from "@aws-sdk/client-ses";
 const sesClient = new SESClient({
     region: 'us-east-1',
     credentials: {
-        accessKeyId: 'AKIAWJNVNSJEO4DETXUH',
-        secretAccessKey: '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'
+        accessKeyId: 'AKIA36WKJYY3L2AFDBEQ',
+        secretAccessKey: '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'
     }
 });
 
