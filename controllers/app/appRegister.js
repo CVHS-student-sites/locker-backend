@@ -24,7 +24,11 @@ export async function registerUserToLocker(data) {
             "location.Building": { [Op.eq]: location.building },
             "location.Floor": { [Op.eq]: location.floor },
             "location.Level": { [Op.eq]: location.level },
-        }
+        },
+        include: [{
+            model: User,
+        }]
+
     });
 
 
