@@ -29,9 +29,13 @@ export async function registerUserToLocker(data) {
 
 
 
+    const filteredLockers = lockerArray.filter(locker => locker.users.length <= 1); //check for standard lockers, needs to check less than 0 for single lockers
+
+    console.log(filteredLockers);
+
     //todo write some logic to do something if lockerArray is empty (no lockers avalible in the selected area)
 
-    let selectedLocker = lockerArray[0]; //todo find a better way to select lockers, this would work but seems kinda low tech 
+    let selectedLocker = filteredLockers[0]; //todo find a better way to select lockers, this would work but seems kinda low tech 
 
     for (let student of students) {
         let selectedUser = await User.findByPk(student);
