@@ -35,7 +35,7 @@ export async function registerUserToLocker(data) {
     console.log(lockerArray);
 
     try {
-        const filteredLockers = lockerArray.filter(locker => locker.users.length <= 1); //check for standard lockers, needs to check less than 0 for single lockers
+        const filteredLockers = lockerArray.filter(Locker => Locker.Users.length <= 1); //check for standard lockers, needs to check less than 0 for single lockers
 
         console.log(filteredLockers);
     } catch (error) {
