@@ -28,10 +28,19 @@ export async function registerUserToLocker(data) {
     });
 
 
+    console.log(lockerArray);
 
-    const filteredLockers = lockerArray.filter(locker => locker.users.length <= 1); //check for standard lockers, needs to check less than 0 for single lockers
+    try {
+        const filteredLockers = lockerArray.filter(locker => locker.users.length <= 1); //check for standard lockers, needs to check less than 0 for single lockers
 
-    console.log(filteredLockers);
+        console.log(filteredLockers);
+    } catch (error) {
+
+        throw error;
+    }
+
+
+
 
     //todo write some logic to do something if lockerArray is empty (no lockers avalible in the selected area)
 
