@@ -188,9 +188,7 @@ export async function queryAvailableLockers() {
                     },
                     include: [{
                         model: User,
-                        where: {
-                            "User": {[Op.eq]: null}
-                        }
+                        required: false,
                     }]
                 });
             }
