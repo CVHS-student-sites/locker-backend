@@ -144,7 +144,7 @@ export async function getLocker(lockerNumber) {
     }
 }
 
-//todo testing new error logic, make sure this works before doing anything else - use as example if this works
+//todo testing new error logic, make sure this works before doing anything else - !!!use as example for all routes/controllers
 export async function validateID(studentId) {
     const student = await UserData.findByPk(studentId);
     if (student === null) throw new Error('Invalid student ID');
@@ -154,7 +154,7 @@ export async function validateID(studentId) {
             model: Locker,
         },
     });
-    if (locker === null) return; // No need to return anything here
+    if (locker === null) return;
 
     if (locker.Locker !== null) throw new Error('Locker exists');
 }
