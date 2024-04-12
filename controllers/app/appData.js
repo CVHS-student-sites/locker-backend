@@ -162,10 +162,10 @@ export async function validateID(studentId) {
 
 //todo this needs to return a list of all available locker locations
 const areas = {
-    building_1000: [1, 3],
-    building_2000: [1, 2, 3],
-    building_5000: [2, 3],
-    building_7000: [1, 2, 3],
+    1000: [1, 3],
+    2000: [1, 2, 3],
+    5000: [2, 3],
+    7000: [1, 2, 3],
 };
 
 //todo make sure lockers with users are not counted - in progress
@@ -198,7 +198,7 @@ export async function queryAvailableLockers() {
                     }
                 }
 
-                floorCounts[`floor_${floor}`] = emptyLockerCount;
+                floorCounts[floor] = emptyLockerCount;
 
             }
 
