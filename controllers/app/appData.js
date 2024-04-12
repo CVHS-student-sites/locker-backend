@@ -193,6 +193,7 @@ export async function queryAvailableLockers() {
 
                 let emptyLockerCount = 0;
                 for (let locker of lockerArr) {
+                    console.log(locker)
                     if (!locker.User || locker.User.length === 0) {
                         emptyLockerCount++;
                     }
