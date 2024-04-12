@@ -144,20 +144,21 @@ export async function getLocker(lockerNumber) {
     }
 }
 
+//todo testing new error logic, make sure this works before doing anything else - use as example if this works
 export async function validateID(studentId) {
     const student = await UserData.findByPk(studentId);
-    if (student === null) return "invalid";
+    if (student === null) throw new Error('Invalid student ID');
+
     const locker = await User.findByPk(studentId, {
         include: {
             model: Locker,
         },
     });
-    if (locker === null) return "ok";
+    if (locker === null) return; // No need to return anything here
 
-    if (locker.Locker !== null) return "exists";
-
-    return "ok";
+    if (locker.Locker !== null) throw new Error('Locker exists');
 }
+
 
 //todo this needs to return a list of all available locker locations
 const areas = {
@@ -167,7 +168,7 @@ const areas = {
     building_7000: [1, 2, 3],
 };
 
-//todo make sure lockers with users are not counted
+//todo make sure lockers with users are not counted - in progress
 export async function queryAvailableLockers() {
     try {
         const buildingCounts = {};
@@ -187,7 +188,6 @@ export async function queryAvailableLockers() {
                     },
                     include: [{
                         model: User,
-                        required: false // This ensures we only count lockers that aren't associated with any user
                     }]
                 });
             }
@@ -265,7 +265,7 @@ export async function verifyStudent(token) {
             throw err;
         }
     } else {
-        //todo send message, token expired or invalid
+        //todo send message - decide on message schema, token expired or invalid
         console.log("Token not found");
     }
 }

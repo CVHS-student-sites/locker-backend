@@ -2,6 +2,8 @@ import {authRouter} from './routes/admin/adminAuth.js'
 import {appRouter} from './routes/app/appData.js';
 import {adminRouter} from './routes/admin/adminData.js';
 
+import { errorHandler } from "./middleware/errorHandler.js"
+
 import {addTestUsers, setDefaultConfigs} from "./config/setupDB.js";
 
 import express from 'express';
@@ -16,7 +18,7 @@ const SQLiteStore = connectSqlite3(session);
 const app = express();
 
 const corsOptions = {
-    origin: ["https://locker-api.cvapps.net", "https://locker.cvapps.net"], // Replace with your frontend domain, e.g., 'https://cvapps.net'
+    origin: ["https://locker-api.cvapps.net", "https://locker.cvapps.net"],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true, // Allow credentials (cookies)
 };
@@ -51,9 +53,13 @@ app.use(passport.session());
 app.use(express.json());
 
 //define routes
-app.use('/auth/', authRouter)
-app.use('/public/', appRouter)
-app.use('/admin/', adminRouter)
+app.use('/auth/', authRouter);
+app.use('/public/', appRouter);
+app.use('/admin/', adminRouter);
+
+//global error handling middleware - must be at bottom of express stack
+app.use(errorHandler);
+
 
 //create root user
 await addTestUsers();

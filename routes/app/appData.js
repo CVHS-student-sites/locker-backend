@@ -54,21 +54,16 @@ appRouter.get('/lookup-locker/:lockerNumber', async (req, res) => {
 });
 
 
-//todo try catch
+//todo changed this to use new error logic -- use as example if it works
 appRouter.get('/validate-ID/:studentId', async (req, res) => {
     const studentId = req.params.studentId;
 
-    let result = await validateID(studentId);
-    if (result === "ok") {
+    try{
+        await validateID(studentId);
         res.status(200).end();
+    }catch(error){
+        next(error);
     }
-    if (result === "invalid") {
-        res.status(400).json({error: 'invalid id'});
-    }
-    if (result === "exists") {
-        res.status(400).json({error: 'locker exists'});
-    }
-
 });
 
 appRouter.get('/available-lockers/', async (req, res) => {
