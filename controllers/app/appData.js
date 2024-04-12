@@ -183,7 +183,7 @@ export async function queryAvailableLockers() {
                 // Store the count for the current floor
                 let lockerArr = await Locker.findAll({
                     where: {
-                        "location.Building": {[Op.eq]: parseInt(building.split('_')[1])}, // Extract building number
+                        "location.Building": {[Op.eq]: building}, // Extract building number
                         "location.Floor": {[Op.eq]: floor},
                     },
                     include: [{
