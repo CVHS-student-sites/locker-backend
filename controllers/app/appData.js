@@ -160,7 +160,7 @@ export async function validateID(studentId) {
 }
 
 
-//todo this needs to return a list of all available locker locations
+//todo this could be faster
 const areas = {
     1000: [1, 3],
     2000: [1, 2, 3],
@@ -168,7 +168,6 @@ const areas = {
     7000: [1, 2, 3],
 };
 
-//todo make sure lockers with users are not counted - in progress
 export async function queryAvailableLockers() {
     try {
         const buildingCounts = {};
@@ -263,6 +262,7 @@ export async function sendVerification(studentID, email) {
     return true;
 }
 
+//upgraded
 //todo needs a service that empties expired rows in queue every minute
 export async function verifyStudent(token) {
     //todo might be good to run verify student before
@@ -276,19 +276,15 @@ export async function verifyStudent(token) {
         // Further operations with student
 
         //something broken here
-        try{
-            await verificationQueue.destroy({
-                where: {
-                    uuid: token
-                }
-            })
-        }catch(err){
-            console.log(err);
-            throw err;
-        }
+        
+        await verificationQueue.destroy({
+            where: {
+                uuid: token
+            }
+        })
+        
     } else {
-        //todo send message - decide on message schema, token expired or invalid
-        console.log("Token not found");
+        throw new Error("Token not found");
     }
 }
 

@@ -106,14 +106,15 @@ appRouter.post('/send-verify-student/:studentId', async (req, res) => {
     }
 });
 
-appRouter.get('/verify-student/:token', async (req, res) => {
+//upgraded
+appRouter.get('/verify-student/:token', async (req, res, next) => {
     const token = req.params.token;
 
     try {
         await verifyStudent(token);
         res.status(200).end();
     } catch (error) {
-        res.status(500).json({ error: 'Internal server error' });
+        next(error);
     }
 });
 
