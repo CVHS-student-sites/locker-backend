@@ -189,7 +189,7 @@ export async function queryAvailableLockers() {
                     include: [{
                         model: User,
                         where: {
-                            "studentId": {[Op.eq]: null}
+                            "User": {[Op.eq]: null}
                         }
                     }]
                 });
