@@ -207,7 +207,17 @@ export async function queryAvailableLockers() {
             // Store the counts for the current building
             buildingCounts[building] = floorCounts;
         }
-        return buildingCounts;
+
+        let availableAreas = {};
+        for (const key in buildingCounts) {
+            if (buildingCounts.hasOwnProperty(key)) {
+                const floors = Object.keys(buildingCounts[key]);
+                // Convert the keys (floors) to numbers and sort them
+                availableAreas[parseInt(key)] = floors.map(Number).sort((a, b) => a - b);
+            }
+        }
+
+        return availableAreas;
     } catch (error) {
         console.log(error);
         throw error;
