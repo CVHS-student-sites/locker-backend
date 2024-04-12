@@ -181,16 +181,25 @@ export async function queryAvailableLockers() {
             // Iterate over each floor in the current building
             for (const floor of floors) {
                 // Store the count for the current floor
-                floorCounts[`floor_${floor}`] = await Locker.count({
+                let lockerArr = await Locker.findAll({
                     where: {
                         "location.Building": {[Op.eq]: parseInt(building.split('_')[1])}, // Extract building number
                         "location.Floor": {[Op.eq]: floor},
                     },
                     include: [{
                         model: User,
-                        required: false,
                     }]
                 });
+
+                let emptyLockerCount = 0;
+                for (let locker of lockerArr) {
+                    if (!locker.User || locker.User.length === 0) {
+                        emptyLockerCount++;
+                    }
+                }
+
+                floorCounts[`floor_${floor}`] = emptyLockerCount;
+
             }
 
             // Store the counts for the current building
