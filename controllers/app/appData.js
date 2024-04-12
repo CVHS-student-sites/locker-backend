@@ -198,6 +198,8 @@ export async function queryAvailableLockers() {
                     }
                 }
 
+                if(emptyLockerCount === 0) continue;
+
                 floorCounts[floor] = emptyLockerCount;
 
             }
