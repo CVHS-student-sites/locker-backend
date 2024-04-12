@@ -55,7 +55,7 @@ appRouter.get('/lookup-locker/:lockerNumber', async (req, res) => {
 
 
 //todo changed this to use new error logic -- use as example if it works
-appRouter.get('/validate-ID/:studentId', async (req, res) => {
+appRouter.get('/validate-ID/:studentId', async (req, res, next) => {
     const studentId = req.params.studentId;
 
     try{
