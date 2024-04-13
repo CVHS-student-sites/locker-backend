@@ -1,4 +1,3 @@
-import {LockerData} from "../../models/lockerData.js";
 import {Locker} from "../../models/locker.js";
 import {UserData} from "../../models/userData.js";
 import {Readable} from "stream";

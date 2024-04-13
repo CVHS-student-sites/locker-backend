@@ -3,7 +3,6 @@ import {Op} from "sequelize";
 
 import {User} from "../../models/user.js";
 import {Locker} from "../../models/locker.js";
-import {LockerData} from "../../models/lockerData.js";
 import {UserData} from "../../models/userData.js";
 
 import {readConfig} from "../../utils/admin/configManager.js";

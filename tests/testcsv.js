@@ -3,7 +3,6 @@ import {parse} from 'csv-parse';
 import {dirname} from 'path';
 import {fileURLToPath} from 'url';
 
-import {LockerData} from "../models/lockerData.js";
 // import { Locker } from "../models/locker.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
