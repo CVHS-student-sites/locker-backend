@@ -1,24 +1,24 @@
 name: Build and publish
 permissions: write-all
 
-on: 
+on:
   push:
     branches:
-    - "main" # Running this workflow only for master branch
+      - "main" # Running this workflow only for master branch
 
 jobs:
   build-and-publish-latest:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2.5.0 # Checking out the repo
+      - uses: actions/checkout@v2.5.0 # Checking out the repo
 
-    - name: Build and publish "latest" Docker image
-      uses: VaultVulp/gp-docker-action@1.6.0
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }} # Provide GITHUB_TOKEN to login into the GitHub Packages
-        image-name: locker-backend # Provide only Docker image name, tag will be automatically set to latest
-        dockerfile: Dockerfile # Provide custom Dockerfile name
+      - name: Build and publish "latest" Docker image
+        uses: VaultVulp/gp-docker-action@1.6.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }} # Provide GITHUB_TOKEN to login into the GitHub Packages
+          image-name: locker-backend # Provide only Docker image name, tag will be automatically set to latest
+          dockerfile: Dockerfile # Provide custom Dockerfile name
 
     # - name: Notify Server
     #   if: ${{ success() }} # Run this step only if previous steps were successful

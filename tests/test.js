@@ -5,15 +5,9 @@
 // console.log(user);
 
 
-
-
-
-
-
-
-import { sequelize } from "../config/sequelize.js";
-import { User } from "../models/user.js";
-import { Locker } from "../models/locker.js"; // Import your Locker model
+import {sequelize} from "../config/sequelize.js";
+import {User} from "../models/user.js";
+import {Locker} from "../models/locker.js"; // Import your Locker model
 
 // // Create a new user
 // const newUser = await User.create({
@@ -36,18 +30,6 @@ import { Locker } from "../models/locker.js"; // Import your Locker model
 // console.log("User and Locker have been created and associated.");
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 // import { User } from "./user.js"; // Import the User model
 // import { Locker } from "./locker.js"; // Import the Locker model
 
@@ -66,7 +48,7 @@ import { Locker } from "../models/locker.js"; // Import your Locker model
 //         if (!existingLocker) {
 //           throw new Error("Locker not found.");
 //         }
-        
+
 //         // Associate the user with the existing locker
 //         return newUser.setLocker(existingLocker)
 //           .then(() => {
@@ -79,24 +61,10 @@ import { Locker } from "../models/locker.js"; // Import your Locker model
 //   });
 
 
-
-
-
-
-
-
-
-
 // Assuming you have the user's ID in the variable userId
 const userId = 415631; // Replace with the actual user ID you want to query
 
 // Query the user by ID and include the associated locker
-
-
-
-
-
-
 
 
 // // Assuming you have the locker number in the variable lockerNumber

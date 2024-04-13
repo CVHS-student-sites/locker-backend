@@ -1,9 +1,9 @@
 import {LockerData} from "../../models/lockerData.js";
-import { Locker } from "../../models/locker.js";
+import {Locker} from "../../models/locker.js";
 import {UserData} from "../../models/userData.js";
 import {Readable} from "stream";
 
-import { parse } from 'csv-parse';
+import {parse} from 'csv-parse';
 
 const formatLockerData = (obj) => {
     const result = {};
@@ -65,9 +65,6 @@ export async function loadLockers(fileBuffer) {
 
     });
 }
-
-
-
 
 
 //user upload

@@ -78,14 +78,14 @@ export async function queryStats() {
     }
 }
 
-export async function getUsersDB(page, pageSize){
+export async function getUsersDB(page, pageSize) {
     const offset = (page - 1) * pageSize;
     const limit = pageSize;
 
     // Fetch projects for the specified page
     const data = await User.findAll({
-      offset,
-      limit,
+        offset,
+        limit,
     });
 
     const formattedData = data.map(item => [

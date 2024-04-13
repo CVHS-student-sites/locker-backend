@@ -197,7 +197,7 @@ export async function queryAvailableLockers() {
                     }
                 }
 
-                if(emptyLockerCount === 0) continue;
+                if (emptyLockerCount === 0) continue;
 
                 floorCounts[floor] = emptyLockerCount;
 
@@ -276,24 +276,24 @@ export async function verifyStudent(token) {
         // Further operations with student
 
         //something broken here
-        
+
         await verificationQueue.destroy({
             where: {
                 uuid: token
             }
         })
-        
+
     } else {
         throw new Error("Token not found");
     }
 }
 
 
-export async function checkVerification(studentId){
-    try{
+export async function checkVerification(studentId) {
+    try {
         const student = await User.findByPk(studentId);
         return student !== null;
-    }catch(error){
+    } catch (error) {
         throw error;
     }
 }

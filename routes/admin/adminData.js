@@ -1,6 +1,11 @@
 import {loadLockers, loadUsers} from "../../controllers/admin/adminImportData.js";
 import {setAreaRestriction, setGradeRestriction} from "../../controllers/admin/adminAction.js";
-import {queryAreaRestriction, queryGradeRestriction, queryStats, getUsersDB} from "../../controllers/admin/adminData.js";
+import {
+    queryAreaRestriction,
+    queryGradeRestriction,
+    queryStats,
+    getUsersDB
+} from "../../controllers/admin/adminData.js";
 
 import {ensureAuthenticated} from "./adminAuth.js";
 
@@ -65,7 +70,7 @@ adminRouter.get('/management/get-statistics', async (req, res) => {
         res.json(data);
     } catch (error) {
         console.error('Error fetching statistics:', error);
-        res.status(500).json({ error: 'Internal server error' });
+        res.status(500).json({error: 'Internal server error'});
     }
 });
 
@@ -79,10 +84,9 @@ adminRouter.get('/data/user-data', async (req, res) => {
         res.json(data);
     } catch (error) {
         console.error('Error fetching data:', error);
-        res.status(500).json({ error: 'Internal server error' });
+        res.status(500).json({error: 'Internal server error'});
     }
 });
-
 
 
 //todo maybe move file upload and handling to adminData.js

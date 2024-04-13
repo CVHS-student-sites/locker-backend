@@ -4,9 +4,9 @@ export const errorHandler = (err, req, res, next) => {
 
     if (err.message) {
         // If the error has a message, send it as the response
-        res.status(400).json({ error: err.message });
+        res.status(400).json({error: err.message});
     } else {
         // Otherwise, send a generic error message
-        res.status(500).json({ error: 'Internal server error' });
+        res.status(500).json({error: 'Internal server error'});
     }
 };
