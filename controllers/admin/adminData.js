@@ -103,6 +103,9 @@ export async function getLockersDB(page, pageSize) {
     const data = await Locker.findAll({
         offset,
         limit,
+        include: [{
+            model: User,
+        }]
     });
 
     console.log(data[0]);
