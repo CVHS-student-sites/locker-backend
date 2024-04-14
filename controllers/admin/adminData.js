@@ -108,13 +108,15 @@ export async function getLockersDB(page, pageSize) {
         }]
     });
 
-    console.log(data[0]);
-    // return data.map(item => [
-    //     item.name,
-    //     item.email,
-    //     item.studentId,
-    //     item.grade,
-    //     item.LockerLockerNumber,
-    //     item.createdAt
-    // ]);
+    // console.log(data[0]);
+    return data.map(item => [
+        item.lockerNumber,
+        item.location.Floor,
+        item.location.Level,
+        item.location.Building,
+        item.status,
+        item.Users,
+        item.createdAt,
+        item.updatedAt,
+    ]);
 }
