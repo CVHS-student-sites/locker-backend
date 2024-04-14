@@ -32,7 +32,6 @@ export async function queryStats() {
 
     try {
         let userCount = await User.count();
-        let lockerCount = await Locker.count();
         let totalUsers = await UserData.count();
         let gradeCounts = {};
 
@@ -43,6 +42,20 @@ export async function queryStats() {
                 },
             });
         }
+
+        let lockers = await Locker.findAll({
+            include: [{
+                model: User,
+            }]
+        });
+
+        let registeredLockerCount = 0;
+        for (let locker of lockers) {
+            if (locker.Users && locker.Users.length > 0) {
+                registeredLockerCount++;
+            }
+        }
+
 
         const oneHourAgo = new Date(new Date() - 60 * 60 * 1000);
         let lastHour = await Locker.count({
@@ -65,7 +78,7 @@ export async function queryStats() {
         return {
             "regUsers": userCount,
             "regUsersByGrade": gradeCounts,
-            "regLockers": lockerCount,
+            "regLockers": registeredLockerCount,
             "totalUsers": totalUsers,
             "lastHour": lastHour,
             "lastDay": lastDay,
