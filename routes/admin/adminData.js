@@ -4,7 +4,8 @@ import {
     queryAreaRestriction,
     queryGradeRestriction,
     queryStats,
-    getUsersDB
+    getUsersDB,
+    getLockersDB
 } from "../../controllers/admin/adminData.js";
 
 import {ensureAuthenticated} from "./adminAuth.js";
@@ -81,6 +82,21 @@ adminRouter.get('/data/user-data', async (req, res) => {
 
     try {
         let data = await getUsersDB(page, pageSize);
+        res.json(data);
+    } catch (error) {
+        //todo add route error middleware
+        console.error('Error fetching data:', error);
+        res.status(500).json({error: 'Internal server error'});
+    }
+});
+
+
+adminRouter.get('/data/locker-data', async (req, res) => {
+    const page = parseInt(req.query.page);
+    const pageSize = parseInt(req.query.pageSize);
+
+    try {
+        let data = await getLockersDB(page, pageSize);
         res.json(data);
     } catch (error) {
         console.error('Error fetching data:', error);

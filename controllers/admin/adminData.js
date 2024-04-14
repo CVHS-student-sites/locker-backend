@@ -85,7 +85,7 @@ export async function getUsersDB(page, pageSize) {
         limit,
     });
 
-    const formattedData = data.map(item => [
+    return data.map(item => [
         item.name,
         item.email,
         item.studentId,
@@ -93,5 +93,25 @@ export async function getUsersDB(page, pageSize) {
         item.LockerLockerNumber,
         item.createdAt
     ]);
-    return formattedData;
+}
+
+export async function getLockersDB(page, pageSize) {
+    const offset = (page - 1) * pageSize;
+    const limit = pageSize;
+
+    // Fetch projects for the specified page
+    const data = await Locker.findAll({
+        offset,
+        limit,
+    });
+
+    console.log(data[0]);
+    // return data.map(item => [
+    //     item.name,
+    //     item.email,
+    //     item.studentId,
+    //     item.grade,
+    //     item.LockerLockerNumber,
+    //     item.createdAt
+    // ]);
 }
