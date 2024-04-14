@@ -116,7 +116,6 @@ export async function getLockersDB(page, pageSize) {
         item.location.Building,
         item.status,
         item.Users,
-        item.createdAt,
         item.updatedAt,
     ]);
 }
