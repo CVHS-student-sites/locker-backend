@@ -1,12 +1,13 @@
-import {User} from "../../models/user.js";
-import {Locker} from "../../models/locker.js";
-import {UserData} from "../../models/userData.js";
-import {verificationQueue} from "../../models/verificationQueue.js";
-import {sendEmail} from "../../utils/app/sendEmail.js";
+import { User } from "../../models/user.js";
+import { Locker } from "../../models/locker.js";
+import { UserData } from "../../models/userData.js";
+import { verificationQueue } from "../../models/verificationQueue.js";
+import { sendEmail } from "../../utils/app/sendEmail.js";
+import { queryAreaRestriction } from "../../controllers/admin/adminData.js";
 
-import {Op, where} from "sequelize";
+import { Op, where } from "sequelize";
 
-import {v4 as uuidv4} from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 
 
 //todo remove all logs
@@ -160,16 +161,29 @@ export async function validateID(studentId) {
 }
 
 
-//todo this could be faster
-const areas = {
-    1000: [1, 3],
-    2000: [1, 2, 3],
-    5000: [2, 3],
-    7000: [1, 2, 3],
-};
-
+//todo areas should reflect avalible areas, thats an easy way to implement that check
 export async function queryAvailableLockers() {
     try {
+
+        let jsonData = await queryAreaRestriction();
+
+        //new logic, validate it works
+        const areas = {};
+        for (const buildingKey in jsonData) {
+            const buildingNumber = parseInt(buildingKey.split('_')[1]);
+            const floors = [];
+            for (const floorKey in jsonData[buildingKey]) {
+                if (jsonData[buildingKey][floorKey] === false) {
+                    const floorNumber = parseInt(floorKey.split('_')[1]);
+                    floors.push(floorNumber);
+                }
+            }
+            areas[buildingNumber] = floors;
+        }
+        console.log(areas);
+
+
+
         const buildingCounts = {};
 
         // Iterate over each building
@@ -182,8 +196,8 @@ export async function queryAvailableLockers() {
                 // Store the count for the current floor
                 let lockerArr = await Locker.findAll({
                     where: {
-                        "location.Building": {[Op.eq]: building}, // Extract building number
-                        "location.Floor": {[Op.eq]: floor},
+                        "location.Building": { [Op.eq]: building }, // Extract building number
+                        "location.Floor": { [Op.eq]: floor },
                     },
                     include: [{
                         model: User,
@@ -197,7 +211,7 @@ export async function queryAvailableLockers() {
                     }
                 }
 
-                if(emptyLockerCount === 0) continue;
+                if (emptyLockerCount === 0) continue;
 
                 floorCounts[floor] = emptyLockerCount;
 
@@ -276,24 +290,24 @@ export async function verifyStudent(token) {
         // Further operations with student
 
         //something broken here
-        
+
         await verificationQueue.destroy({
             where: {
                 uuid: token
             }
         })
-        
+
     } else {
         throw new Error("Token not found");
     }
 }
 
 
-export async function checkVerification(studentId){
-    try{
+export async function checkVerification(studentId) {
+    try {
         const student = await User.findByPk(studentId);
         return student !== null;
-    }catch(error){
+    } catch (error) {
         throw error;
     }
 }
