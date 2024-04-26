@@ -1,9 +1,9 @@
-import { sequelize } from "../config/sequelize.js";
-import { Sequelize, DataTypes } from "sequelize";
+import {sequelize} from "../config/sequelize.js";
+import {Sequelize, DataTypes} from "sequelize";
 
 
 const verificationQueue = sequelize.define('verificationQueue', {
-    uuid:{
+    uuid: {
         type: DataTypes.STRING,
         allowNull: false,
         primaryKey: true,
@@ -17,7 +17,7 @@ const verificationQueue = sequelize.define('verificationQueue', {
         allowNull: false,
         unique: true,
     },
-    expiration:{
+    expiration: {
         type: DataTypes.DATE,
         allowNull: false,
     }

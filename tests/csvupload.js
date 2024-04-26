@@ -1,14 +1,14 @@
 import express from 'express';
 import multer from 'multer';
 import csvParser from 'csv-parser';
-import { Readable } from 'stream';
+import {Readable} from 'stream';
 
 const app = express();
 const port = 3000;
 
 // Set up multer to handle file uploads
 const storage = multer.memoryStorage(); // Store the file in memory
-const upload = multer({ storage: storage });
+const upload = multer({storage: storage});
 
 app.post('/upload', upload.single('csvFile'), (req, res) => {
     // Access the uploaded file buffer
@@ -29,7 +29,7 @@ app.post('/upload', upload.single('csvFile'), (req, res) => {
             // You can now do something with the data, such as inserting it into a database
 
             // For demonstration purposes, let's just send it back as a JSON response
-            res.json({ data: parsedData });
+            res.json({data: parsedData});
         });
 });
 

@@ -1,10 +1,9 @@
 //all regestration logic will go on here
 
-import { User } from "../../models/user.js";
-import { Locker } from "../../models/locker.js";
+import {User} from "../../models/user.js";
+import {Locker} from "../../models/locker.js";
 
-import { Op } from "sequelize";
-
+import {Op} from "sequelize";
 
 
 export async function registerUserToLocker(data) {
@@ -24,9 +23,9 @@ export async function registerUserToLocker(data) {
 
     let lockerArray = await Locker.findAll({
         where: {
-            "location.Building": { [Op.eq]: location.building },
-            "location.Floor": { [Op.eq]: location.floor },
-            "location.Level": { [Op.eq]: location.level },
+            "location.Building": {[Op.eq]: location.building},
+            "location.Floor": {[Op.eq]: location.floor},
+            "location.Level": {[Op.eq]: location.level},
         },
         include: [{
             model: User,

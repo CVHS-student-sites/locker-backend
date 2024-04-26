@@ -3,7 +3,6 @@ import {Op} from "sequelize";
 
 import {User} from "../../models/user.js";
 import {Locker} from "../../models/locker.js";
-import {LockerData} from "../../models/lockerData.js";
 import {UserData} from "../../models/userData.js";
 
 import {readConfig} from "../../utils/admin/configManager.js";
@@ -33,9 +32,7 @@ export async function queryStats() {
 
     try {
         let userCount = await User.count();
-        let lockerCount = await Locker.count();
         let totalUsers = await UserData.count();
-        let totalLockers = await LockerData.count();
         let gradeCounts = {};
 
         for (const targetGrade of targetGrades) {
@@ -45,6 +42,20 @@ export async function queryStats() {
                 },
             });
         }
+
+        let lockers = await Locker.findAll({
+            include: [{
+                model: User,
+            }]
+        });
+
+        let registeredLockerCount = 0;
+        for (let locker of lockers) {
+            if (locker.Users && locker.Users.length > 0) {
+                registeredLockerCount++;
+            }
+        }
+
 
         const oneHourAgo = new Date(new Date() - 60 * 60 * 1000);
         let lastHour = await Locker.count({
@@ -67,9 +78,8 @@ export async function queryStats() {
         return {
             "regUsers": userCount,
             "regUsersByGrade": gradeCounts,
-            "regLockers": lockerCount,
+            "regLockers": registeredLockerCount,
             "totalUsers": totalUsers,
-            "totalLockers": totalLockers,
             "lastHour": lastHour,
             "lastDay": lastDay,
         };
@@ -78,17 +88,17 @@ export async function queryStats() {
     }
 }
 
-export async function getUsersDB(page, pageSize){
+export async function getUsersDB(page, pageSize) {
     const offset = (page - 1) * pageSize;
     const limit = pageSize;
 
     // Fetch projects for the specified page
     const data = await User.findAll({
-      offset,
-      limit,
+        offset,
+        limit,
     });
 
-    const formattedData = data.map(item => [
+    return data.map(item => [
         item.name,
         item.email,
         item.studentId,
@@ -96,5 +106,28 @@ export async function getUsersDB(page, pageSize){
         item.LockerLockerNumber,
         item.createdAt
     ]);
-    return formattedData;
+}
+
+export async function getLockersDB(page, pageSize) {
+    const offset = (page - 1) * pageSize;
+    const limit = pageSize;
+
+    // Fetch projects for the specified page
+    const data = await Locker.findAll({
+        offset,
+        limit,
+        include: [{
+            model: User,
+        }]
+    });
+
+    // console.log(data[0]);
+    return data.map(item => [
+        item.lockerNumber,
+        item.location.Floor,
+        item.location.Level,
+        item.location.Building,
+        item.status,
+        item.Users,
+    ]);
 }

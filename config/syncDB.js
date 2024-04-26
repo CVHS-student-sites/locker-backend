@@ -1,6 +1,5 @@
 import {sequelize} from './sequelize.js'
 
-import {LockerData} from "../models/lockerData.js";
 import {UserData} from "../models/userData.js";
 import {User} from "../models/user.js";
 import {Locker} from "../models/locker.js";

@@ -1,4 +1,4 @@
-import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses";
+import {SESClient, SendEmailCommand} from "@aws-sdk/client-ses";
 
 // todo keys must be in env
 const sesClient = new SESClient({

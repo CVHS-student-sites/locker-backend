@@ -7,12 +7,12 @@ import {
     validateID,
     verifyStudent
 } from "../../controllers/app/appData.js";
-import { registerUserToLocker } from "../../controllers/app/appRegister.js"
+import {registerUserToLocker} from "../../controllers/app/appRegister.js"
 
-import { queryAreaRestriction, queryGradeRestriction } from "../../controllers/admin/adminData.js";
+import {queryAreaRestriction, queryGradeRestriction} from "../../controllers/admin/adminData.js";
 
 import express from 'express';
-import { UserData } from "../../models/userData.js";
+import {UserData} from "../../models/userData.js";
 
 
 export const appRouter = express.Router();
@@ -28,10 +28,10 @@ appRouter.get('/lookup-user/:studentId', async (req, res) => {
         if (userData) {
             res.json(userData);
         } else {
-            res.status(404).json({ error: 'User not found' });
+            res.status(404).json({error: 'User not found'});
         }
     } catch (error) {
-        res.status(500).json({ error: 'Internal server error' });
+        res.status(500).json({error: 'Internal server error'});
     }
 });
 
@@ -46,10 +46,10 @@ appRouter.get('/lookup-locker/:lockerNumber', async (req, res) => {
         if (lockerData) {
             res.json(lockerData);
         } else {
-            res.status(404).json({ error: 'Locker not found' });
+            res.status(404).json({error: 'Locker not found'});
         }
     } catch (error) {
-        res.status(500).json({ error: 'Internal server error' });
+        res.status(500).json({error: 'Internal server error'});
     }
 });
 
@@ -70,7 +70,7 @@ appRouter.get('/available-lockers/', async (req, res) => {
     try {
         res.json(await queryAvailableLockers());
     } catch (error) {
-        res.status(500).json({ error: 'Internal server error' });
+        res.status(500).json({error: 'Internal server error'});
     }
 });
 
@@ -78,7 +78,7 @@ appRouter.get('/available-grades/', async (req, res) => {
     try {
         res.json(await queryGradeRestriction());
     } catch (error) {
-        res.status(500).json({ error: 'Internal server error' });
+        res.status(500).json({error: 'Internal server error'});
     }
 });
 
@@ -87,7 +87,7 @@ appRouter.get('/available-areas/', async (req, res) => {
     try {
         res.json(await queryAreaRestriction());
     } catch (error) {
-        res.status(500).json({ error: 'Internal server error' });
+        res.status(500).json({error: 'Internal server error'});
     }
 });
 
@@ -103,7 +103,7 @@ appRouter.post('/send-verify-student/:studentId', async (req, res) => {
             res.status(400).end();
         }
     } catch (error) {
-        res.status(500).json({ error: 'Internal server error' });
+        res.status(500).json({error: 'Internal server error'});
     }
 });
 
@@ -125,13 +125,13 @@ appRouter.get('/check-verification/:studentId', async (req, res) => {
     try {
 
         if (await checkVerification(studentId)) {
-            res.status(200).json({ verified: true });
+            res.status(200).json({verified: true});
         } else {
-            res.status(200).json({ verified: false });
+            res.status(200).json({verified: false});
         }
 
     } catch (error) {
-        res.status(500).json({ error: 'Internal server error' });
+        res.status(500).json({error: 'Internal server error'});
     }
 });
 
@@ -147,6 +147,6 @@ appRouter.post('/register-locker', async (req, res) => {
             res.status(400).end();
         }
     } catch (error) {
-        res.status(500).json({ error: 'Internal server error' });
+        res.status(500).json({error: 'Internal server error'});
     }
 });

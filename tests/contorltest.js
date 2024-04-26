@@ -1,18 +1,24 @@
-import { createUser, createLocker, createUserjoinLocker, getUser, getLocker, joinUsertoLocker } from "../controllers/user-locker.js";
+import {
+    createUser,
+    createLocker,
+    createUserjoinLocker,
+    getUser,
+    getLocker,
+    joinUsertoLocker
+} from "../controllers/user-locker.js";
 
-import { validateAdminUser, getAdminId, getAdminUserfromId, createAdminUser} from '../controllers/admin.js'
+import {validateAdminUser, getAdminId, getAdminUserfromId, createAdminUser} from '../controllers/admin.js'
 
 
 // admin controllers
 
-let user = await createAdminUser('birdpump','test')
+let user = await createAdminUser('birdpump', 'test')
 
 // let user = await getUser('test');
 
 // let user = await validateUser('birdpump', 'test')
 
 // console.log(user);
-
 
 
 // student controllers

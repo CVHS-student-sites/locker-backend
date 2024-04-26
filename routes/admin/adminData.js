@@ -1,6 +1,12 @@
 import {loadLockers, loadUsers} from "../../controllers/admin/adminImportData.js";
 import {setAreaRestriction, setGradeRestriction} from "../../controllers/admin/adminAction.js";
-import {queryAreaRestriction, queryGradeRestriction, queryStats, getUsersDB} from "../../controllers/admin/adminData.js";
+import {
+    queryAreaRestriction,
+    queryGradeRestriction,
+    queryStats,
+    getUsersDB,
+    getLockersDB
+} from "../../controllers/admin/adminData.js";
 
 import {ensureAuthenticated} from "./adminAuth.js";
 
@@ -65,7 +71,7 @@ adminRouter.get('/management/get-statistics', async (req, res) => {
         res.json(data);
     } catch (error) {
         console.error('Error fetching statistics:', error);
-        res.status(500).json({ error: 'Internal server error' });
+        res.status(500).json({error: 'Internal server error'});
     }
 });
 
@@ -78,11 +84,25 @@ adminRouter.get('/data/user-data', async (req, res) => {
         let data = await getUsersDB(page, pageSize);
         res.json(data);
     } catch (error) {
+        //todo add route error middleware
         console.error('Error fetching data:', error);
-        res.status(500).json({ error: 'Internal server error' });
+        res.status(500).json({error: 'Internal server error'});
     }
 });
 
+
+adminRouter.get('/data/locker-data', async (req, res) => {
+    const page = parseInt(req.query.page);
+    const pageSize = parseInt(req.query.pageSize);
+
+    try {
+        let data = await getLockersDB(page, pageSize);
+        res.json(data);
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        res.status(500).json({error: 'Internal server error'});
+    }
+});
 
 
 //todo maybe move file upload and handling to adminData.js
