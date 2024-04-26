@@ -219,9 +219,12 @@ export async function queryAvailableLockers() {
 
                 if (emptyLockerCount === 0) continue;
 
-                floorCounts['Level'] = levels;
-                floorCounts['Count'] = emptyLockerCount;
+                let array = {
+                    "Level": levels,
+                    "Cound": emptyLockerCount,
+                }
 
+                floorCounts[floor] = array;
             }
 
             // Store the counts for the current building
@@ -239,7 +242,7 @@ export async function queryAvailableLockers() {
         //         availableAreas[parseInt(key)] = floors.map(Number).sort((a, b) => a - b);
         //     }
         // }
-// 
+
         // return availableAreas;
     } catch (error) {
         console.log(error);
