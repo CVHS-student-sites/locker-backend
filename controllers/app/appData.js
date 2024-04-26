@@ -167,7 +167,7 @@ export async function queryAvailableLockers() {
 
         let jsonData = await queryAreaRestriction();
 
-        //new logic, validate it works
+        //new logic, todo buildings with no floors enabled remain in json and showed in frontend
         const areas = {};
         for (const buildingKey in jsonData) {
             const buildingNumber = parseInt(buildingKey.split('_')[1]);
@@ -180,7 +180,7 @@ export async function queryAvailableLockers() {
             }
             areas[buildingNumber] = floors;
         }
-        console.log(areas);
+
 
 
 
@@ -205,15 +205,22 @@ export async function queryAvailableLockers() {
                 });
 
                 let emptyLockerCount = 0;
+                let levels = [];
+
                 for (let locker of lockerArr) {
                     if (!locker.Users || locker.Users.length === 0) {
                         emptyLockerCount++;
+                    }
+
+                    if (!levels.includes(locker.location.Level)) {
+                        levels.push(locker.location.Level);
                     }
                 }
 
                 if (emptyLockerCount === 0) continue;
 
-                floorCounts[floor] = emptyLockerCount;
+                floorCounts['Level'] = levels;
+                floorCounts['Count'] = emptyLockerCount;
 
             }
 
@@ -221,16 +228,19 @@ export async function queryAvailableLockers() {
             buildingCounts[building] = floorCounts;
         }
 
-        let availableAreas = {};
-        for (const key in buildingCounts) {
-            if (buildingCounts.hasOwnProperty(key)) {
-                const floors = Object.keys(buildingCounts[key]);
-                // Convert the keys (floors) to numbers and sort them
-                availableAreas[parseInt(key)] = floors.map(Number).sort((a, b) => a - b);
-            }
-        }
 
-        return availableAreas;
+        console.log(buildingCounts);
+
+        // let availableAreas = {};
+        // for (const key in buildingCounts) {
+        //     if (buildingCounts.hasOwnProperty(key)) {
+        //         const floors = Object.keys(buildingCounts[key]);
+        //         // Convert the keys (floors) to numbers and sort them
+        //         availableAreas[parseInt(key)] = floors.map(Number).sort((a, b) => a - b);
+        //     }
+        // }
+// 
+        // return availableAreas;
     } catch (error) {
         console.log(error);
         throw error;
