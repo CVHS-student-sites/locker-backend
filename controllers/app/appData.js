@@ -220,8 +220,8 @@ export async function queryAvailableLockers() {
                 if (emptyLockerCount === 0) continue;
 
                 let array = {
-                    "Level": levels,
-                    "Cound": emptyLockerCount,
+                    "Levels": levels,
+                    "Count": emptyLockerCount,
                 }
 
                 floorCounts[floor] = array;
@@ -232,7 +232,7 @@ export async function queryAvailableLockers() {
         }
 
 
-        console.log(buildingCounts);
+        console.log(JSON.stringify(buildingCounts, null, 2));
 
         // let availableAreas = {};
         // for (const key in buildingCounts) {
