@@ -147,6 +147,7 @@ appRouter.post('/register-locker', async (req, res) => {
             res.status(400).end();
         }
     } catch (error) {
+        console.log(error);
         res.status(500).json({error: 'Internal server error'});
     }
 });
