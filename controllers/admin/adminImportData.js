@@ -78,6 +78,11 @@ const formatUserData = (obj) => {
 
 async function createUserBatch(data) {
     try {
+        await UserData.destroy({
+            truncate: true, // This option ensures that the entire table is truncated
+            cascade: false, // Set this option to true if you want to cascade delete related records
+            restartIdentity: true // Set this option to true if you want to reset auto-increment IDs
+        });
         return await UserData.bulkCreate(data);
     } catch (err) {
         console.error(err);
