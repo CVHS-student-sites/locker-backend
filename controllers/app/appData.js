@@ -1,13 +1,13 @@
-import { User } from "../../models/user.js";
-import { Locker } from "../../models/locker.js";
-import { UserData } from "../../models/userData.js";
-import { verificationQueue } from "../../models/verificationQueue.js";
-import { sendEmail } from "../../utils/app/sendEmail.js";
-import { queryAreaRestriction } from "../../controllers/admin/adminData.js";
+import {User} from "../../models/user.js";
+import {Locker} from "../../models/locker.js";
+import {UserData} from "../../models/userData.js";
+import {verificationQueue} from "../../models/verificationQueue.js";
+import {sendEmail} from "../../utils/app/sendEmail.js";
+import {queryAreaRestriction} from "../../controllers/admin/adminData.js";
 
-import { Op, where } from "sequelize";
+import {Op, where} from "sequelize";
 
-import { v4 as uuidv4 } from 'uuid';
+import {v4 as uuidv4} from 'uuid';
 
 
 //todo remove all logs
@@ -182,8 +182,6 @@ export async function queryAvailableLockers() {
         }
 
 
-
-
         const buildingCounts = {};
 
         // Iterate over each building
@@ -196,8 +194,8 @@ export async function queryAvailableLockers() {
                 // Store the count for the current floor
                 let lockerArr = await Locker.findAll({
                     where: {
-                        "location.Building": { [Op.eq]: building }, // Extract building number
-                        "location.Floor": { [Op.eq]: floor },
+                        "location.Building": {[Op.eq]: building}, // Extract building number
+                        "location.Floor": {[Op.eq]: floor},
                     },
                     include: [{
                         model: User,
@@ -207,6 +205,7 @@ export async function queryAvailableLockers() {
                 let emptyLockerCount = 0;
                 let levels = [];
 
+                //todo fix count not correct
                 for (let locker of lockerArr) {
                     if (!locker.Users || locker.Users.length === 0) {
                         emptyLockerCount++;
@@ -221,7 +220,6 @@ export async function queryAvailableLockers() {
 
                 let array = {
                     "Levels": levels,
-                    "Count": emptyLockerCount,
                 }
 
                 floorCounts[floor] = array;
@@ -243,7 +241,7 @@ export async function queryAvailableLockers() {
         //     }
         // }
 
-        // return availableAreas;
+        return buildingCounts;
     } catch (error) {
         console.log(error);
         throw error;
