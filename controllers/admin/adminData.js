@@ -114,8 +114,6 @@ export async function getLockersDB(page, pageSize) {
 
     // Fetch projects for the specified page
     const data = await Locker.findAll({
-        offset,
-        limit,
         include: [{
             model: User,
         }]
