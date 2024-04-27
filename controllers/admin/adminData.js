@@ -88,15 +88,9 @@ export async function queryStats() {
     }
 }
 
-export async function getUsersDB(page, pageSize) {
-    const offset = (page - 1) * pageSize;
-    const limit = pageSize;
-
+export async function getUsersDB() {
     // Fetch projects for the specified page
-    const data = await User.findAll({
-        offset,
-        limit,
-    });
+    const data = await User.findAll();
 
     return data.map(item => [
         item.name,
@@ -108,9 +102,7 @@ export async function getUsersDB(page, pageSize) {
     ]);
 }
 
-export async function getLockersDB(page, pageSize) {
-    const offset = (page - 1) * pageSize;
-    const limit = pageSize;
+export async function getLockersDB() {
 
     // Fetch projects for the specified page
     const data = await Locker.findAll({
