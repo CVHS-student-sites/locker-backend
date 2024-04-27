@@ -6,6 +6,7 @@ import {Locker} from "../../models/locker.js";
 import {Op} from "sequelize";
 
 
+//todo single lockers breaks this
 export async function registerUserToLocker(data) {
     //studentID, building, floor, level
 
@@ -15,7 +16,7 @@ export async function registerUserToLocker(data) {
 
     //todo some checks that need to be run:
     // - final checks on grade that can register 
-    // - check avalible areas
+    // - check available areas
 
     //todo run a ton of data checks here, this is critical logic that will inevitably break
     // - check if there are allready people in a locker > 2
@@ -36,7 +37,7 @@ export async function registerUserToLocker(data) {
 
     // console.log(lockerArray);
 
-    const filteredLockers = lockerArray.filter(Locker => Locker.Users.length <= 1); //check for standard lockers, todo needs to check less than 0 for single lockers
+    const filteredLockers = lockerArray.filter(Locker => Locker.Users.length === 0); //check for standard lockers, todo needs to check less than 0 for single lockers
 
 
     //todo write some logic to do something if lockerArray is empty (no lockers avalible in the selected area), this should throw an error
@@ -45,7 +46,7 @@ export async function registerUserToLocker(data) {
 
     for (let student of students) {
         let selectedUser = await User.findByPk(student);
-
+        console.log(selectedUser);
         selectedUser.setLocker(selectedLocker)
             .catch((error) => {
                 console.log(error);
