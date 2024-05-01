@@ -32,6 +32,7 @@ export async function registerUserToLocker(data) {
     if(!canRegister) throwApplicationError('Grade Cannot Register');
 
 
+    let areaRestricted = true;
     let areaData = await queryAreaRestriction();
     const areas = {};
     for (const buildingKey in areaData) {
@@ -45,8 +46,13 @@ export async function registerUserToLocker(data) {
         }
         areas[buildingNumber] = floors;
     }
-    console.log(areas);
-
+    if (areas.hasOwnProperty(location.building)) {
+        if (areas[location.building].includes(location.floor)) {
+            areaRestricted = false;
+        }
+    }
+    // check 2 - validate area isn't restricted
+    if(areaRestricted) throwApplicationError('Selected Area is Restricted');
 
     //todo some checks that need to be run:
     // - check available areas
