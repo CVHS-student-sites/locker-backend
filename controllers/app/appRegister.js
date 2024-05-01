@@ -7,6 +7,7 @@ import {Op} from "sequelize";
 import {queryAreaRestriction, queryGradeRestriction} from "../admin/adminData.js";
 import {UserData} from "../../models/userData.js";
 import {throwApplicationError} from "../../middleware/errorHandler.js";
+import {parse} from "csv-parse";
 
 
 export async function registerUserToLocker(data) {
@@ -46,12 +47,10 @@ export async function registerUserToLocker(data) {
         }
         areas[buildingNumber] = floors;
     }
-    console.log(location);
 
-    if (areas.hasOwnProperty(location.building)) {
-        if (areas[location.building].includes(location.floor)) {
+    if (areas.hasOwnProperty(parseInt(location.building))) {
+        if (areas[location.building].includes(parseInt(location.floor))) {
             areaRestricted = false;
-            console.log("fksfdflkjs dlfkjs dflk")
         }
     }
     // check 2 - validate area isn't restricted
