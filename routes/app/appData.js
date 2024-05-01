@@ -54,7 +54,7 @@ appRouter.get('/lookup-locker/:lockerNumber', async (req, res) => {
 });
 
 
-//todo changed this to use new error logic -- use as global example, works great 
+//todo changed this to use new error logic -- use as global example, works great !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
 appRouter.get('/validate-ID/:studentId', async (req, res, next) => {
     const studentId = req.params.studentId;
 
@@ -66,11 +66,11 @@ appRouter.get('/validate-ID/:studentId', async (req, res, next) => {
     }
 });
 
-appRouter.get('/available-lockers/', async (req, res) => {
+appRouter.get('/available-lockers/', async (req, res, next) => {
     try {
         res.json(await queryAvailableLockers());
     } catch (error) {
-        res.status(500).json({error: 'Internal server error'});
+        next(error);
     }
 });
 
