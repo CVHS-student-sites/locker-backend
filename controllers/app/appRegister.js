@@ -13,13 +13,27 @@ import {parse} from "csv-parse";
 export async function registerUserToLocker(data) {
     //studentID, building, floor, level
 
+    // todo check if user already has locker here
     let students = data.students;
     let location = data.location;
 
+    let lockerExists = false;
+    for (let student of students) {
+        const locker = await User.findByPk(student, {
+            include: {
+                model: Locker,
+            },
+        });
+
+        if (locker.Locker !== null) lockerExists = true;
+    }
+
+    // Check 1 - see if locker exists
+    if(lockerExists) throwApplicationError('Locker Exists');
+
+
     let enableGrades = await queryGradeRestriction();
-
     let canRegister = false;
-
     for (let student of students) {
         const studentData = await UserData.findByPk(student);
         const gradeKey = "grade_" + studentData.grade;
@@ -29,7 +43,7 @@ export async function registerUserToLocker(data) {
         }
     }
 
-    // check 1 - validate grade can register
+    // check 2 - validate grade can register
     if(!canRegister) throwApplicationError('Grade Cannot Register');
 
 
@@ -53,7 +67,7 @@ export async function registerUserToLocker(data) {
             areaRestricted = false;
         }
     }
-    // check 2 - validate area isn't restricted
+    // check 3 - validate area isn't restricted
     console.log("test test");
     console.log(areaRestricted);
     if(areaRestricted) throwApplicationError('Selected Area is Restricted');
