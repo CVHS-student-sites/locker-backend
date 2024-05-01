@@ -4,7 +4,7 @@ import {User} from "../../models/user.js";
 import {Locker} from "../../models/locker.js";
 
 import {Op} from "sequelize";
-import {queryGradeRestriction} from "../admin/adminData.js";
+import {queryAreaRestriction, queryGradeRestriction} from "../admin/adminData.js";
 import {UserData} from "../../models/userData.js";
 import {throwApplicationError} from "../../middleware/errorHandler.js";
 
@@ -31,8 +31,24 @@ export async function registerUserToLocker(data) {
     // check 1 - validate grade can register
     if(!canRegister) throwApplicationError('Grade Cannot Register');
 
+
+    let areaData = await queryAreaRestriction();
+    const areas = {};
+    for (const buildingKey in areaData) {
+        const buildingNumber = parseInt(buildingKey.split('_')[1]);
+        const floors = [];
+        for (const floorKey in areaData[buildingKey]) {
+            if (areaData[buildingKey][floorKey] === false) {
+                const floorNumber = parseInt(floorKey.split('_')[1]);
+                floors.push(floorNumber);
+            }
+        }
+        areas[buildingNumber] = floors;
+    }
+    console.log(areas);
+
+
     //todo some checks that need to be run:
-    // - final checks on grade that can register
     // - check available areas
 
     //todo run a ton of data checks here, this is critical logic that will inevitably break
