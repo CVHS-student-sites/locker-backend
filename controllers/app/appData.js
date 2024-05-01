@@ -149,7 +149,7 @@ export async function validateID(studentId) {
             model: Locker,
         },
     });
-    if (locker === null) return;
+    if (locker === null) return {"grade": locker.grade};
 
     if (locker.Locker !== null) throwApplicationError('Locker Exists');
 }
