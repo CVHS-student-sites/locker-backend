@@ -54,6 +54,8 @@ export async function registerUserToLocker(data) {
         }
     }
     // check 2 - validate area isn't restricted
+    console.log("test test");
+    console.log(areaRestricted);
     if(areaRestricted) throwApplicationError('Selected Area is Restricted');
 
     //todo some checks that need to be run:
