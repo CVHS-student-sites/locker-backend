@@ -7,6 +7,8 @@ import {queryAreaRestriction} from "../../controllers/admin/adminData.js";
 
 import {Op, where} from "sequelize";
 
+import {throwApplicationError} from "../../middleware/errorHandler.js";
+
 import {v4 as uuidv4} from 'uuid';
 
 
@@ -148,7 +150,7 @@ export async function getLocker(lockerNumber) {
 //todo testing new error logic, make sure this works before doing anything else - !!!use as example for all routes/controllers
 export async function validateID(studentId) {
     const student = await UserData.findByPk(studentId);
-    if (student === null) throw new Error('Invalid student ID');
+    if (student === null) throwApplicationError('Invalid student ID');
 
     const locker = await User.findByPk(studentId, {
         include: {
@@ -157,7 +159,7 @@ export async function validateID(studentId) {
     });
     if (locker === null) return;
 
-    if (locker.Locker !== null) throw new Error('Locker exists');
+    if (locker.Locker !== null) throwApplicationError('Locker Exists');
 }
 
 
