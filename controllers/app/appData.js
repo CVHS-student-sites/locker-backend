@@ -151,7 +151,11 @@ export async function validateID(studentId) {
     });
     console.log(locker.grade);
 
-    if (locker === null) return {"grade": locker.grade};
+    let data = {
+        "grade": locker.grade
+    }
+
+    if (locker === null) return data;
 
     if (locker.Locker !== null) throwApplicationError('Locker Exists');
 }
