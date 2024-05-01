@@ -59,9 +59,7 @@ appRouter.get('/validate-ID/:studentId', async (req, res, next) => {
     const studentId = req.params.studentId;
 
     try {
-        const result = await validateID(studentId);
-        console.log("Result from validateID:", result); // Add this line for logging
-        res.json(result);
+        res.json(await validateID(studentId));
     } catch (error) {
         next(error);
     }
