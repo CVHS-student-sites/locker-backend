@@ -46,9 +46,12 @@ export async function registerUserToLocker(data) {
         }
         areas[buildingNumber] = floors;
     }
+    console.log(location);
+
     if (areas.hasOwnProperty(location.building)) {
         if (areas[location.building].includes(location.floor)) {
             areaRestricted = false;
+            console.log("fksfdflkjs dlfkjs dflk")
         }
     }
     // check 2 - validate area isn't restricted
