@@ -10,14 +10,20 @@ const sesClient = new SESClient({
 });
 
 export async function sendEmail(email, subject, body) {
+
+    let htmlContent = `
+    <p>Click the link to register your account</p>
+    <h1>${body}</h1>
+    `
+
     const params = {
         Destination: {
             ToAddresses: [email]
         },
         Message: {
             Body: {
-                Text: {
-                    Data: body
+                Html: {
+                    Data: htmlContent
                 }
             },
             Subject: {
