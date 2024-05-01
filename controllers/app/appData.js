@@ -150,7 +150,6 @@ export async function validateID(studentId) {
         },
     });
     console.log(locker.grade);
-    console.log(locker);
 
     if (locker === null) return {"grade": locker.grade};
 
