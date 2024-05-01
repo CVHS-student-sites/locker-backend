@@ -123,7 +123,6 @@ appRouter.get('/check-verification/:studentId', async (req, res) => {
     const studentId = req.params.studentId;
 
     try {
-
         if (await checkVerification(studentId)) {
             res.status(200).json({verified: true});
         } else {
@@ -136,18 +135,13 @@ appRouter.get('/check-verification/:studentId', async (req, res) => {
 });
 
 
-appRouter.post('/register-locker', async (req, res) => {
+appRouter.post('/register-locker', async (req, res, next) => {
     const data = req.body;
 
     try {
-        let status = await registerUserToLocker(data);
-        if (status) {
-            res.status(200).end();
-        } else {
-            res.status(400).end();
-        }
+        await registerUserToLocker(data);
+        res.status(200).end();
     } catch (error) {
-        console.log(error);
-        res.status(500).json({error: 'Internal server error'});
+        next(error);
     }
 });
