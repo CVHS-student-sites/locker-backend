@@ -1,12 +1,12 @@
 // Middleware to get errors from any route and handle the response
 export const errorHandler = (err, req, res, next) => {
-    console.error(err); // TODO remove later - Log the error for debugging purposes
 
+    // Check if error was thrown from throwApplicationError function below
     if (err.isCustomError) {
-        // If it's a custom error, send it with the prefix "Application:"
+        // If it's a custom error, send it with the message given
         res.status(400).json({error: err.message});
     } else {
-        // Log the error for debugging purposes
+        // Log the system error for debugging purposes
         console.error(err);
 
         // For other errors, send a generic error message
