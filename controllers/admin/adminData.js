@@ -33,6 +33,7 @@ export async function queryStats() {
     try {
         let userCount = await User.count();
         let totalUsers = await UserData.count();
+        let lockerNum = await Locker.count();
         let gradeCounts = {};
 
         for (const targetGrade of targetGrades) {
@@ -55,6 +56,7 @@ export async function queryStats() {
                 registeredLockerCount++;
             }
         }
+        let availableLockers = lockerNum - registeredLockerCount;
 
 
         const oneHourAgo = new Date(new Date() - 60 * 60 * 1000);
@@ -79,6 +81,7 @@ export async function queryStats() {
             "regUsers": userCount,
             "regUsersByGrade": gradeCounts,
             "regLockers": registeredLockerCount,
+            "availableLockers": availableLockers,
             "totalUsers": totalUsers,
             "lastHour": lastHour,
             "lastDay": lastDay,
