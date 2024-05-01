@@ -139,6 +139,7 @@ export async function getLocker(lockerNumber) {
     }
 }
 
+// todo this is missing a logic case
 //todo !!! use as example for all routes/controllers !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 export async function validateID(studentId) {
     const student = await UserData.findByPk(studentId);
@@ -149,15 +150,13 @@ export async function validateID(studentId) {
             model: Locker,
         },
     });
-    console.log(locker.grade);
 
-    let data = {
-        "grade": locker.grade
-    }
-
-    if (locker === null) return data;
+    if (locker === null) return {"grade": student.grade};
 
     if (locker.Locker !== null) throwApplicationError('Locker Exists');
+    
+    //catch all case
+    return {"grade": student.grade};
 }
 
 export async function queryAvailableLockers() {
