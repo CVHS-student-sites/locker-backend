@@ -59,11 +59,14 @@ appRouter.get('/validate-ID/:studentId', async (req, res, next) => {
     const studentId = req.params.studentId;
 
     try {
-        res.status(400).json(await validateID(studentId));
+        const result = await validateID(studentId);
+        console.log("Result from validateID:", result); // Add this line for logging
+        res.json(result);
     } catch (error) {
         next(error);
     }
 });
+
 
 appRouter.get('/available-lockers/', async (req, res, next) => {
     try {
