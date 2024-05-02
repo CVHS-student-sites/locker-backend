@@ -129,7 +129,7 @@ adminRouter.post('/edit/user-edit/:studentId', async (req, res, next) => {
     const dataBody = req.body;
     try {
         await updateUserEditData(studentId, dataBody);
-        res.status(200);
+        res.sendStatus(200);
     } catch (error) {
         next(error);
     }
@@ -140,7 +140,7 @@ adminRouter.post('/edit/locker-edit/:lockerNum', async (req, res, next) => {
 
     try {
         await updateLockerEditData(lockerNum, dataBody);
-        res.status(200);
+        res.sendStatus(200);
     } catch (error) {
         next(error);
     }
