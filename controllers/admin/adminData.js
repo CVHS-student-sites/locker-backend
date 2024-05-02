@@ -100,6 +100,7 @@ export async function getUsersDB() {
         item.email,
         item.studentId,
         item.grade,
+        item.permissions,
         item.LockerLockerNumber,
         item.createdAt
     ]);
