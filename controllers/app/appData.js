@@ -2,7 +2,7 @@ import {User} from "../../models/user.js";
 import {Locker} from "../../models/locker.js";
 import {UserData} from "../../models/userData.js";
 import {verificationQueue} from "../../models/verificationQueue.js";
-import {sendEmail} from "../../utils/app/sendEmail.js";
+import {sendEmail} from "../../utils/app/email/sendEmail.js";
 import {queryAreaRestriction} from "../../controllers/admin/adminData.js";
 import {throwApplicationError} from "../../middleware/errorHandler.js";
 
@@ -154,7 +154,7 @@ export async function validateID(studentId) {
     if (locker === null) return {"grade": student.grade};
 
     if (locker.Locker !== null) throwApplicationError('Locker Exists');
-    
+
     //catch all case
     return {"grade": student.grade};
 }
