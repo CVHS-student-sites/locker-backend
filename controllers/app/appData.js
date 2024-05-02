@@ -24,10 +24,10 @@ export async function createLocker(lockerNumber, location) {
 }
 
 //todo fix async
-export async function createUser(studentId, name, grade, email) {
+export async function createUser(studentId, name, grade, permissions, email) {
     try {
         let user = await User.create({
-            studentId: studentId, name: name, grade: grade, email: email,
+            studentId: studentId, name: name, grade: grade, permissions: permissions, email: email,
         });
         return user;
     } catch (err) {
@@ -277,7 +277,7 @@ export async function verifyStudent(token) {
     if (queueUser !== null) {
         let student = await UserData.findByPk(queueUser.studentId);
 
-        await createUser(student.studentId, student.name, student.grade, student.email);
+        await createUser(student.studentId, student.name, student.grade, student.permissions, student.email);
 
         await verificationQueue.destroy({
             where: {
