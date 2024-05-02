@@ -28,14 +28,17 @@ export async function addTestUsers() {
 
 
 export async function setDefaultConfigs() {
+    //todo rename grades to something else later
     const grades = {
         grade_12: false,
         grade_11: false,
         grade_10: false,
         grade_9: false,
+        preReg: false,
+        
     }
     if (await readConfig('enabled_grades') === false) await createConfig('enabled_grades', grades);
-    //todo in order for locker selection to work, this needs to be in the same format as the existing model
+    
     const areas = {
         building_1000: {
             floor_1: false,

@@ -9,7 +9,7 @@ const formatLockerData = (obj) => {
     result.Num = parseInt(obj.Num);
     result.Location = {
         Building: parseInt(obj.Building),
-        Level: obj.Level, //todo idk what type this is supposed to be, decide that fast! seems like should be int 0-3
+        Level: obj.Level,
         Floor: parseInt(obj.Floor),
     };
     return result;
@@ -66,11 +66,12 @@ export async function loadLockers(fileBuffer) {
 }
 
 
-//user upload
+//user upload - document what csv format should be
 const formatUserData = (obj) => {
     const result = {};
     result.studentId = parseInt(obj.studentId);
     result.grade = parseInt(obj.grade);
+    result.permissions = parseInt(obj.permissions);
     result.email = obj.email;
     result.name = obj.name;
     return result;
@@ -109,9 +110,10 @@ export async function loadUsers(fileBuffer) {
                     const final = parsedData.map(formatUserData);
                     console.log(final[5])
 
-                    const batchData = final.map(({studentId, grade, email, name}) => ({
+                    const batchData = final.map(({studentId, grade, permissions, email, name}) => ({
                         studentId: studentId,
                         grade: grade,
+                        permissions: permissions,
                         email: email,
                         name: name
                     }));
