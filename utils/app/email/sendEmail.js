@@ -45,7 +45,7 @@ export async function sendEmail(email, link) {
                     Data: htmlContent
                 }
             }, Subject: {
-                Data: subject
+                Data: 'Locker Verify'
             }
         }, Source: 'CV Locker <locker_verifiy@cvapps.net>'
     };
