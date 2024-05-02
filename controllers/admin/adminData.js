@@ -146,7 +146,7 @@ export async function updateUserEditData(userID, data){
         email: data.email,
         name: data.name
     });
-
+    return;
 }
 
 export async function updateLockerEditData(lockerNum, data){
@@ -155,6 +155,6 @@ export async function updateLockerEditData(lockerNum, data){
     await locker.update({ 
         status: data.status,
     });
-
+    return;
 }
 
