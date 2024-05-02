@@ -249,12 +249,9 @@ export async function sendVerification(studentID, email) {
         }
     });
 
-    console.log(queueUser);
     if (queueUser !== null) return false;
 
-
-    //todo i think this is fxed, kinda confusing
-    console.log(await checkVerification(studentID));
+    //todo return a message if user has existing request in queue
     if (await checkVerification(studentID)) return false;
 
 
