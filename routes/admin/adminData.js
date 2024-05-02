@@ -5,7 +5,9 @@ import {
     queryGradeRestriction,
     queryStats,
     getUsersDB,
-    getLockersDB
+    getLockersDB,
+    getUserEditData,
+    getLockerEditData
 } from "../../controllers/admin/adminData.js";
 
 import {ensureAuthenticated} from "./adminAuth.js";
@@ -95,6 +97,27 @@ adminRouter.get('/data/locker-data', async (req, res) => {
     } catch (error) {
         console.error('Error fetching data:', error);
         res.status(500).json({error: 'Internal server error'});
+    }
+});
+
+
+
+adminRouter.get('/edit/user-edit/:studentId', async (req, res, next) => {
+    const studentId = req.params.studentId;
+    try {
+        let data = await getUserEditData(studentId);
+        res.json(data);
+    } catch (error) {
+        next(error);
+    }
+});
+adminRouter.get('/edit/locker-edit/:lockerNum', async (req, res, next) => {
+    const lockerNum = req.params.lockerNum;
+    try {
+        let data = await getLockerEditData(lockerNum);
+        res.json(data);
+    } catch (error) {
+        next(error);
     }
 });
 

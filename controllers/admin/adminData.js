@@ -125,3 +125,12 @@ export async function getLockersDB() {
         item.Users,
     ]);
 }
+
+
+export async function getUserEditData(userID){
+    return await User.findByPk(userID);
+}
+
+export async function getLockerEditData(lockerNum){
+    return await Locker.findByPk(lockerNum);
+}
