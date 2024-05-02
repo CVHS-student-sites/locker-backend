@@ -97,7 +97,7 @@ export async function getUsersDB() {
 
     return data.map(item => [
         item.name,
-        item.email,
+        // item.email,
         item.studentId,
         item.grade,
         item.permissions,
