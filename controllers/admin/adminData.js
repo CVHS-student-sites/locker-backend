@@ -134,3 +134,27 @@ export async function getUserEditData(userID){
 export async function getLockerEditData(lockerNum){
     return await Locker.findByPk(lockerNum);
 }
+
+
+export async function updateUserEditData(userID, data){
+    const user = await User.findByPk(userID);
+
+    await user.update({ 
+        studentId: data.studentId,
+        grade: data.grade,
+        permissions: data.permissions,
+        email: data.email,
+        name: data.name
+    });
+
+}
+
+export async function updateLockerEditData(lockerNum, data){
+    const locker = await Locker.findByPk(lockerNum);
+
+    await locker.update({ 
+        status: data.status,
+    });
+
+}
+

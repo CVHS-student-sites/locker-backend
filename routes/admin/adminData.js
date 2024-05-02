@@ -7,7 +7,9 @@ import {
     getUsersDB,
     getLockersDB,
     getUserEditData,
-    getLockerEditData
+    getLockerEditData,
+    updateUserEditData,
+    updateLockerEditData
 } from "../../controllers/admin/adminData.js";
 
 import {ensureAuthenticated} from "./adminAuth.js";
@@ -120,6 +122,30 @@ adminRouter.get('/edit/locker-edit/:lockerNum', async (req, res, next) => {
         next(error);
     }
 });
+
+
+adminRouter.post('/edit/user-edit/:studentId', async (req, res, next) => {
+    const studentId = req.params.studentId;
+    const dataBody = req.body;
+    try {
+        await updateUserEditData(studentId, dataBody);
+        res.status(200);
+    } catch (error) {
+        next(error);
+    }
+});
+adminRouter.post('/edit/locker-edit/:lockerNum', async (req, res, next) => {
+    const lockerNum = req.params.lockerNum;
+    const dataBody = req.body;
+
+    try {
+        await updateLockerEditData(lockerNum, dataBody);
+        res.status(200);
+    } catch (error) {
+        next(error);
+    }
+});
+
 
 
 //todo maybe move file upload and handling to adminData.js
