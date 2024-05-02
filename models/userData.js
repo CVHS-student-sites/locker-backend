@@ -6,15 +6,19 @@ const UserData = sequelize.define('UserData', {
     studentId: {
         type: DataTypes.INTEGER,
         primaryKey: true,
-        allowNull: false
     },
     grade: {
         type: DataTypes.INTEGER,
         allowNull: false,
     },
+    permissions: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+    },
     email: {
         type: DataTypes.STRING,
         allowNull: false,
+        unique: true,
     },
     name: {
         type: DataTypes.STRING,

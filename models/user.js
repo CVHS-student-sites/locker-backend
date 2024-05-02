@@ -7,18 +7,22 @@ const User = sequelize.define('User', {
         type: DataTypes.INTEGER,
         primaryKey: true
     },
-    name: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
     grade: {
         type: DataTypes.INTEGER,
         allowNull: false,
+    },
+    permissions: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
     },
     email: {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
+    },
+    name: {
+        type: DataTypes.STRING,
+        allowNull: false,
     },
 });
 
