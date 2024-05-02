@@ -2,10 +2,9 @@ import schedule from "node-schedule";
 import {verificationQueue} from "../../models/verificationQueue.js";
 import {Op} from "sequelize";
 
+//removes expired verification requests from verification queue every 1 minute
 export function scheduleVerificationJob() {
     schedule.scheduleJob('*/1 * * * *', async function () {
-        console.log('The answer to life, the universe, and everything!');
-
         const now = new Date();
 
         await verificationQueue.destroy({
