@@ -6,6 +6,8 @@ import {errorHandler} from "./middleware/errorHandler.js"
 
 import {addTestUsers, setDefaultConfigs} from "./config/setupDB.js";
 
+import {scheduleVerificationJob} from "./services/app/scheduleDB.js";
+
 import express from 'express';
 import passport from 'passport';
 import session from 'express-session';
@@ -65,6 +67,9 @@ app.use(errorHandler);
 await addTestUsers();
 
 await setDefaultConfigs();
+
+//start the verification queue scheduler
+scheduleVerificationJob();
 
 // Start the server
 const port = process.env.PORT || 3000;
