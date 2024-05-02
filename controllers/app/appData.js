@@ -262,7 +262,7 @@ export async function sendVerification(studentID, email) {
         await verificationQueue.create({
             studentId: studentID, email: email, uuid: id, expiration: futureTime
         });
-        await sendEmail(email, 'Locker Verification', `https://locker.cvapps.net/verify?token=${id}`)
+        await sendEmail(email, `https://locker.cvapps.net/verify?token=${id}`)
     } catch (err) {
         console.log(err);
         throw err;

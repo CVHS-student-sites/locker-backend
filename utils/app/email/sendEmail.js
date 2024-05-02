@@ -1,6 +1,6 @@
 import {SendEmailCommand, SESClient} from "@aws-sdk/client-ses";
 import path from 'path';
-import { fileURLToPath } from 'url';
+import {fileURLToPath} from 'url';
 import fs from 'fs';
 import handlebars from 'handlebars';
 
@@ -17,28 +17,24 @@ const sesClient = new SESClient({
 });
 
 
-async function generateEmail() {
-    try{
-        const templatePath = `${__dirname}/verify.html`;
+async function generateEmail(link) {
 
-        const templateSource = fs.readFileSync(templatePath, 'utf8');
+    const templatePath = `${__dirname}/verify.html`;
 
-        const template = handlebars.compile(templateSource);
+    const templateSource = fs.readFileSync(templatePath, 'utf8');
 
-        const data = {
-            name: 'John Doe', verificationCode: '123456'
-        };
+    const template = handlebars.compile(templateSource);
 
-        return template(data);
-    }catch(error){
-        console.log(error);
-    }
+    const data = {
+        link: link
+    };
 
+    return template(data);
 }
 
-export async function sendEmail(email, subject, body) {
+export async function sendEmail(email, link) {
 
-    let htmlContent = await generateEmail();
+    let htmlContent = await generateEmail(link);
 
     const params = {
         Destination: {
