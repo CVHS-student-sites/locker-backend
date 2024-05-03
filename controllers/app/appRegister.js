@@ -41,6 +41,16 @@ export async function registerUserToLocker(data) {
         }
     }
 
+    //for pre register users
+    for (let student of students) {
+        const studentData = await User.findByPk(student);
+        const permissions = studentData.permissions;
+        // Check if the grade exists in the JSON object and if it's enabled
+        if (enableGrades.hasOwnProperty("preReg") && enableGrades["preReg"] && (permissions === 1)) {
+            canRegister = true;
+        }
+    }
+
     // check 2 - validate grade can register
     if(!canRegister) throwApplicationError('Grade Cannot Register');
 
