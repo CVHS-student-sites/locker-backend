@@ -11,7 +11,8 @@ import {
     updateUserEditData,
     updateLockerEditData,
     deleteUser,
-    removeLockerFromUser
+    removeLockerFromUser,
+    manualCreateUser
 } from "../../controllers/admin/adminData.js";
 
 import {ensureAuthenticated} from "./adminAuth.js";
@@ -163,6 +164,17 @@ adminRouter.post('/edit/remove-users-locker/:studentId', async (req, res, next) 
     const studentId = req.params.studentId;
     try {
         await removeLockerFromUser(studentId);
+        res.sendStatus(200);
+    } catch (error) {
+        next(error);
+    }
+});
+
+
+adminRouter.post('/manual/create-user', async (req, res, next) => {
+    const dataBody = req.body;
+    try {
+        await manualCreateUser(dataBody);
         res.sendStatus(200);
     } catch (error) {
         next(error);

@@ -5,8 +5,10 @@ import {User} from "../../models/user.js";
 import {Locker} from "../../models/locker.js";
 import {UserData} from "../../models/userData.js";
 
+import {createUser} from "../app/appData.js";
 import {readConfig} from "../../utils/admin/configManager.js";
 import {throwApplicationError} from "../../middleware/errorHandler.js";
+
 
 
 //todo implement try catch for all routes
@@ -173,4 +175,8 @@ export async function removeLockerFromUser(studentId){
     } else {
         throwApplicationError('User not found')
     }
+}
+
+export async function manualCreateUser(data){
+    await createUser(data.studentId, data.name, data.grade, data.permissions, data.email);
 }
