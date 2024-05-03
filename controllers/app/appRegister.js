@@ -5,9 +5,7 @@ import {Locker} from "../../models/locker.js";
 
 import {Op} from "sequelize";
 import {queryAreaRestriction, queryGradeRestriction} from "../admin/adminData.js";
-import {UserData} from "../../models/userData.js";
 import {throwApplicationError} from "../../middleware/errorHandler.js";
-import {parse} from "csv-parse";
 
 
 export async function registerUserToLocker(data) {
@@ -35,7 +33,7 @@ export async function registerUserToLocker(data) {
     let enableGrades = await queryGradeRestriction();
     let canRegister = false;
     for (let student of students) {
-        const studentData = await UserData.findByPk(student);
+        const studentData = await User.findByPk(student);
         const gradeKey = "grade_" + studentData.grade;
         // Check if the grade exists in the JSON object and if it's enabled
         if (enableGrades.hasOwnProperty(gradeKey) && enableGrades[gradeKey]) {
