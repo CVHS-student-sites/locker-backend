@@ -9,7 +9,9 @@ import {
     getUserEditData,
     getLockerEditData,
     updateUserEditData,
-    updateLockerEditData
+    updateLockerEditData,
+    deleteUser,
+    removeLockerFromUser
 } from "../../controllers/admin/adminData.js";
 
 import {ensureAuthenticated} from "./adminAuth.js";
@@ -146,6 +148,26 @@ adminRouter.post('/edit/locker-edit/:lockerNum', async (req, res, next) => {
     }
 });
 
+
+
+adminRouter.post('/edit/delete-user/:studentId', async (req, res, next) => {
+    const studentId = req.params.studentId;
+    try {
+        await deleteUser(studentId);
+        res.sendStatus(200);
+    } catch (error) {
+        next(error);
+    }
+});
+adminRouter.post('/edit/remove-users-locker/:studentId', async (req, res, next) => {
+    const studentId = req.params.studentId;
+    try {
+        await removeLockerFromUser(studentId);
+        res.sendStatus(200);
+    } catch (error) {
+        next(error);
+    }
+});
 
 
 //todo maybe move file upload and handling to adminData.js

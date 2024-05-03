@@ -6,6 +6,7 @@ import {Locker} from "../../models/locker.js";
 import {UserData} from "../../models/userData.js";
 
 import {readConfig} from "../../utils/admin/configManager.js";
+import {throwApplicationError} from "../../middleware/errorHandler.js";
 
 
 //todo implement try catch for all routes
@@ -156,3 +157,20 @@ export async function updateLockerEditData(lockerNum, data){
     });
 }
 
+export async function deleteUser(studentId){
+    let user = await User.findByPk(studentId)
+    if (user) {
+        await user.destroy();
+    } else {
+        throwApplicationError('User not found')
+    }
+}
+
+export async function removeLockerFromUser(studentId){
+    let user = await User.findByPk(studentId)
+    if (user) {
+        await user.setLocker(null);
+    } else {
+        throwApplicationError('User not found')
+    }
+}
