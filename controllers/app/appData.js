@@ -143,7 +143,7 @@ export async function getLocker(lockerNumber) {
 //todo !!! use as example for all routes/controllers !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 export async function validateID(studentId) {
     const student = await UserData.findByPk(studentId);
-    if (student === null) throwApplicationError('Invalid student ID');
+    if (student === null) throwApplicationError('Invalid Student ID');
 
     const locker = await User.findByPk(studentId, {
         include: {
@@ -151,12 +151,12 @@ export async function validateID(studentId) {
         },
     });
 
-    if (locker === null) return {"grade": student.grade};
+    if (locker === null) return {"grade": student.grade, "permissions": student.permissions};
 
     if (locker.Locker !== null) throwApplicationError('Locker Exists');
 
     //catch all case
-    return {"grade": student.grade};
+    return {"grade": student.grade, "permissions": student.permissions};
 }
 
 export async function queryAvailableLockers() {
