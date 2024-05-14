@@ -11,7 +11,7 @@ import {throwApplicationError} from "../../middleware/errorHandler.js";
 export async function registerUserToLocker(data) {
     //studentID, building, floor, level
 
-    // todo check if user already has locker here
+    // checking if user has locker already
     let students = data.students;
     let location = data.location;
 
@@ -25,11 +25,11 @@ export async function registerUserToLocker(data) {
 
         if (locker.Locker !== null) lockerExists = true;
     }
-
     // Check 1 - see if locker exists
     if(lockerExists) throwApplicationError('Locker Exists');
 
 
+    //check if grade can register
     let enableGrades = await queryGradeRestriction();
     let canRegister = false;
     for (let student of students) {
@@ -40,7 +40,6 @@ export async function registerUserToLocker(data) {
             canRegister = true;
         }
     }
-
     //for pre register users
     for (let student of students) {
         const studentData = await User.findByPk(student);
@@ -50,11 +49,11 @@ export async function registerUserToLocker(data) {
             canRegister = true;
         }
     }
-
     // check 2 - validate grade can register
     if(!canRegister) throwApplicationError('Grade Cannot Register');
 
 
+    //check area restrictions
     let areaRestricted = true;
     let areaData = await queryAreaRestriction();
     const areas = {};
@@ -69,24 +68,21 @@ export async function registerUserToLocker(data) {
         }
         areas[buildingNumber] = floors;
     }
-
     if (areas.hasOwnProperty(parseInt(location.building))) {
         if (areas[location.building].includes(parseInt(location.floor))) {
             areaRestricted = false;
         }
     }
     // check 3 - validate area isn't restricted
-    console.log("test test");
-    console.log(areaRestricted);
     if(areaRestricted) throwApplicationError('Selected Area is Restricted');
 
-    //todo some checks that need to be run:
-    // - check available areas
 
     //todo run a ton of data checks here, this is critical logic that will inevitably break
+
     // - check if there are allready people in a locker > 2
 
 
+    //todo this should only select lockers with a allowed status
     let lockerArray = await Locker.findAll({
         where: {
             "location.Building": {[Op.eq]: location.building},
