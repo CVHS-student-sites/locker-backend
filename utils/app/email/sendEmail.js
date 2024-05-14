@@ -12,7 +12,7 @@ const __dirname = path.dirname(__filename);
 // todo keys must be in env
 const sesClient = new SESClient({
     region: 'us-west-1', credentials: {
-        accessKeyId: 'AKIA36WKJYY3L2AFDBEQ', secretAccessKey: '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'
+        accessKeyId: process.env.ACCESSKEYID, secretAccessKey: process.env.SECRETACCESSKEY
     }
 });
 

@@ -1,5 +1,4 @@
 //all registration logic will go on here
-
 import {User} from "../../models/user.js";
 import {Locker} from "../../models/locker.js";
 

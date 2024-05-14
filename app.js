@@ -37,7 +37,7 @@ app.use(
         store: new SQLiteStore({
             db: './local-db/sessions.db', // Specify the SQLite database file
         }),
-        secret: 'your-secret-key', //TODO store in ENV
+        secret: process.env.SESSIONSECRET, //TODO store in ENV
         resave: false,
         saveUninitialized: false,
         cookie: {

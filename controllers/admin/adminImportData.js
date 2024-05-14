@@ -15,9 +15,10 @@ const formatLockerData = (obj) => {
     return result;
 };
 
+//todo implement a  backup system to generate csv in same format from database
 //todo if making single unified db, check here if lockers allready exist or force override
 
-//todo empty db before upload for import locker and users
+//todo see if we need to empty db before upload for import locker and users
 async function createLockerBatch(data) {
     try {
         return await Locker.bulkCreate(data);
