@@ -81,12 +81,13 @@ export async function registerUserToLocker(data) {
     // - check if there are allready people in a locker > 2
 
 
-    //todo this should only select lockers with a allowed status
+    //todo make sure there are no edge cases with status not 1
     let lockerArray = await Locker.findAll({
         where: {
             "location.Building": {[Op.eq]: location.building},
             "location.Floor": {[Op.eq]: location.floor},
             "location.Level": {[Op.eq]: location.level},
+            "status": {[Op.not]: 1},
         },
         include: [{
             model: User,

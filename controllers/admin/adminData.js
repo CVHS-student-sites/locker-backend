@@ -179,4 +179,6 @@ export async function removeLockerFromUser(studentId){
 
 export async function manualCreateUser(data){
     await createUser(data.studentId, data.name, data.grade, data.permissions, data.email);
+
+    //todo user should also be added to userData
 }
