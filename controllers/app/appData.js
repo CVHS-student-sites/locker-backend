@@ -191,7 +191,10 @@ export async function queryAvailableLockers() {
                 where: {
                     "location.Building": {[Op.eq]: building}, // Extract building number
                     "location.Floor": {[Op.eq]: floor},
-                    "status": {[Op.not]: 1}, //todo make sure this isnt causing other problems
+                    [Op.or]: [
+                        { "status": { [Op.is]: null } },  // Include records where status is null
+                        { "status": { [Op.not]: 1 } }      // Include records where status is not equal to 1
+                    ]
                 }, include: [{
                     model: User,
                 }]

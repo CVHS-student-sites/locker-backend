@@ -87,7 +87,10 @@ export async function registerUserToLocker(data) {
             "location.Building": {[Op.eq]: location.building},
             "location.Floor": {[Op.eq]: location.floor},
             "location.Level": {[Op.eq]: location.level},
-            "status": {[Op.not]: 1},
+            [Op.or]: [
+                { "status": { [Op.is]: null } },  // Include records where status is null
+                { "status": { [Op.not]: 1 } }      // Include records where status is not equal to 1
+            ]
         },
         include: [{
             model: User,
