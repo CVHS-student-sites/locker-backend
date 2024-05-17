@@ -18,11 +18,11 @@ const formatLockerData = (obj) => {
 
 async function createLockerBatch(data) {
     try {
-        await Locker.destroy({
-            truncate: true,
-            cascade: false,
-            restartIdentity: true
-        });
+        // await Locker.destroy({
+        //     truncate: true,
+        //     cascade: false,
+        //     restartIdentity: true
+        // });
         return await Locker.bulkCreate(data);
     } catch (err) {
         console.error(err);
