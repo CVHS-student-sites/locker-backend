@@ -70,7 +70,11 @@ const formatUserData = (obj) => {
     const result = {};
     result.studentId = parseInt(obj.studentId);
     result.grade = parseInt(obj.grade);
-    result.permissions = parseInt(obj.permissions);
+    if(obj.permissions === "pre"){
+        result.permissions = 0;
+    }else{
+        result.permissions = parseInt(obj.permissions);        ;
+    }
     result.email = obj.email;
     result.name = obj.name;
     return result;
