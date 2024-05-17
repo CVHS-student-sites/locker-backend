@@ -55,9 +55,9 @@ async function generateLockerEmail(content) {
 
     const data = {
         number: content.lockerNumber,
-        building: content.location.building,
-        floor: content.location.floor,
-        level: content.location.level
+        building: content.location.Building,
+        floor: content.location.Floor,
+        level: content.location.Level
     };
     return template(data);
 }
