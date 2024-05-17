@@ -121,7 +121,6 @@ export async function registerUserToLocker(data) {
             },
         });
 
-        console.log(user);
         await sendLockerEmail(user.Locker);
     }
 

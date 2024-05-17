@@ -53,10 +53,10 @@ async function generateLockerEmail(content) {
     const templateSource = fs.readFileSync(templatePath, 'utf8');
     const template = handlebars.compile(templateSource);
     const data = {
-        number: content.number,
-        building: content.building,
-        floor: content.floor,
-        level: content.level
+        number: content.lockerNumber,
+        building: content.location.building,
+        floor: content.location.floor,
+        level: content.location.level
     };
     return template(data);
 }
