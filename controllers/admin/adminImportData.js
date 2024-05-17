@@ -73,7 +73,7 @@ const formatUserData = (obj) => {
     if(obj.permissions === "pre"){
         result.permissions = 0;
     }else{
-        result.permissions = parseInt(obj.permissions);        ;
+        result.permissions = null;
     }
     result.email = obj.email;
     result.name = obj.name;
