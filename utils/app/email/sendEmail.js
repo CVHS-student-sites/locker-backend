@@ -52,7 +52,6 @@ async function generateLockerEmail(content) {
     const templatePath = `${__dirname}/locker.html`;
     const templateSource = fs.readFileSync(templatePath, 'utf8');
     const template = handlebars.compile(templateSource);
-    console.log(content);
 
     const data = {
         number: content.lockerNumber,
