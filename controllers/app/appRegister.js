@@ -5,6 +5,7 @@ import {Locker} from "../../models/locker.js";
 import {Op} from "sequelize";
 import {queryAreaRestriction, queryGradeRestriction} from "../admin/adminData.js";
 import {throwApplicationError} from "../../middleware/errorHandler.js";
+import {sendLockerEmail} from "../../utils/app/email/sendEmail.js";
 
 
 export async function registerUserToLocker(data) {
@@ -25,7 +26,7 @@ export async function registerUserToLocker(data) {
         if (locker.Locker !== null) lockerExists = true;
     }
     // Check 1 - see if locker exists
-    if(lockerExists) throwApplicationError('Locker Exists');
+    if (lockerExists) throwApplicationError('Locker Exists');
 
 
     //check if grade can register
@@ -49,7 +50,7 @@ export async function registerUserToLocker(data) {
         }
     }
     // check 2 - validate grade can register
-    if(!canRegister) throwApplicationError('Grade Cannot Register');
+    if (!canRegister) throwApplicationError('Grade Cannot Register');
 
 
     //check area restrictions
@@ -73,7 +74,7 @@ export async function registerUserToLocker(data) {
         }
     }
     // check 3 - validate area isn't restricted
-    if(areaRestricted) throwApplicationError('Selected Area is Restricted');
+    if (areaRestricted) throwApplicationError('Selected Area is Restricted');
 
 
     //todo run a ton of data checks here, this is critical logic that will inevitably break
@@ -88,8 +89,8 @@ export async function registerUserToLocker(data) {
             "location.Floor": {[Op.eq]: location.floor},
             "location.Level": {[Op.eq]: location.level},
             [Op.or]: [
-                { "status": { [Op.is]: null } },  // Include records where status is null
-                { "status": { [Op.not]: 1 } }      // Include records where status is not equal to 1
+                {"status": {[Op.is]: null}},  // Include records where status is null
+                {"status": {[Op.not]: 1}}      // Include records where status is not equal to 1
             ]
         },
         include: [{
@@ -111,4 +112,19 @@ export async function registerUserToLocker(data) {
         console.log(selectedUser);
         selectedUser.setLocker(selectedLocker)
     }
+
+
+    //send locker email to students
+    for (let student of students) {
+        const user = await User.findByPk(student, {
+            include: {
+                model: Locker,
+            },
+        });
+
+        console.log(user.Locker.location);
+        await sendLockerEmail(user.Locker.location);
+    }
+
+
 }

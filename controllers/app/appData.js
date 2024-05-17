@@ -2,7 +2,7 @@ import {User} from "../../models/user.js";
 import {Locker} from "../../models/locker.js";
 import {UserData} from "../../models/userData.js";
 import {verificationQueue} from "../../models/verificationQueue.js";
-import {sendEmail} from "../../utils/app/email/sendEmail.js";
+import {sendVerificationEmail} from "../../utils/app/email/sendEmail.js";
 import {queryAreaRestriction} from "../../controllers/admin/adminData.js";
 import {throwApplicationError} from "../../middleware/errorHandler.js";
 
@@ -192,8 +192,8 @@ export async function queryAvailableLockers() {
                     "location.Building": {[Op.eq]: building}, // Extract building number
                     "location.Floor": {[Op.eq]: floor},
                     [Op.or]: [
-                        { "status": { [Op.is]: null } },  // Include records where status is null
-                        { "status": { [Op.not]: 1 } }      // Include records where status is not equal to 1
+                        {"status": {[Op.is]: null}},  // Include records where status is null
+                        {"status": {[Op.not]: 1}}      // Include records where status is not equal to 1
                     ]
                 }, include: [{
                     model: User,
@@ -263,7 +263,7 @@ export async function sendVerification(studentID, email) {
         await verificationQueue.create({
             studentId: studentID, email: email, uuid: id, expiration: futureTime
         });
-        await sendEmail(email, `https://locker.cvapps.net/verify?token=${id}`)
+        await sendVerificationEmail(email, `https://locker.cvapps.net/verify?token=${id}`)
     } catch (err) {
         console.log(err);
         throw err;
