@@ -109,8 +109,7 @@ export async function registerUserToLocker(data) {
 
     for (let student of students) {
         let selectedUser = await User.findByPk(student);
-        console.log(selectedUser);
-        selectedUser.setLocker(selectedLocker)
+        await selectedUser.setLocker(selectedLocker);
     }
 
 
@@ -122,7 +121,7 @@ export async function registerUserToLocker(data) {
             },
         });
 
-        console.log(user.Locker);
+        console.log(user);
         await sendLockerEmail(user.Locker);
     }
 
