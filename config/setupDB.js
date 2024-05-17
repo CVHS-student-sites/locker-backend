@@ -7,19 +7,7 @@ import {createConfig, readConfig} from "../utils/admin/configManager.js";
 
 export async function addTestUsers() {
     try {
-        await createAdminUser('birdpump', 'test')
-        await createAdminUser('cvhs', "falcons2020")
-
-        // await createUser(415633, 'marc test', 9, 'ashl3452@stu.gusd.net')
-        //
-        // await createUser(415631, 'marc hyeler', 10, 'mhye5631@stu.gusd.net')
-        //
-        // await createUser(589589, 'test user', 12, 'falcon589@stu.gusd.net')
-        // await createLocker('2024', {"building": 2000, "level": 0, "floor": 2})
-
-        // await joinUsertoLocker(415633, '1029');
-
-        // await joinUsertoLocker(415631, '1029');
+        await createAdminUser(process.env.UIADMINUSER, process.env.UIADMINPASSWORD)
     } catch (err) {
         console.log("sync-err")
     }
@@ -35,10 +23,10 @@ export async function setDefaultConfigs() {
         grade_10: false,
         grade_9: false,
         preReg: false,
-        
+
     }
     if (await readConfig('enabled_grades') === false) await createConfig('enabled_grades', grades);
-    
+
     const areas = {
         building_1000: {
             floor_1: false,

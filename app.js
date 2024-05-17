@@ -35,9 +35,9 @@ app.use(express.urlencoded({extended: true}));
 app.use(
     session({
         store: new SQLiteStore({
-            db: './local-db/sessions.db', // Specify the SQLite database file
+            db: './local-db/sessions.db',
         }),
-        secret: process.env.SESSIONSECRET, //TODO store in ENV
+        secret: process.env.SESSIONSECRET,
         resave: false,
         saveUninitialized: false,
         cookie: {
@@ -47,7 +47,7 @@ app.use(
     })
 );
 
-//passport initalization
+//passport initialization
 app.use(passport.initialize());
 app.use(passport.session());
 
