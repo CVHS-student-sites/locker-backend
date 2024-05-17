@@ -4,7 +4,6 @@ import {Config} from "../../models/config.js";
 export async function createConfig(key, value) {
     try {
         const config = await Config.create({key, value});
-        console.log('Config created:', config.toJSON());
     } catch (error) {
         console.error('Error creating config:', error);
     }
