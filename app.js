@@ -4,7 +4,7 @@ import {adminRouter} from './routes/admin/adminData.js';
 
 import {errorHandler} from "./middleware/errorHandler.js"
 
-import {addTestUsers, setDefaultConfigs} from "./config/setupDB.js";
+import {addRootUsers, setDefaultConfigs} from "./config/setupDB.js";
 
 import {scheduleVerificationJob} from "./services/app/scheduleDB.js";
 
@@ -22,13 +22,13 @@ const app = express();
 const corsOptions = {
     origin: ["https://locker-api.cvapps.net", "https://locker.cvapps.net"],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    credentials: true, // Allow credentials (cookies)
+    credentials: true,
 };
 
 // cors setup
 app.use(cors(corsOptions));
 
-// Express middleware setup
+// express middleware setup
 app.use(express.urlencoded({extended: true}));
 
 // Configure session with connect-sqlite3
@@ -47,32 +47,32 @@ app.use(
     })
 );
 
-//passport initialization
+// passport initialization
 app.use(passport.initialize());
 app.use(passport.session());
 
-//setup express json middleware
+// setup express json middleware
 app.use(express.json());
 
-//define routes
+// define routes
 app.use('/auth/', authRouter);
 app.use('/public/', appRouter);
 app.use('/admin/', adminRouter);
 
-//global error handling middleware - must be at bottom of express stack
+// global error handling middleware - must be at bottom of express stack
 app.use(errorHandler);
 
 
-//create root user
-await addTestUsers();
+// create root user
+await addRootUsers();
 
+// setup json configs in db
 await setDefaultConfigs();
 
 //start the verification queue scheduler
 scheduleVerificationJob();
 
 // Start the server
-const port = process.env.PORT || 3000;
-app.listen(port, () => {
+app.listen(3000, () => {
     console.log(`Locker backend started`);
 });

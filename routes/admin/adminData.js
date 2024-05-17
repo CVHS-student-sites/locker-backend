@@ -68,10 +68,9 @@ adminRouter.get('/management/area-restrictions', async (req, res) => {
 });
 
 
-//todo getStatistics
 //total users, total lockers, last hour,
 
-//todo use this as example for other functions
+//todo add error handling middleware here
 adminRouter.get('/management/get-statistics', async (req, res) => {
     try {
         const data = await queryStats();
