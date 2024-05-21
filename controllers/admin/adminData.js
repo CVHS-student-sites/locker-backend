@@ -4,6 +4,7 @@ import {Op} from "sequelize";
 import {User} from "../../models/user.js";
 import {Locker} from "../../models/locker.js";
 import {UserData} from "../../models/userData.js";
+import {verificationQueue} from "../../models/verificationQueue.js";
 
 import {createUser} from "../app/appData.js";
 import {readConfig} from "../../utils/admin/configManager.js";
@@ -35,6 +36,7 @@ export async function queryStats() {
     let userCount = await User.count();
     let totalUsers = await UserData.count();
     let lockerNum = await Locker.count();
+    let verificationQueues = await verificationQueue.count();
     let gradeCounts = {};
 
     for (const targetGrade of targetGrades) {
@@ -79,6 +81,7 @@ export async function queryStats() {
 
     return {
         "regUsers": userCount,
+        "verificationQueues": verificationQueues,
         "regUsersByGrade": gradeCounts,
         "regLockers": registeredLockerCount,
         "availableLockers": availableLockers,
