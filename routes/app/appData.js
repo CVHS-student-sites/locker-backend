@@ -108,11 +108,12 @@ appRouter.post('/send-verify-student/:studentId', async (req, res) => {
 });
 
 //upgraded
-appRouter.get('/verify-student/:token', async (req, res, next) => {
+appRouter.get('/verify-student/:token/:studentId', async (req, res, next) => {
     const token = req.params.token;
+    const id = req.params.studentId;
 
     try {
-        await verifyStudent(token);
+        await verifyStudent(token, id);
         res.status(200).end();
     } catch (error) {
         next(error);

@@ -267,8 +267,11 @@ export async function sendVerification(studentID, email) {
     return true;
 }
 
-export async function verifyStudent(token) {
-    //todo might be good to run verify student before
+export async function verifyStudent(token, id) {
+
+    if(await checkVerification(id)){
+        return;
+    }
 
     let queueUser = await verificationQueue.findByPk(token);
 
@@ -284,7 +287,7 @@ export async function verifyStudent(token) {
         })
 
     } else {
-        throwApplicationError('Token not Found');
+        throwApplicationError('Verification Link Expired');
     }
 }
 
