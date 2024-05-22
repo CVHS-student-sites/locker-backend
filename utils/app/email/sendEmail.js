@@ -39,7 +39,7 @@ export async function sendVerificationEmail(email, link) {
             }, Subject: {
                 Data: 'Locker Verify'
             }
-        }, Source: 'CV Locker <locker@cvapps.net>'
+        }, Source: 'CV Locker <locker_verify@cvapps.net>'
     };
     try {
         await sesClient.send(new SendEmailCommand(params));
@@ -75,7 +75,7 @@ export async function sendLockerEmail(email, data) {
             }, Subject: {
                 Data: 'Selected Locker Location'
             }
-        }, Source: 'CV Locker <locker@cvapps.net>'
+        }, Source: 'CV Locker <locker_verify@cvapps.net>'
     };
     try {
         await sesClient.send(new SendEmailCommand(params));
