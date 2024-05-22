@@ -4,6 +4,7 @@ import {Op} from "sequelize";
 import {User} from "../../models/user.js";
 import {Locker} from "../../models/locker.js";
 import {UserData} from "../../models/userData.js";
+import {verificationQueue} from "../../models/verificationQueue.js";
 
 import {createUser} from "../app/appData.js";
 import {readConfig} from "../../utils/admin/configManager.js";
@@ -11,7 +12,7 @@ import {throwApplicationError} from "../../middleware/errorHandler.js";
 
 
 
-//todo implement try catch for all routes
+//todo fix try catch here
 export async function queryGradeRestriction() {
     try {
         return await readConfig('enabled_grades');
@@ -31,76 +32,70 @@ export async function queryAreaRestriction() {
 
 export async function queryStats() {
     let targetGrades = [9, 10, 11, 12];
-    //todo there needs to be a list of buildings that can be added to the model. this can steal from enabled areas
 
-    try {
-        let userCount = await User.count();
-        let totalUsers = await UserData.count();
-        let lockerNum = await Locker.count();
-        let gradeCounts = {};
+    let userCount = await User.count();
+    let totalUsers = await UserData.count();
+    let lockerNum = await Locker.count();
+    let verificationQueues = await verificationQueue.count();
+    let gradeCounts = {};
 
-        for (const targetGrade of targetGrades) {
-            gradeCounts[targetGrade] = await User.count({
-                where: {
-                    grade: targetGrade,
-                },
-            });
-        }
-
-        let lockers = await Locker.findAll({
-            include: [{
-                model: User,
-            }]
-        });
-
-        let registeredLockerCount = 0;
-        for (let locker of lockers) {
-            if (locker.Users && locker.Users.length > 0) {
-                registeredLockerCount++;
-            }
-        }
-        let availableLockers = lockerNum - registeredLockerCount;
-
-
-        const oneHourAgo = new Date(new Date() - 60 * 60 * 1000);
-        let lastHour = await Locker.count({
+    for (const targetGrade of targetGrades) {
+        gradeCounts[targetGrade] = await User.count({
             where: {
-                createdAt: {
-                    [Op.gt]: oneHourAgo
-                }
-            }
+                grade: targetGrade,
+            },
         });
-
-        const oneDayAgo = new Date(new Date() - 24 * 60 * 60 * 1000);
-        let lastDay = await Locker.count({
-            where: {
-                createdAt: {
-                    [Op.gt]: oneDayAgo
-                }
-            }
-        });
-
-        return {
-            "regUsers": userCount,
-            "regUsersByGrade": gradeCounts,
-            "regLockers": registeredLockerCount,
-            "availableLockers": availableLockers,
-            "totalUsers": totalUsers,
-            "lastHour": lastHour,
-            "lastDay": lastDay,
-        };
-    } catch (err) {
-        throw err; // Throw the error to be handled by the caller
     }
+
+    let lockers = await Locker.findAll({
+        include: [{
+            model: User,
+        }]
+    });
+
+    let registeredLockerCount = 0;
+    for (let locker of lockers) {
+        if (locker.Users && locker.Users.length > 0) {
+            registeredLockerCount++;
+        }
+    }
+    let availableLockers = lockerNum - registeredLockerCount;
+
+    const oneHourAgo = new Date(new Date() - 60 * 60 * 1000);
+    let lastHour = await Locker.count({
+        where: {
+            createdAt: {
+                [Op.gt]: oneHourAgo
+            }
+        }
+    });
+
+    const oneDayAgo = new Date(new Date() - 24 * 60 * 60 * 1000);
+    let lastDay = await Locker.count({
+        where: {
+            createdAt: {
+                [Op.gt]: oneDayAgo
+            }
+        }
+    });
+
+    return {
+        "regUsers": userCount,
+        "verificationQueues": verificationQueues,
+        "regUsersByGrade": gradeCounts,
+        "regLockers": registeredLockerCount,
+        "availableLockers": availableLockers,
+        "totalUsers": totalUsers,
+        "lastHour": lastHour,
+        "lastDay": lastDay,
+    };
 }
 
 export async function getUsersDB() {
-    // Fetch projects for the specified page
     const data = await User.findAll();
 
     return data.map(item => [
         item.name,
-        // item.email,
         item.studentId,
         item.grade,
         item.permissions,
@@ -110,15 +105,12 @@ export async function getUsersDB() {
 }
 
 export async function getLockersDB() {
-
-    // Fetch projects for the specified page
     const data = await Locker.findAll({
         include: [{
             model: User,
         }]
     });
 
-    // console.log(data[0]);
     return data.map(item => [
         item.lockerNumber,
         item.location.Floor,
@@ -129,7 +121,6 @@ export async function getLockersDB() {
     ]);
 }
 
-
 export async function getUserEditData(userID){
     return await User.findByPk(userID);
 }
@@ -137,7 +128,6 @@ export async function getUserEditData(userID){
 export async function getLockerEditData(lockerNum){
     return await Locker.findByPk(lockerNum);
 }
-
 
 export async function updateUserEditData(userID, data){
     const user = await User.findByPk(userID);
@@ -160,20 +150,20 @@ export async function updateLockerEditData(lockerNum, data){
 }
 
 export async function deleteUser(studentId){
-    let user = await User.findByPk(studentId)
+    let user = await User.findByPk(studentId);
     if (user) {
         await user.destroy();
     } else {
-        throwApplicationError('User not found')
+        throwApplicationError('User not found');
     }
 }
 
 export async function removeLockerFromUser(studentId){
-    let user = await User.findByPk(studentId)
+    let user = await User.findByPk(studentId);
     if (user) {
         await user.setLocker(null);
     } else {
-        throwApplicationError('User not found')
+        throwApplicationError('User not found');
     }
 }
 

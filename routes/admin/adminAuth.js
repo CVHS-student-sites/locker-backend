@@ -42,7 +42,6 @@ export function ensureAuthenticated(req, res, next) {
 
     if (apiKey) {
         // Validate the API key (replace 'your_secret_api_key' with your actual API key)
-        //todo change to env
         if (apiKey === process.env.APIKEY) {
             return next(); // API key is valid, proceed to the next middleware or route
         }

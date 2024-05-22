@@ -10,8 +10,6 @@ import {Op} from "sequelize";
 import {v4 as uuidv4} from 'uuid';
 
 
-//todo remove all logs
-//todo fix async
 export async function createLocker(lockerNumber, location) {
     try {
         let locker = await Locker.create({
@@ -23,7 +21,6 @@ export async function createLocker(lockerNumber, location) {
     }
 }
 
-//todo fix async
 export async function createUser(studentId, name, grade, permissions, email) {
     try {
         let user = await User.create({
@@ -35,7 +32,7 @@ export async function createUser(studentId, name, grade, permissions, email) {
     }
 }
 
-//todo fix spagetti code, dont need 3 catches
+//todo delete this entire function
 export function joinUsertoLocker(studentId, lockerNumber) {
     return User.findByPk(studentId)
         .then((user) => {
@@ -74,7 +71,7 @@ export function joinUsertoLocker(studentId, lockerNumber) {
         });
 }
 
-//todo add grade in function if required later
+//todo delete if unused
 export async function createUserjoinLocker(studentId, name, email, lockerNumber) {
     try {
         const newUser = await User.create({
@@ -130,7 +127,7 @@ export async function getLocker(lockerNumber) {
         if (locker) {
             return locker.toJSON();
         } else {
-            console.log("Locker not found.");
+            console.log("Locker not found."); //todo throw application error here
             return false;
         }
     } catch (error) {
@@ -139,7 +136,6 @@ export async function getLocker(lockerNumber) {
     }
 }
 
-// todo this is missing a logic case
 //todo !!! use as example for all routes/controllers !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 export async function validateID(studentId) {
     const student = await UserData.findByPk(studentId);
@@ -238,7 +234,7 @@ export async function queryAvailableLockers() {
 
 }
 
-//todo standardize return types
+//todo add application errors
 export async function sendVerification(studentID, email) {
     let id = uuidv4();
     //todo check if student is already verified
@@ -263,7 +259,7 @@ export async function sendVerification(studentID, email) {
         await verificationQueue.create({
             studentId: studentID, email: email, uuid: id, expiration: futureTime
         });
-        await sendVerificationEmail(email, `https://locker.cvapps.net/verify?token=${id}`)
+        await sendVerificationEmail(email, `https://locker.cvapps.net/verify?token=${id}&studentId=${studentID}`);
     } catch (err) {
         console.log(err);
         throw err;
@@ -271,10 +267,11 @@ export async function sendVerification(studentID, email) {
     return true;
 }
 
-//upgraded
-//todo needs a service that empties expired rows in queue every minute
-export async function verifyStudent(token) {
-    //todo might be good to run verify student before
+export async function verifyStudent(token, id) {
+
+    if(await checkVerification(id)){
+        return;
+    }
 
     let queueUser = await verificationQueue.findByPk(token);
 
@@ -290,7 +287,7 @@ export async function verifyStudent(token) {
         })
 
     } else {
-        throwApplicationError('Token not Found')
+        throwApplicationError('Verification Link Expired');
     }
 }
 

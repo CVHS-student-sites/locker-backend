@@ -1,4 +1,3 @@
-//all registration logic will go on here
 import {User} from "../../models/user.js";
 import {Locker} from "../../models/locker.js";
 
@@ -29,7 +28,7 @@ export async function registerUserToLocker(data) {
     if (lockerExists) throwApplicationError('Locker Exists');
 
 
-    //check if grade can register
+    // check if grade can register
     let enableGrades = await queryGradeRestriction();
     let canRegister = false;
     for (let student of students) {
@@ -89,8 +88,8 @@ export async function registerUserToLocker(data) {
             "location.Floor": {[Op.eq]: location.floor},
             "location.Level": {[Op.eq]: location.level},
             [Op.or]: [
-                {"status": {[Op.is]: null}},  // Include records where status is null
-                {"status": {[Op.not]: 1}}      // Include records where status is not equal to 1
+                {"status": {[Op.is]: null}},
+                {"status": {[Op.not]: 1}}
             ]
         },
         include: [{
@@ -123,6 +122,5 @@ export async function registerUserToLocker(data) {
 
         await sendLockerEmail(user.email, user.Locker);
     }
-
 
 }

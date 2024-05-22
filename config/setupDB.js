@@ -2,10 +2,9 @@ import {createAdminUser} from "../controllers/admin/adminUser.js";
 import {createLocker, createUser, joinUsertoLocker} from "../controllers/app/appData.js";
 import {createConfig, readConfig} from "../utils/admin/configManager.js";
 
-//TODO will set root user from environment variables
-//todo check if db is null only run if null
 
-export async function addTestUsers() {
+//todo check if db is null only run if null
+export async function addRootUsers() {
     try {
         await createAdminUser(process.env.UIADMINUSER, process.env.UIADMINPASSWORD)
     } catch (err) {
