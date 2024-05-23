@@ -210,7 +210,7 @@ export async function verifyStudent(token, id) {
             where: {
                 uuid: token
             }
-        })
+        });
 
     } else {
         throwApplicationError('Verification Link Expired');

@@ -1,4 +1,4 @@
-import {getAdminUser, getAdminUserfromId, validateAdminUser} from '../../controllers/admin/adminUser.js'
+import {getAdminUser, getAdminUserfromId, validateAdminUser} from '../../controllers/admin/adminUser.js';
 
 import express from 'express';
 import passport from 'passport';
@@ -10,12 +10,12 @@ export const authRouter = express.Router();
 // Passport configuration
 passport.use(
     new LocalStrategy(async (username, password, cb) => {
-        const response = await validateAdminUser(username, password)
+        const response = await validateAdminUser(username, password);
 
         if (!response) {
             return cb(null, false, {message: 'Incorrect username or password'});
         }
-        let user = await getAdminUser(username)
+        let user = await getAdminUser(username);
         return cb(null, user);
     })
 );
@@ -25,7 +25,7 @@ passport.serializeUser((user, cb) => {
 });
 
 passport.deserializeUser(async (id, cb) => {
-    const user = await getAdminUserfromId(id)
+    const user = await getAdminUserfromId(id);
     cb(null, user);
 });
 

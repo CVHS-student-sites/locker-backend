@@ -7,7 +7,7 @@ import {
     validateID,
     verifyStudent
 } from "../../controllers/app/appData.js";
-import {registerUserToLocker} from "../../controllers/app/appRegister.js"
+import {registerUserToLocker} from "../../controllers/app/appRegister.js";
 
 import {queryAreaRestriction, queryGradeRestriction} from "../../controllers/admin/adminData.js";
 

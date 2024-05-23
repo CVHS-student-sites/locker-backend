@@ -1,8 +1,8 @@
-import {authRouter} from './routes/admin/adminAuth.js'
+import {authRouter} from './routes/admin/adminAuth.js';
 import {appRouter} from './routes/app/appData.js';
 import {adminRouter} from './routes/admin/adminData.js';
 
-import {errorHandler} from "./middleware/errorHandler.js"
+import {errorHandler} from "./middleware/errorHandler.js";
 
 import {addRootUsers, setDefaultConfigs} from "./config/setupDB.js";
 
