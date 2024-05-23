@@ -113,14 +113,16 @@ export async function registerUserToLocker(data) {
 
 
     //send locker email to students
-    for (let student of students) {
-        const user = await User.findByPk(student, {
-            include: {
-                model: Locker,
-            },
-        });
+    //todo this is disabled for now, lets put this as an admin config toggle from dashboard
 
-        await sendLockerEmail(user.email, user.Locker);
-    }
+    // for (let student of students) {
+    //     const user = await User.findByPk(student, {
+    //         include: {
+    //             model: Locker,
+    //         },
+    //     });
+    //
+    //     await sendLockerEmail(user.email, user.Locker);
+    // }
 
 }

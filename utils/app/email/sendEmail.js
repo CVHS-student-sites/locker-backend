@@ -27,7 +27,9 @@ async function generateVerificationEmail(link) {
 }
 
 export async function sendVerificationEmail(email, link) {
+    console.log(`Generating Email: ${email}`);
     let htmlContent = await generateVerificationEmail(link);
+    console.log(`Email Generated: ${email}`);
     const params = {
         Destination: {
             ToAddresses: [email]
@@ -43,6 +45,7 @@ export async function sendVerificationEmail(email, link) {
     };
     try {
         await sesClient.send(new SendEmailCommand(params));
+        console.log(`Email Sent: ${email}`);
     } catch (err) {
         throw err;
     }
