@@ -3,7 +3,7 @@ import {Config} from "../../models/config.js";
 // Function to create a new configuration
 export async function createConfig(key, value) {
     try {
-        const config = await Config.create({key, value});
+        await Config.create({key, value});
     } catch (error) {
         console.error('Error creating config:', error);
     }

@@ -1,5 +1,5 @@
 import {sequelize} from "../config/sequelize.js";
-import {Sequelize, DataTypes} from "sequelize";
+import {DataTypes} from "sequelize";
 import {User} from './user.js';
 
 const Locker = sequelize.define('Locker', {

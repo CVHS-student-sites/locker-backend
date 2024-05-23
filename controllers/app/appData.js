@@ -3,94 +3,20 @@ import {Locker} from "../../models/locker.js";
 import {UserData} from "../../models/userData.js";
 import {verificationQueue} from "../../models/verificationQueue.js";
 import {sendVerificationEmail} from "../../utils/app/email/sendEmail.js";
-import {queryAreaRestriction} from "../../controllers/admin/adminData.js";
+import {queryAreaRestriction} from "../admin/adminData.js";
 import {throwApplicationError} from "../../middleware/errorHandler.js";
 
 import {Op} from "sequelize";
 import {v4 as uuidv4} from 'uuid';
 
 
-export async function createLocker(lockerNumber, location) {
-    try {
-        let locker = await Locker.create({
-            lockerNumber: lockerNumber, location: location,
-        });
-        return locker;
-    } catch (err) {
-        throw err;
-    }
-}
-
 export async function createUser(studentId, name, grade, permissions, email) {
     try {
-        let user = await User.create({
+        return await User.create({
             studentId: studentId, name: name, grade: grade, permissions: permissions, email: email,
         });
-        return user;
     } catch (err) {
         throw err;
-    }
-}
-
-//todo delete this entire function
-export function joinUsertoLocker(studentId, lockerNumber) {
-    return User.findByPk(studentId)
-        .then((user) => {
-            if (!user) {
-                console.log("User not found.");
-                return false;
-            }
-
-            // Find the locker by ID
-            return Locker.findByPk(lockerNumber)
-                .then((locker) => {
-                    if (!locker) {
-                        console.log("Locker not found.");
-                        return false;
-                    }
-
-                    // Associate the user with the locker
-                    return user.setLocker(locker)
-                        .then(() => {
-                            console.log("User has been associated with the locker.");
-                            return true;
-                        })
-                        .catch((error) => {
-                            console.error("Error associating user with locker:", error);
-                            return false;
-                        });
-                })
-                .catch((error) => {
-                    console.error("Error finding locker:", error);
-                    return false;
-                });
-        })
-        .catch((error) => {
-            console.error("Error finding user:", error);
-            return false;
-        });
-}
-
-//todo delete if unused
-export async function createUserjoinLocker(studentId, name, email, lockerNumber) {
-    try {
-        const newUser = await User.create({
-            studentId: studentId, name: name, email: email,
-        });
-
-        const existingLocker = await Locker.findByPk(lockerNumber);
-
-        if (!existingLocker) {
-            throw new Error("Locker not found.");
-        }
-
-        await newUser.setLocker(existingLocker);
-        console.log("User has been created and added to the existing locker.");
-
-        return newUser;
-    } catch (error) {
-        console.error("Error:", error);
-        throw error;
     }
 }
 

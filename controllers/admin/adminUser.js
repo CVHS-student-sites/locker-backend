@@ -18,8 +18,7 @@ export async function validateAdminUser(username, plainpassword) {
     try {
         const user = await Admin.findOne({where: {username}});
         if (user) {
-            const result = await bcrypt.compare(plainpassword, user.password);
-            return result;
+            return await bcrypt.compare(plainpassword, user.password);
         } else {
             return false;
         }

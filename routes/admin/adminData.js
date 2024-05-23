@@ -217,7 +217,7 @@ adminRouter.post('/lockerUpload', lockerUpload.single('csvFile'), async (req, re
 
 const userStorage = multer.memoryStorage(); // Store the file in memory
 const userUpload = multer({storage: userStorage});
-adminRouter.post('/userUpload', lockerUpload.single('csvFile'), async (req, res) => {
+adminRouter.post('/userUpload', userUpload.single('csvFile'), async (req, res) => {
 
     // Access the uploaded file buffer
     const fileBuffer = req.file.buffer.toString('utf8');

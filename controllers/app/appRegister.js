@@ -4,7 +4,6 @@ import {Locker} from "../../models/locker.js";
 import {Op} from "sequelize";
 import {queryAreaRestriction, queryGradeRestriction} from "../admin/adminData.js";
 import {throwApplicationError} from "../../middleware/errorHandler.js";
-import {sendLockerEmail} from "../../utils/app/email/sendEmail.js";
 
 
 export async function registerUserToLocker(data) {

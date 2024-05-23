@@ -1,5 +1,4 @@
 import {createAdminUser} from "../controllers/admin/adminUser.js";
-import {createLocker, createUser, joinUsertoLocker} from "../controllers/app/appData.js";
 import {createConfig, readConfig} from "../utils/admin/configManager.js";
 
 
