@@ -172,6 +172,7 @@ export async function manualCreateUser(data) {
     //todo user should also be added to userData
 }
 
+//todo this doesnt work, gives an error
 export async function clearLockerDB(data) {
     if(data.areYouSure){
         await Locker.destroy({

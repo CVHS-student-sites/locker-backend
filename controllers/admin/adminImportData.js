@@ -18,6 +18,7 @@ const formatLockerData = (obj) => {
 
 async function createLockerBatch(data) {
     try {
+        //todo this doesnt work, gives an error
         await Locker.destroy({
             truncate: true,
             cascade: true,
