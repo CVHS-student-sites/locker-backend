@@ -56,7 +56,7 @@ export function ensureAuthenticated(req, res, next) {
 
 
 authRouter.post('/login', express.json(), (req, res, next) => {
-    passport.authenticate('local', (err, user) => {
+    passport.authenticate('local', (err, user, info) => {
         if (err) {
             return next(err); // Handle unexpected errors
         }

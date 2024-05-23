@@ -1,5 +1,5 @@
 // Middleware to get errors from any route and handle the response
-export const errorHandler = (err, req, res) => {
+export const errorHandler = (err, req, res, next) => {
 
     // Check if error was thrown from throwApplicationError function below
     if (err.isCustomError) {
