@@ -44,7 +44,7 @@ export async function sendVerificationEmail(email, link) {
     };
     try {
         let result = await sesClient.send(new SendEmailCommand(params));
-        await console.log(`Email Sent: ${email} - Code: ${result.httpStatusCode}`);
+        console.log(`Email Sent: ${email} - Code: ${result}`);
     } catch (err) {
         throw err;
     }
