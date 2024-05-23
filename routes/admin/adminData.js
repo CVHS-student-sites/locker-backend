@@ -12,7 +12,8 @@ import {
     updateLockerEditData,
     deleteUser,
     removeLockerFromUser,
-    manualCreateUser
+    manualCreateUser,
+    clearUserDB
 } from "../../controllers/admin/adminData.js";
 
 import {ensureAuthenticated} from "./adminAuth.js";
@@ -179,6 +180,17 @@ adminRouter.post('/manual/create-user', async (req, res, next) => {
         next(error);
     }
 });
+
+
+adminRouter.post('/db-action/clear-users', async (req, res, next) => {
+    try {
+        await clearUserDB();
+        res.sendStatus(200);
+    } catch (error) {
+        next(error);
+    }
+});
+
 
 
 //todo maybe move file upload and handling to adminData.js

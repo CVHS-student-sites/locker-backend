@@ -11,7 +11,6 @@ import {readConfig} from "../../utils/admin/configManager.js";
 import {throwApplicationError} from "../../middleware/errorHandler.js";
 
 
-
 //todo fix try catch here
 export async function queryGradeRestriction() {
     try {
@@ -121,18 +120,18 @@ export async function getLockersDB() {
     ]);
 }
 
-export async function getUserEditData(userID){
+export async function getUserEditData(userID) {
     return await User.findByPk(userID);
 }
 
-export async function getLockerEditData(lockerNum){
+export async function getLockerEditData(lockerNum) {
     return await Locker.findByPk(lockerNum);
 }
 
-export async function updateUserEditData(userID, data){
+export async function updateUserEditData(userID, data) {
     const user = await User.findByPk(userID);
 
-    await user.update({ 
+    await user.update({
         studentId: data.studentId,
         grade: data.grade,
         permissions: data.permissions,
@@ -141,15 +140,15 @@ export async function updateUserEditData(userID, data){
     });
 }
 
-export async function updateLockerEditData(lockerNum, data){
+export async function updateLockerEditData(lockerNum, data) {
     const locker = await Locker.findByPk(lockerNum);
 
-    await locker.update({ 
+    await locker.update({
         status: data.status,
     });
 }
 
-export async function deleteUser(studentId){
+export async function deleteUser(studentId) {
     let user = await User.findByPk(studentId);
     if (user) {
         await user.destroy();
@@ -158,7 +157,7 @@ export async function deleteUser(studentId){
     }
 }
 
-export async function removeLockerFromUser(studentId){
+export async function removeLockerFromUser(studentId) {
     let user = await User.findByPk(studentId);
     if (user) {
         await user.setLocker(null);
@@ -167,8 +166,16 @@ export async function removeLockerFromUser(studentId){
     }
 }
 
-export async function manualCreateUser(data){
+export async function manualCreateUser(data) {
     await createUser(data.studentId, data.name, data.grade, data.permissions, data.email);
 
     //todo user should also be added to userData
+}
+
+export async function clearUserDB() {
+    await User.destroy({
+        truncate: true,
+        cascade: true,
+        restartIdentity: true
+    });
 }
