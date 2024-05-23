@@ -13,7 +13,7 @@ import {
     deleteUser,
     removeLockerFromUser,
     manualCreateUser,
-    clearUserDB
+    clearUserDB, clearLockerDB
 } from "../../controllers/admin/adminData.js";
 
 import {ensureAuthenticated} from "./adminAuth.js";
@@ -182,9 +182,20 @@ adminRouter.post('/manual/create-user', async (req, res, next) => {
 });
 
 
-adminRouter.post('/db-action/clear-users', async (req, res, next) => {
+adminRouter.post('/db-action/clear-lockers', async (req, res, next) => {
+    const dataBody = req.body;
     try {
-        await clearUserDB();
+        await clearLockerDB(dataBody);
+        res.sendStatus(200);
+    } catch (error) {
+        next(error);
+    }
+});
+
+adminRouter.post('/db-action/clear-users', async (req, res, next) => {
+    const dataBody = req.body;
+    try {
+        await clearUserDB(dataBody);
         res.sendStatus(200);
     } catch (error) {
         next(error);

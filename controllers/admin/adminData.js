@@ -172,10 +172,22 @@ export async function manualCreateUser(data) {
     //todo user should also be added to userData
 }
 
-export async function clearUserDB() {
-    await User.destroy({
-        truncate: true,
-        cascade: true,
-        restartIdentity: true
-    });
+export async function clearLockerDB(data) {
+    if(data.areYouSure){
+        await Locker.destroy({
+            truncate: true,
+            cascade: true,
+            restartIdentity: true
+        });
+    }
+}
+
+export async function clearUserDB(data) {
+    if(data.areYouSure){
+        await User.destroy({
+            truncate: true,
+            cascade: true,
+            restartIdentity: true
+        });
+    }
 }
