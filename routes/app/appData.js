@@ -10,6 +10,7 @@ import {
 import {registerUserToLocker} from "../../controllers/app/appRegister.js";
 
 import {queryAreaRestriction, queryGradeRestriction} from "../../controllers/admin/adminData.js";
+import {validateToken} from "../../utils/app/turnstyle/validateToken.js";
 
 import express from 'express';
 import {UserData} from "../../models/userData.js";
@@ -91,16 +92,22 @@ appRouter.get('/available-areas/', async (req, res) => {
     }
 });
 
-appRouter.post('/send-verify-student/:studentId', async (req, res) => {
+appRouter.post('/send-verify-student/:studentId/:token', async (req, res) => {
     const studentId = req.params.studentId;
+    const token = req.params.token;
     let user = await UserData.findByPk(studentId);
 
     try {
-        let status = await sendVerification(studentId, user.email);
-        if (status) {
-            res.status(200).end();
+        let response = await validateToken(token);
+        if (response.success) {
+            let status = await sendVerification(studentId, user.email);
+            if (status) {
+                res.status(200).end();
+            } else {
+                res.status(400).end();
+            }
         } else {
-            res.status(400).end();
+            res.status(500).json({error: 'Captcha failed'});
         }
     } catch (error) {
         res.status(500).json({error: 'Internal server error'});
