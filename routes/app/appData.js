@@ -99,6 +99,7 @@ appRouter.post('/send-verify-student/:studentId/:token', async (req, res) => {
 
     try {
         let response = await validateToken(token);
+        console.log(response);
         if (response.success) {
             let status = await sendVerification(studentId, user.email);
             if (status) {
@@ -107,7 +108,7 @@ appRouter.post('/send-verify-student/:studentId/:token', async (req, res) => {
                 res.status(400).end();
             }
         } else {
-            res.status(500).json({error: 'Captcha failed'});
+            res.status(400).json({error: 'Captcha failed'});
         }
     } catch (error) {
         res.status(500).json({error: 'Internal server error'});
