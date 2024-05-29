@@ -199,6 +199,10 @@ export async function verifyStudent(token, id) {
         return;
     }
 
+    if(token == null){
+        throwApplicationError('Link Incomplete');
+    }
+
     let queueUser = await verificationQueue.findByPk(token);
 
     if (queueUser !== null) {
