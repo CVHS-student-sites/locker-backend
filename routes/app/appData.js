@@ -99,6 +99,7 @@ appRouter.post('/send-verify-student/:token', async (req, res, next) => {
   
     try {
         await sendVerifyStudents(data, token); 
+        res.status(200).end();
     } catch (error) {
         next(error);
     }
