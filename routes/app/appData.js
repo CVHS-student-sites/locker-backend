@@ -11,7 +11,6 @@ import {
 import {registerUserToLocker} from "../../controllers/app/appRegister.js";
 
 import {queryAreaRestriction, queryGradeRestriction} from "../../controllers/admin/adminData.js";
-import {validateToken} from "../../utils/app/turnstyle/validateToken.js";
 
 import express from 'express';
 import {UserData} from "../../models/userData.js";

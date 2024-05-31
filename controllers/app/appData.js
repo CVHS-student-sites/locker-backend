@@ -6,6 +6,8 @@ import {sendVerificationEmail} from "../../utils/app/email/sendEmail.js";
 import {queryAreaRestriction} from "../admin/adminData.js";
 import {throwApplicationError} from "../../middleware/errorHandler.js";
 
+import {validateToken} from "../../utils/app/turnstyle/validateToken.js";
+
 import {Op} from "sequelize";
 import {v4 as uuidv4} from 'uuid';
 
