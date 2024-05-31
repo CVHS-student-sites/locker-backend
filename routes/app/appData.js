@@ -5,7 +5,8 @@ import {
     queryAvailableLockers,
     sendVerification,
     validateID,
-    verifyStudent
+    verifyStudent,
+    sendVerifyStudents
 } from "../../controllers/app/appData.js";
 import {registerUserToLocker} from "../../controllers/app/appRegister.js";
 
@@ -93,26 +94,14 @@ appRouter.get('/available-areas/', async (req, res) => {
 });
 
 //todo modify this to take in json body and verify both on one turnstyle token
-appRouter.post('/send-verify-student/:studentId/:token', async (req, res) => {
-    const studentId = req.params.studentId;
+appRouter.post('/send-verify-student/:studentId/:token', async (req, res, next) => {
+    const data = req.body;
     const token = req.params.token;
-    let user = await UserData.findByPk(studentId);
-
+  
     try {
-        let response = await validateToken(token);
-        console.log(response);
-        if (response.success) {
-            let status = await sendVerification(studentId, user.email);
-            if (status) {
-                res.status(200).end();
-            } else {
-                res.status(400).end();
-            }
-        } else {
-            res.status(400).json({error: 'Captcha failed'});
-        }
+        await sendVerifyStudents(data, token); 
     } catch (error) {
-        res.status(500).json({error: 'Internal server error'});
+        next(error);
     }
 });
 

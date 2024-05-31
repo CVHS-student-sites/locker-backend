@@ -193,6 +193,25 @@ export async function sendVerification(studentID, email) {
     return true;
 }
 
+//this controller gets called from the route, will call send virefy and verify token
+export async function sendVerifyStudents(data, token){
+
+
+    let response = await validateToken(token);
+    if (response.success){
+
+        if(data.length > 2) throwApplicationError('cannot verify more than two students');
+
+        for(const student of data){
+            const user = await UserData.findByPk(student);
+            await sendVerification(student, user.email); // todo removed return case here, make sure that is not needed
+        } 
+    } else {
+        throwApplicationError('Captcha status invalid');
+    }
+}
+
+
 export async function verifyStudent(token, id) {
 
     if(await checkVerification(id)){
