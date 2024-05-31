@@ -92,6 +92,7 @@ appRouter.get('/available-areas/', async (req, res) => {
     }
 });
 
+//todo modify this to take in json body and verify both on one turnstyle token
 appRouter.post('/send-verify-student/:studentId/:token', async (req, res) => {
     const studentId = req.params.studentId;
     const token = req.params.token;
