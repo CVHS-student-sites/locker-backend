@@ -83,7 +83,7 @@ appRouter.get('/available-grades/', async (req, res) => {
     }
 });
 
-//todo this route is not really needed (doubble check), avalibility logic will be in avalible lockers controller
+//todo this route is not really needed (double check), availability logic will be in available lockers controller
 appRouter.get('/available-areas/', async (req, res) => {
     try {
         res.json(await queryAreaRestriction());

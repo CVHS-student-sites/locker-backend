@@ -127,7 +127,7 @@ export async function queryAvailableLockers() {
             let emptyLockerCount = 0;
             let levels = [];
 
-            //todo fix count not correct
+            //todo fix count not correct not sure if count is even needed, just make sure return array is not null
             for (let locker of lockerArr) {
                 if (!locker.Users || locker.Users.length === 0) {
                     emptyLockerCount++;
