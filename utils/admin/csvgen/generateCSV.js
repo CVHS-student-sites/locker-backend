@@ -26,7 +26,7 @@ export async function generateLockerCSV() {
 
 
         const csvWriter = createObjectCsvWriter({
-            path: 'test.csv',
+            path: '/data-temp/test.csv',
             header: [
                 {id: 'Num', title: 'Num'},
                 {id: 'Building', title: 'Building'},
