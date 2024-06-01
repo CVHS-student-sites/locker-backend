@@ -7,7 +7,7 @@ import {UserData} from "../../models/userData.js";
 import {verificationQueue} from "../../models/verificationQueue.js";
 
 import {createUser} from "../app/appData.js";
-import {readConfig} from "../../utils/admin/configManager.js";
+import {readConfig} from "../../utils/admin/config/configManager.js";
 import {throwApplicationError} from "../../middleware/errorHandler.js";
 
 
@@ -174,7 +174,7 @@ export async function manualCreateUser(data) {
 
 //todo this doesnt work, gives an error
 export async function clearLockerDB(data) {
-    if(data.areYouSure){
+    if (data.areYouSure) {
         await Locker.destroy({
             truncate: true,
             cascade: true,
@@ -184,7 +184,7 @@ export async function clearLockerDB(data) {
 }
 
 export async function clearUserDB(data) {
-    if(data.areYouSure){
+    if (data.areYouSure) {
         await User.destroy({
             truncate: true,
             cascade: true,

@@ -1,5 +1,5 @@
 import {createAdminUser} from "../controllers/admin/adminUser.js";
-import {createConfig, readConfig} from "../utils/admin/configManager.js";
+import {createConfig, readConfig} from "../utils/admin/config/configManager.js";
 
 
 //todo check if db is null only run if null

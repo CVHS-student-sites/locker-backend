@@ -1,4 +1,4 @@
-import {Config} from "../../models/config.js";
+import {Config} from "../../../models/config.js";
 
 // Function to create a new configuration
 export async function createConfig(key, value) {
