@@ -1,21 +1,14 @@
 import {Locker} from "../../../models/locker.js";
+import {User} from "../../../models/user.js";
+import {UserData} from "../../../models/userData.js";
+
 import {createObjectCsvWriter} from "csv-writer";
 
-import path from 'path';
-import {fileURLToPath} from 'url';
 
-const __filename = fileURLToPath(import.meta.url);
-
-const __dirname = path.dirname(__filename);
-
-
-//function that will generate a csv from database matching import format for the locker locator
+//generate a csv from database matching import format for the locker locator
 export async function generateLockerCSV() {
 
-    console.log(__dirname);
-
     Locker.findAll().then(lockers => {
-
         const filteredData = lockers.map(locker => ({
             Num: locker.lockerNumber,
             Building: locker.location.Building,
@@ -24,9 +17,8 @@ export async function generateLockerCSV() {
             Status: locker.status
         }));
 
-
         const csvWriter = createObjectCsvWriter({
-            path: './data-temp/test.csv',
+            path: './data-temp/locker.csv',
             header: [
                 {id: 'Num', title: 'Num'},
                 {id: 'Building', title: 'Building'},
@@ -36,13 +28,34 @@ export async function generateLockerCSV() {
             ],
         });
 
+        csvWriter.writeRecords(filteredData);
+    });
+}
 
-        csvWriter.writeRecords(filteredData).then(() => {
-            console.log('CSV file successfully written.');
-        }).catch(err => {
-            console.error('Error writing CSV file:', err);
+//todo im not sure how useful is is to export userData, better to export Users in the format of UserData, to be able to import as as student locator
+//generate a csv from database matching import format for the student locator
+export async function generateStudentLocatorCSV() {
+
+    User.findAll().then(users => {
+        const filteredData = users.map(user => ({
+            studentId: user.studentId,
+            name: user.name,
+            grade: user.grade,
+            email: user.email,
+            permissions: user.permissions
+        }));
+
+        const csvWriter = createObjectCsvWriter({
+            path: './data-temp/userData.csv',
+            header: [
+                {id: 'studentId', title: 'studentId'},
+                {id: 'name', title: 'name'},
+                {id: 'grade', title: 'grade'},
+                {id: 'email', title: 'email'},
+                {id: 'permissions', title: 'permissions'},
+            ],
         });
 
-
+        csvWriter.writeRecords(filteredData);
     });
 }
