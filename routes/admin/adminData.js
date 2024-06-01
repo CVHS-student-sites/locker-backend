@@ -21,6 +21,7 @@ import {ensureAuthenticated} from "./adminAuth.js";
 
 import express from 'express';
 import multer from "multer";
+import {generateLockerCSV} from "../../utils/admin/csvgen/generateCSV.js";
 
 export const adminRouter = express.Router();
 
@@ -106,7 +107,6 @@ adminRouter.get('/data/locker-data', async (req, res) => {
 });
 
 
-
 adminRouter.get('/edit/user-edit/:studentId', async (req, res, next) => {
     const studentId = req.params.studentId;
     try {
@@ -148,7 +148,6 @@ adminRouter.post('/edit/locker-edit/:lockerNum', async (req, res, next) => {
         next(error);
     }
 });
-
 
 
 adminRouter.post('/edit/delete-user/:studentId', async (req, res, next) => {
@@ -202,6 +201,15 @@ adminRouter.post('/db-action/clear-users', async (req, res, next) => {
     }
 });
 
+
+adminRouter.get('/csv-action/gen-locker-csv', async (req, res, next) => {
+    try {
+        await generateLockerCSV();
+        res.sendStatus(200);
+    } catch (error) {
+        next(error);
+    }
+});
 
 
 //todo maybe move file upload and handling to adminData.js

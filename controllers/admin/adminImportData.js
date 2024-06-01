@@ -5,6 +5,7 @@ import {Readable} from "stream";
 import {parse} from 'csv-parse';
 
 
+//todo we want to add a status filed to the locker locator, implement that here
 const formatLockerData = (obj) => {
     const result = {};
     result.Num = parseInt(obj.Num);
@@ -72,9 +73,9 @@ const formatUserData = (obj) => {
     const result = {};
     result.studentId = parseInt(obj.studentId);
     result.grade = parseInt(obj.grade);
-    if(obj.permissions === "pre"){
+    if (obj.permissions === "pre") {
         result.permissions = 1;
-    }else{
+    } else {
         result.permissions = null;
     }
     result.email = obj.email;
