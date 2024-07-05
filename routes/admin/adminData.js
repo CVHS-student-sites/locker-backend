@@ -220,8 +220,11 @@ adminRouter.get('/csv-action/gen-locker-csv', async (req, res, next) => {
 adminRouter.get('/csv-action/gen-user-csv', async (req, res, next) => {
     try {
         await generateUserCSV();
-        console.log("generated csv")
+        console.log("Generated CSV");
+
         const filePath = path.join(process.cwd(), 'data-temp/user.csv');
+        console.log("File path:", filePath);
+
         res.download(filePath, 'users.csv', (err) => {
             if (err) {
                 console.error('Error sending file:', err);
@@ -229,11 +232,10 @@ adminRouter.get('/csv-action/gen-user-csv', async (req, res, next) => {
             }
         });
     } catch (error) {
-        console.log(error);
+        console.error('Error generating CSV:', error);
         next(error);
     }
 });
-
 
 //todo maybe move file upload and handling to adminData.js
 const lockerStorage = multer.memoryStorage(); // Store the file in memory
