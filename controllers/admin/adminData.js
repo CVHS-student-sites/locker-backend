@@ -146,6 +146,19 @@ export async function updateUserEditData(userID, data) {
         email: data.email,
         name: data.name
     });
+
+    if (data.LockerLockerNumber !== null && data.LockerLockerNumber !== undefined) {
+        const locker = await Locker.findOne({where: {lockerNumber: data.LockerLockerNumber}});
+        if (locker) {
+            await user.setLocker(locker); // Set the association to the new locker
+        } else {
+            throw new Error(`Locker with number ${data.LockerLockerNumber} not found`);
+        }
+    } else {
+        // Remove association with locker
+        await user.setLocker(null);
+    }
+
 }
 
 export async function updateLockerEditData(lockerNum, data) {
