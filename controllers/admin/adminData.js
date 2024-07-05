@@ -122,7 +122,9 @@ export async function getLockersDB() {
 }
 
 export async function getUserEditData(userID) {
-    return await User.findByPk(userID);
+    return await User.findByPk(userID, {
+        include: Locker
+    });
 }
 
 export async function getLockerEditData(lockerNum) {
