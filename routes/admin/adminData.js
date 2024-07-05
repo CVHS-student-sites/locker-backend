@@ -220,6 +220,7 @@ adminRouter.get('/csv-action/gen-locker-csv', async (req, res, next) => {
 adminRouter.get('/csv-action/gen-user-csv', async (req, res, next) => {
     try {
         await generateUserCSV();
+        console.log("generated csv")
         const filePath = path.join(process.cwd(), 'data-temp/user.csv');
         res.download(filePath, 'users.csv', (err) => {
             if (err) {
@@ -228,6 +229,7 @@ adminRouter.get('/csv-action/gen-user-csv', async (req, res, next) => {
             }
         });
     } catch (error) {
+        console.log(error);
         next(error);
     }
 });
