@@ -1,6 +1,7 @@
 import {loadLockers, loadUsers} from "../../controllers/admin/adminImportData.js";
 import {setAreaRestriction, setGradeRestriction} from "../../controllers/admin/adminAction.js";
 import {
+    checkLocker,
     clearLockerDB,
     clearUserDB,
     deleteUser,
@@ -126,6 +127,15 @@ adminRouter.get('/edit/locker-edit/:lockerNum', async (req, res, next) => {
     const lockerNum = req.params.lockerNum;
     try {
         let data = await getLockerEditData(lockerNum);
+        res.json(data);
+    } catch (error) {
+        next(error);
+    }
+});
+adminRouter.get('/edit/check-locker/:lockerNum', async (req, res, next) => {
+    const lockerNum = req.params.lockerNum;
+    try {
+        let data = await checkLocker(lockerNum);
         res.json(data);
     } catch (error) {
         next(error);

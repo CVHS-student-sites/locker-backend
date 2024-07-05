@@ -129,6 +129,11 @@ export async function getLockerEditData(lockerNum) {
     return await Locker.findByPk(lockerNum);
 }
 
+export async function checkLocker(lockerNum) {
+    const locker = await Locker.findByPk(lockerNum);
+    return {"exists": locker !== null};
+}
+
 export async function updateUserEditData(userID, data) {
     const user = await User.findByPk(userID);
 
