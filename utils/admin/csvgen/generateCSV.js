@@ -45,7 +45,7 @@ export async function generateUserCSV() {
         }));
 
         const csvWriter = createObjectCsvWriter({
-            path: './data-temp/userData.csv',
+            path: './data-temp/user.csv',
             header: [
                 {id: 'studentId', title: 'studentId'},
                 {id: 'name', title: 'name'},

@@ -220,10 +220,8 @@ adminRouter.get('/csv-action/gen-locker-csv', async (req, res, next) => {
 adminRouter.get('/csv-action/gen-user-csv', async (req, res, next) => {
     try {
         await generateUserCSV();
-
-        console.log(process.cwd());
-        const filePath = path.join(__dirname, './');
-        res.download(filePath, 'filename.csv', (err) => {
+        const filePath = path.join(process.cwd(), 'data-temp/user.csv');
+        res.download(filePath, 'users.csv', (err) => {
             if (err) {
                 console.error('Error sending file:', err);
                 res.status(500).send('Error downloading file');
