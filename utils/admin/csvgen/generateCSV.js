@@ -35,7 +35,7 @@ export async function generateLockerCSV() {
 //generate a csv from database matching import format for the student locator
 export async function generateUserCSV() {
 
-    User.findAll().then(users => {
+    User.findAll().then(async users => {
         const filteredData = users.map(user => ({
             studentId: user.studentId,
             name: user.name,
@@ -55,6 +55,6 @@ export async function generateUserCSV() {
             ],
         });
 
-        csvWriter.writeRecords(filteredData);
+        await csvWriter.writeRecords(filteredData);
     });
 }
