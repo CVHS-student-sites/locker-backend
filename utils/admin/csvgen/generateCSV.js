@@ -1,6 +1,5 @@
 import {Locker} from "../../../models/locker.js";
 import {User} from "../../../models/user.js";
-import {UserData} from "../../../models/userData.js";
 
 import {createObjectCsvWriter} from "csv-writer";
 
@@ -34,7 +33,7 @@ export async function generateLockerCSV() {
 
 //todo im not sure how useful is is to export userData, better to export Users in the format of UserData, to be able to import as as student locator
 //generate a csv from database matching import format for the student locator
-export async function generateStudentLocatorCSV() {
+export async function generateUserCSV() {
 
     User.findAll().then(users => {
         const filteredData = users.map(user => ({

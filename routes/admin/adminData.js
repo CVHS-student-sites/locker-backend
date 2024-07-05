@@ -1,27 +1,33 @@
 import {loadLockers, loadUsers} from "../../controllers/admin/adminImportData.js";
 import {setAreaRestriction, setGradeRestriction} from "../../controllers/admin/adminAction.js";
 import {
+    clearLockerDB,
+    clearUserDB,
+    deleteUser,
+    getLockerEditData,
+    getLockersDB,
+    getUserEditData,
+    getUsersDB,
+    manualCreateUser,
     queryAreaRestriction,
     queryGradeRestriction,
     queryStats,
-    getUsersDB,
-    getLockersDB,
-    getUserEditData,
-    getLockerEditData,
-    updateUserEditData,
-    updateLockerEditData,
-    deleteUser,
     removeLockerFromUser,
-    manualCreateUser,
-    clearUserDB, clearLockerDB
+    updateLockerEditData,
+    updateUserEditData
 } from "../../controllers/admin/adminData.js";
 
 import {ensureAuthenticated} from "./adminAuth.js";
 
-
+import path from 'path';
+import {fileURLToPath} from 'url';
 import express from 'express';
 import multer from "multer";
-import {generateLockerCSV} from "../../utils/admin/csvgen/generateCSV.js";
+import {generateLockerCSV, generateUserCSV} from "../../utils/admin/csvgen/generateCSV.js";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 
 export const adminRouter = express.Router();
 
@@ -211,24 +217,33 @@ adminRouter.get('/csv-action/gen-locker-csv', async (req, res, next) => {
     }
 });
 
+adminRouter.get('/csv-action/gen-user-csv', async (req, res, next) => {
+    try {
+        await generateUserCSV();
+
+        console.log(__dirname);
+        const filePath = path.join(__dirname, './');
+        res.download(filePath, 'filename.csv', (err) => {
+            if (err) {
+                console.error('Error sending file:', err);
+                res.status(500).send('Error downloading file');
+            }
+        });
+    } catch (error) {
+        next(error);
+    }
+});
+
 
 //todo maybe move file upload and handling to adminData.js
 const lockerStorage = multer.memoryStorage(); // Store the file in memory
 const lockerUpload = multer({storage: lockerStorage});
 adminRouter.post('/lockerUpload', lockerUpload.single('csvFile'), async (req, res) => {
-
-    // Access the uploaded file buffer
     const fileBuffer = req.file.buffer.toString('utf8');
-
     try {
-        // Use await to wait for the loadUsers function to complete
         await loadLockers(fileBuffer);
-
-        // Send a success response if the loadUsers function completes without errors
         res.status(200).json({status: 'upload successful'});
     } catch (error) {
-        // Handle errors and send an error response
-        console.error(error);
         res.status(500).json({error: 'error uploading csv'});
     }
 });
@@ -237,19 +252,11 @@ adminRouter.post('/lockerUpload', lockerUpload.single('csvFile'), async (req, re
 const userStorage = multer.memoryStorage(); // Store the file in memory
 const userUpload = multer({storage: userStorage});
 adminRouter.post('/userUpload', userUpload.single('csvFile'), async (req, res) => {
-
-    // Access the uploaded file buffer
     const fileBuffer = req.file.buffer.toString('utf8');
-
     try {
-        // Use await to wait for the loadUsers function to complete
         await loadUsers(fileBuffer);
-
-        // Send a success response if the loadUsers function completes without errors
         res.status(200).json({status: 'upload successful'});
     } catch (error) {
-        // Handle errors and send an error response
-        console.error(error);
         res.status(500).json({error: 'error uploading csv'});
     }
 });

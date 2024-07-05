@@ -9,6 +9,7 @@ import {verificationQueue} from "../../models/verificationQueue.js";
 import {createUser} from "../app/appData.js";
 import {readConfig} from "../../utils/admin/config/configManager.js";
 import {throwApplicationError} from "../../middleware/errorHandler.js";
+import {generateLockerCSV, generateUserCSV} from "../../utils/admin/csvgen/generateCSV.js";
 
 
 //todo fix try catch here
@@ -191,4 +192,13 @@ export async function clearUserDB(data) {
             restartIdentity: true
         });
     }
+}
+
+export async function sendUsersCSV() {
+    await generateUserCSV()
+}
+
+export async function sendLockerCSV() {
+    await generateLockerCSV()
+
 }
