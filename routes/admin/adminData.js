@@ -221,7 +221,7 @@ adminRouter.get('/csv-action/gen-user-csv', async (req, res, next) => {
     try {
         await generateUserCSV();
 
-        console.log(__dirname);
+        console.log(process.cwd());
         const filePath = path.join(__dirname, './');
         res.download(filePath, 'filename.csv', (err) => {
             if (err) {
