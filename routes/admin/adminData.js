@@ -227,6 +227,7 @@ adminRouter.get('/csv-action/gen-locker-csv', async (req, res, next) => {
     }
 });
 
+//todo might just be better to serve the entire csv dir as a static with cred verification instead of sending file
 adminRouter.get('/csv-action/gen-user-csv', async (req, res, next) => {
     try {
         await generateUserCSV();

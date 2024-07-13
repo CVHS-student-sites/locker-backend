@@ -31,6 +31,8 @@ export async function generateLockerCSV() {
     });
 }
 
+//todo this should also have users lockers in the same sheet
+
 //todo im not sure how useful is is to export userData, better to export Users in the format of UserData, to be able to import as as student locator
 //generate a csv from database matching import format for the student locator
 export async function generateUserCSV() {
