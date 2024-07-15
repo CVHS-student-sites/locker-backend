@@ -62,7 +62,7 @@ authRouter.post('/login', express.json(), (req, res, next) => {
         }
         if (!user) {
             // Authentication failed, send a 401 Unauthorized status
-            return res.status(401).json({authenticated: false, message: 'Authentication failed'});
+            return res.status(401).json({authenticated: false, message: 'Incorrect Credentials'});
         }
 
         req.login(user, (loginErr) => {
