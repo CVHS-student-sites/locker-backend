@@ -6,7 +6,7 @@ import {Locker} from "../../models/locker.js";
 import {UserData} from "../../models/userData.js";
 import {verificationQueue} from "../../models/verificationQueue.js";
 
-import {createUser} from "../app/appData.js";
+import {createDataUser, createUser} from "../app/appData.js";
 import {readConfig} from "../../utils/admin/config/configManager.js";
 import {throwApplicationError} from "../../middleware/errorHandler.js";
 import {generateLockerCSV, generateUserCSV} from "../../utils/admin/csvgen/generateCSV.js";
@@ -190,6 +190,7 @@ export async function removeLockerFromUser(studentId) {
 export async function manualCreateUser(data) {
     try {
         await createUser(data.studentId, data.name, data.grade, data.permissions, data.email);
+        await createDataUser(data.studentId, data.name, data.grade, data.permissions, data.email);
     } catch (error) {
         if (error.name === "SequelizeUniqueConstraintError") {
             throwApplicationError('Student Email or ID exists');

@@ -22,6 +22,16 @@ export async function createUser(studentId, name, grade, permissions, email) {
     }
 }
 
+export async function createDataUser(studentId, name, grade, permissions, email) {
+    try {
+        return await UserData.create({
+            studentId: studentId, name: name, grade: grade, permissions: permissions, email: email,
+        });
+    } catch (err) {
+        throw err;
+    }
+}
+
 //todo standardize return types for all functions
 export async function getUser(studentId) {
     try {
