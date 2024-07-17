@@ -34,6 +34,8 @@ export const adminRouter = express.Router();
 
 adminRouter.use(ensureAuthenticated);
 
+adminRouter.use('/data', express.static(path.join(__dirname, 'data-temp')));
+
 
 adminRouter.post('/management/grade-restrictions', async (req, res) => {
     const data = req.body;
