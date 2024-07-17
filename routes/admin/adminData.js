@@ -236,15 +236,13 @@ adminRouter.get('/csv-action/gen-user-csv', async (req, res, next) => {
         const filePath = path.join(process.cwd(), 'data-temp/user.csv');
         console.log("File path:", filePath);
 
-        res.attachment("user.csv");
-        res.sendFile(filePath);
 
-        // res.download(filePath, 'users.csv', (err) => {
-        //     if (err) {
-        //         console.error('Error sending file:', err);
-        //         res.status(500).send('Error downloading file');
-        //     }
-        // });
+        res.download(filePath, 'users.csv', (err) => {
+            if (err) {
+                console.error('Error sending file:', err);
+                res.status(500).send('Error downloading file');
+            }
+        });
     } catch (error) {
         console.error('Error generating CSV:', error);
         next(error);
