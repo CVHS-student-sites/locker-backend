@@ -221,10 +221,10 @@ export async function clearUserDB(data) {
 }
 
 export async function sendUsersCSV() {
-    await generateUserCSV()
+    await generateUserCSV();
 }
 
 export async function sendLockerCSV() {
-    await generateLockerCSV()
+    await generateLockerCSV();
 
 }
