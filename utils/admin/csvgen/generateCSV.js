@@ -36,27 +36,31 @@ export async function generateLockerCSV() {
 //todo im not sure how useful is is to export userData, better to export Users in the format of UserData, to be able to import as as student locator
 //generate a csv from database matching import format for the student locator
 export async function generateUserCSV() {
+    try {
+        User.findAll().then(async users => {
+            const filteredData = users.map(user => ({
+                studentId: user.studentId,
+                name: user.name,
+                grade: user.grade,
+                email: user.email,
+                permissions: user.permissions
+            }));
 
-    User.findAll().then(async users => {
-        const filteredData = users.map(user => ({
-            studentId: user.studentId,
-            name: user.name,
-            grade: user.grade,
-            email: user.email,
-            permissions: user.permissions
-        }));
+            const csvWriter = createObjectCsvWriter({
+                path: './data-temp/user.csv',
+                header: [
+                    {id: 'studentId', title: 'studentId'},
+                    {id: 'name', title: 'name'},
+                    {id: 'grade', title: 'grade'},
+                    {id: 'email', title: 'email'},
+                    {id: 'permissions', title: 'permissions'},
+                ],
+            });
 
-        const csvWriter = createObjectCsvWriter({
-            path: './data-temp/user.csv',
-            header: [
-                {id: 'studentId', title: 'studentId'},
-                {id: 'name', title: 'name'},
-                {id: 'grade', title: 'grade'},
-                {id: 'email', title: 'email'},
-                {id: 'permissions', title: 'permissions'},
-            ],
+            await csvWriter.writeRecords(filteredData);
         });
+    } catch (error) {
+        console.log(error);
+    }
 
-        await csvWriter.writeRecords(filteredData);
-    });
 }
