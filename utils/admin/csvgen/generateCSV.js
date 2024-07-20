@@ -40,6 +40,7 @@ export async function generateUserCSV() {
             model: Locker,
         }]
     }).then(async users => {
+        console.log(users);
         const filteredData = users.map(user => ({
             studentId: user.studentId,
             name: user.name,
