@@ -231,7 +231,7 @@ adminRouter.get('/csv-action/gen-locker-csv', async (req, res, next) => {
                     res.status(500).send('Error downloading file');
                 }
             });
-        }, 100); //a delay to prevent fuck-ups
+        }, 300); //a delay to prevent fuck-ups
 
     } catch (error) {
         next(error);
@@ -250,7 +250,7 @@ adminRouter.get('/csv-action/gen-user-csv', async (req, res, next) => {
                     res.status(500).send('Error downloading file');
                 }
             });
-        }, 100); //a delay to prevent fuck-ups
+        }, 300); //a delay to prevent fuck-ups
 
     } catch (error) {
         next(error);
