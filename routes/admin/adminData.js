@@ -223,7 +223,17 @@ adminRouter.post('/db-action/clear-users', async (req, res, next) => {
 adminRouter.get('/csv-action/gen-locker-csv', async (req, res, next) => {
     try {
         await generateLockerCSV();
-        res.sendStatus(200);
+        const filePath = path.join(process.cwd(), 'data-temp/locker.csv');
+
+        setTimeout(() => {
+            res.download(filePath, 'locker.csv', (err) => {
+                if (err) {
+                    console.error('Error sending file:', err);
+                    res.status(500).send('Error downloading file');
+                }
+            });
+        }, 500); //add a delay to prevent fuck-ups
+
     } catch (error) {
         next(error);
     }
@@ -233,11 +243,7 @@ adminRouter.get('/csv-action/gen-locker-csv', async (req, res, next) => {
 adminRouter.get('/csv-action/gen-user-csv', async (req, res, next) => {
     try {
         await generateUserCSV();
-        console.log("Generated CSV");
-
         const filePath = path.join(process.cwd(), 'data-temp/user.csv');
-        console.log("File path:", filePath);
-
 
         setTimeout(() => {
             res.download(filePath, 'users.csv', (err) => {
@@ -246,10 +252,9 @@ adminRouter.get('/csv-action/gen-user-csv', async (req, res, next) => {
                     res.status(500).send('Error downloading file');
                 }
             });
-        }, 2000); // todo see if this actually fixed the issue
+        }, 500); //add a delay to prevent fuck-ups
 
     } catch (error) {
-        console.error('Error generating CSV:', error);
         next(error);
     }
 });
