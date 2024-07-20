@@ -35,13 +35,18 @@ export async function generateLockerCSV() {
 //todo im not sure how useful is is to export userData, better to export Users in the format of UserData, to be able to import as as student locator
 //generate a csv from database matching import format for the student locator
 export async function generateUserCSV() {
-    User.findAll().then(async users => {
+    User.findAll({
+        include: [{
+            model: Locker,
+        }]
+    }).then(async users => {
         const filteredData = users.map(user => ({
             studentId: user.studentId,
             name: user.name,
             grade: user.grade,
             email: user.email,
-            permissions: user.permissions
+            permissions: user.permissions,
+            lockerNumber: user.LockerLockerNumber
         }));
 
         const csvWriter = createObjectCsvWriter({
@@ -52,6 +57,7 @@ export async function generateUserCSV() {
                 {id: 'grade', title: 'grade'},
                 {id: 'email', title: 'email'},
                 {id: 'permissions', title: 'permissions'},
+                {id: 'lockerNumber', title: 'lockerNumber'},
             ],
         });
 
