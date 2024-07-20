@@ -239,12 +239,15 @@ adminRouter.get('/csv-action/gen-user-csv', async (req, res, next) => {
         console.log("File path:", filePath);
 
 
-        res.download(filePath, 'users.csv', (err) => {
-            if (err) {
-                console.error('Error sending file:', err);
-                res.status(500).send('Error downloading file');
-            }
-        });
+        setTimeout(() => {
+            res.download(filePath, 'users.csv', (err) => {
+                if (err) {
+                    console.error('Error sending file:', err);
+                    res.status(500).send('Error downloading file');
+                }
+            });
+        }, 2000); // todo see if this actually fixed the issue
+
     } catch (error) {
         console.error('Error generating CSV:', error);
         next(error);
