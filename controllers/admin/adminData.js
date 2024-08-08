@@ -200,6 +200,11 @@ export async function manualCreateUser(data) {
     }
 }
 
+export async function manualVerifyUser(studentId) {
+    let student = await UserData.findByPk(studentId);
+    await createUser(student.studentId, student.name, student.grade, student.permissions, student.email);
+}
+
 //todo this doesnt work, gives an error
 export async function clearLockerDB(data) {
     if (data.areYouSure) {

@@ -9,7 +9,7 @@ import {
     getLockersDB,
     getUserEditData,
     getUsersDB,
-    manualCreateUser,
+    manualCreateUser, manualVerifyUser,
     queryAreaRestriction,
     queryGradeRestriction,
     queryStats,
@@ -33,8 +33,6 @@ const __dirname = path.dirname(__filename);
 export const adminRouter = express.Router();
 
 adminRouter.use(ensureAuthenticated);
-
-adminRouter.use('/data', express.static(path.join(__dirname, 'data-temp')));
 
 
 adminRouter.post('/management/grade-restrictions', async (req, res) => {
@@ -192,6 +190,15 @@ adminRouter.post('/manual/create-user', async (req, res, next) => {
     const dataBody = req.body;
     try {
         await manualCreateUser(dataBody);
+        res.sendStatus(200);
+    } catch (error) {
+        next(error);
+    }
+});
+adminRouter.post('/manual/verify-user/:studentId', async (req, res, next) => {
+    const studentId = req.params.studentId;
+    try {
+        await manualVerifyUser(studentId);
         res.sendStatus(200);
     } catch (error) {
         next(error);
