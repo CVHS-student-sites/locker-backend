@@ -8,7 +8,7 @@ import {parse} from 'csv-parse';
 //todo we want to add a status filed to the locker locator, implement that here
 const formatLockerData = (obj) => {
     const result = {};
-    result.Num = parseInt(obj.Num);
+    result.Num = obj.Num;
     result.Location = {
         Building: parseInt(obj.Building),
         Level: obj.Level,
