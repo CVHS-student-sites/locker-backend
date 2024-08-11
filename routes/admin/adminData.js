@@ -266,7 +266,7 @@ adminRouter.get('/csv-action/gen-user-csv', async (req, res, next) => {
 });
 
 //todo maybe move file upload and handling to adminData.js
-const lockerStorage = multer.memoryStorage(); // Store the file in memory
+const lockerStorage = multer.memoryStorage();
 const lockerUpload = multer({storage: lockerStorage});
 adminRouter.post('/lockerUpload', lockerUpload.single('csvFile'), async (req, res) => {
     const fileBuffer = req.file.buffer.toString('utf8');
@@ -279,7 +279,7 @@ adminRouter.post('/lockerUpload', lockerUpload.single('csvFile'), async (req, re
 });
 
 
-const userStorage = multer.memoryStorage(); // Store the file in memory
+const userStorage = multer.memoryStorage();
 const userUpload = multer({storage: userStorage});
 adminRouter.post('/userUpload', userUpload.single('csvFile'), async (req, res) => {
     const fileBuffer = req.file.buffer.toString('utf8');
@@ -294,9 +294,8 @@ adminRouter.post('/userUpload', userUpload.single('csvFile'), async (req, res) =
 adminRouter.get('/debug/get-logs', async (req, res, next) => {
     try {
         let logs = await getLogs();
-
-
-        res.sendStatus(200);
+        res.setHeader('Content-Type', 'text/plain');
+        res.send(logs);
     } catch (error) {
         next(error);
     }
