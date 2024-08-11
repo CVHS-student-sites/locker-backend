@@ -294,6 +294,7 @@ adminRouter.post('/userUpload', userUpload.single('csvFile'), async (req, res) =
 adminRouter.get('/debug/get-logs', async (req, res, next) => {
     try {
         let logs = await getLogs();
+        console.log(logs)
         res.setHeader('Content-Type', 'text/plain');
         res.send(logs);
     } catch (error) {
