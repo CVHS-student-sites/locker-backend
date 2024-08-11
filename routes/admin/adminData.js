@@ -295,8 +295,7 @@ adminRouter.get('/debug/get-logs', async (req, res, next) => {
     try {
         let logs = await getLogs();
         console.log(logs)
-        res.setHeader('Content-Type', 'text/plain');
-        res.send(logs);
+        res.json(logs)
     } catch (error) {
         next(error);
     }
