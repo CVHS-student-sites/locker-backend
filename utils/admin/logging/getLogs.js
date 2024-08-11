@@ -18,5 +18,5 @@ export async function getLogs() {
 
     return limitedLogs
         .map(log => pretty(log))
-        .join('\n');
+    // .join('\n');
 }
