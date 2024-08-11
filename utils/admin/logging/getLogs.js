@@ -17,6 +17,5 @@ export async function getLogs() {
     const limitedLogs = logEntries.slice(-maxLogs);
 
     return limitedLogs
-        .map(log => pretty(log))
-    // .join('\n');
+        .map(log => pretty(log));
 }

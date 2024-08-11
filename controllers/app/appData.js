@@ -5,6 +5,7 @@ import {verificationQueue} from "../../models/verificationQueue.js";
 import {sendVerificationEmail} from "../../utils/app/email/sendEmail.js";
 import {queryAreaRestriction} from "../admin/adminData.js";
 import {throwApplicationError} from "../../middleware/errorHandler.js";
+import {logger} from "../../utils/admin/logging/logger.js";
 
 import {validateToken} from "../../utils/app/turnstyle/validateToken.js";
 
@@ -206,18 +207,18 @@ export async function sendVerification(studentID, email) {
 }
 
 //this controller gets called from the route, will call send virefy and verify token
-export async function sendVerifyStudents(data, token){
+export async function sendVerifyStudents(data, token) {
 
 
     let response = await validateToken(token);
-    if (response.success){
+    if (response.success) {
 
-        if(data.length > 2) throwApplicationError('cannot verify more than two students');
+        if (data.length > 2) throwApplicationError('cannot verify more than two students');
 
-        for(const student of data){
+        for (const student of data) {
             const user = await UserData.findByPk(student);
             await sendVerification(student, user.email); // todo removed return case here, make sure that is not needed
-        } 
+        }
     } else {
         throwApplicationError('Captcha status invalid');
     }
@@ -226,11 +227,11 @@ export async function sendVerifyStudents(data, token){
 
 export async function verifyStudent(token, id) {
 
-    if(await checkVerification(id)){
+    if (await checkVerification(id)) {
         return;
     }
 
-    if(token == null){
+    if (token == null) {
         throwApplicationError('Link Incomplete');
     }
 
@@ -247,6 +248,7 @@ export async function verifyStudent(token, id) {
             }
         });
 
+        logger.info(`Student ${student.studentId} successfully registered`);
     } else {
         throwApplicationError('Verification Link Expired');
     }

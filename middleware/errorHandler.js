@@ -1,3 +1,4 @@
+import {logger} from "../utils/admin/logging/logger.js";
 // Middleware to get errors from any route and handle the response
 export const errorHandler = (err, req, res, next) => {
 
@@ -8,7 +9,7 @@ export const errorHandler = (err, req, res, next) => {
     } else {
         // Log the system error for debugging purposes
         console.error(err);
-
+        logger.error(err.stack);
         // For other errors, send a generic error message
         res.status(500).json({error: 'Internal server error'});
     }
