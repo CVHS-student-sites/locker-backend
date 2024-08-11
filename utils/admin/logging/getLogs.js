@@ -17,7 +17,7 @@ export async function getLogs() {
 
     let maxLogs = 2;
 
-    const rawLogs = fs.readFileSync('./data-temp', 'utf-8');
+    const rawLogs = fs.readFileSync('./data-temp/main.log', 'utf-8');
     const logEntries = rawLogs
         .split('\n') // Split logs by line
         .filter(Boolean); // Remove any empty lines
