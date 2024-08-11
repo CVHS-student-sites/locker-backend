@@ -62,7 +62,7 @@ export async function queryStats() {
     let availableLockers = lockerNum - registeredLockerCount;
 
     const oneHourAgo = new Date(new Date() - 60 * 60 * 1000);
-    let lastHour = await Locker.count({
+    let lastHour = await User.count({
         where: {
             createdAt: {
                 [Op.gt]: oneHourAgo
@@ -71,7 +71,7 @@ export async function queryStats() {
     });
 
     const oneDayAgo = new Date(new Date() - 24 * 60 * 60 * 1000);
-    let lastDay = await Locker.count({
+    let lastDay = await User.count({
         where: {
             createdAt: {
                 [Op.gt]: oneDayAgo
