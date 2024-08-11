@@ -1,6 +1,7 @@
 import {SendEmailCommand, SESClient} from "@aws-sdk/client-ses";
 import path from 'path';
 import {fileURLToPath} from 'url';
+import {logger} from "../../admin/logging/logger.js";
 import fs from 'fs';
 import handlebars from 'handlebars';
 
@@ -27,7 +28,7 @@ async function generateVerificationEmail(link) {
 }
 
 export async function sendVerificationEmail(email, link) {
-    console.log(`SES Called: ${email}`);
+    logger.info(`SES Called: ${email}`);
     let htmlContent = await generateVerificationEmail(link);
     const params = {
         Destination: {
@@ -44,7 +45,7 @@ export async function sendVerificationEmail(email, link) {
     };
     try {
         let result = await sesClient.send(new SendEmailCommand(params));
-        console.log(`SES Sent: ${email} - Code: ${result.$metadata.httpStatusCode} - MsgID: ${result.MessageId}`);
+        logger.info(`SES Sent: ${email} - Code: ${result.$metadata.httpStatusCode} - MsgID: ${result.MessageId}`)
     } catch (err) {
         console.log(`SES Error: ${email}`);
         console.log(err);

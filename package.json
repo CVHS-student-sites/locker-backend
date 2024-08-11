@@ -32,6 +32,8 @@
     "nodemon": "^3.0.1",
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
+    "pino": "^9.3.2",
+    "pino-pretty": "^11.2.2",
     "sequelize": "^6.37.0",
     "sqlite3": "^5.1.6",
     "uuid": "^9.0.1"

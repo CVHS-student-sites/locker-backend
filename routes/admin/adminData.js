@@ -25,6 +25,7 @@ import {fileURLToPath} from 'url';
 import express from 'express';
 import multer from "multer";
 import {generateLockerCSV, generateUserCSV} from "../../utils/admin/csvgen/generateCSV.js";
+import {getLogs} from "../../utils/admin/logging/getLogs.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -287,5 +288,14 @@ adminRouter.post('/userUpload', userUpload.single('csvFile'), async (req, res) =
         res.status(200).json({status: 'upload successful'});
     } catch (error) {
         res.status(500).json({error: 'error uploading csv'});
+    }
+});
+
+adminRouter.get('/debug/get-logs', async (req, res, next) => {
+    try {
+        await getLogs();
+        res.sendStatus(200);
+    } catch (error) {
+        next(error);
     }
 });
