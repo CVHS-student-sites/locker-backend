@@ -28,7 +28,7 @@ async function generateVerificationEmail(link) {
 }
 
 export async function sendVerificationEmail(email, link) {
-    logger.info(`SES Called: ${email}`);
+    logger.debug(`SES Called: ${email}`);
     let htmlContent = await generateVerificationEmail(link);
     const params = {
         Destination: {
@@ -45,7 +45,7 @@ export async function sendVerificationEmail(email, link) {
     };
     try {
         let result = await sesClient.send(new SendEmailCommand(params));
-        logger.info(`SES Sent: ${email} - Code: ${result.$metadata.httpStatusCode} - MsgID: ${result.MessageId}`)
+        logger.debug(`SES Sent: ${email} - Code: ${result.$metadata.httpStatusCode} - MsgID: ${result.MessageId}`)
     } catch (err) {
         console.log(`SES Error: ${email}`);
         console.log(err);

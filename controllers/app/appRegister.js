@@ -5,7 +5,7 @@ import {Op} from "sequelize";
 import {queryAreaRestriction, queryGradeRestriction} from "../admin/adminData.js";
 import {throwApplicationError} from "../../middleware/errorHandler.js";
 import {sendLockerEmail} from "../../utils/app/email/sendEmail.js";
-
+import {logger} from "../../utils/admin/logging/logger.js";
 
 export async function registerUserToLocker(data) {
     //studentID, building, floor, level
@@ -111,6 +111,7 @@ export async function registerUserToLocker(data) {
         await selectedUser.setLocker(selectedLocker);
     }
 
+    logger.info(`Locker ${selectedLocker.lockerNumber} successfully assigned to ${students.join(' ')}`)
 
     //send locker email to students
     //todo this is disabled for now, lets put this as an admin config toggle from dashboard
