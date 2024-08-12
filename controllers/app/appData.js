@@ -142,8 +142,6 @@ export async function queryAvailableLockers() {
                 }
             }
 
-            console.log(levels)
-
             let finalLevels = [];
             for (let level in levels) {
                 let postLockerArr = await Locker.findAll({
@@ -160,6 +158,8 @@ export async function queryAvailableLockers() {
                     }]
                 });
 
+                console.log(postLockerArr)
+
                 let emptyLockerCount = 0;
                 for (let locker of postLockerArr) {
                     if (!locker.Users || locker.Users.length === 0) {
@@ -167,9 +167,10 @@ export async function queryAvailableLockers() {
                     }
                 }
 
-                if (emptyLockerCount !== 0) {
-                    finalLevels.push(level)
+                if (emptyLockerCount === 0) {
+                    continue;
                 }
+                finalLevels.push(level);
             }
 
             console.log(finalLevels)
