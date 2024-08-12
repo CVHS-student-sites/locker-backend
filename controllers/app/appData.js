@@ -143,7 +143,7 @@ export async function queryAvailableLockers() {
             }
 
             let finalLevels = [];
-            for (let level in levels) {
+            for (let level of levels) {
                 console.log(level)
                 let postLockerArr = await Locker.findAll({
                     where: {
