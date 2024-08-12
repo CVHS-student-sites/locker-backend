@@ -144,6 +144,7 @@ export async function queryAvailableLockers() {
 
             let finalLevels = [];
             for (let level in levels) {
+                console.log(level)
                 let postLockerArr = await Locker.findAll({
                     where: {
                         "location.Building": {[Op.eq]: building},
@@ -166,7 +167,7 @@ export async function queryAvailableLockers() {
                         emptyLockerCount++;
                     }
                 }
-
+                console.log(emptyLockerCount);
                 if (emptyLockerCount === 0) {
                     continue;
                 }
