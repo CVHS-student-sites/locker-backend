@@ -144,7 +144,6 @@ export async function queryAvailableLockers() {
 
             let finalLevels = [];
             for (let level of levels) {
-                console.log(level)
                 let postLockerArr = await Locker.findAll({
                     where: {
                         "location.Building": {[Op.eq]: building},
@@ -159,22 +158,18 @@ export async function queryAvailableLockers() {
                     }]
                 });
 
-                console.log(postLockerArr)
-
                 let emptyLockerCount = 0;
                 for (let locker of postLockerArr) {
                     if (!locker.Users || locker.Users.length === 0) {
                         emptyLockerCount++;
                     }
                 }
-                console.log(emptyLockerCount);
                 if (emptyLockerCount === 0) {
                     continue;
                 }
                 finalLevels.push(level);
             }
 
-            console.log(finalLevels)
             floorCounts[floor] = {
                 "Levels": finalLevels,
             };
