@@ -121,7 +121,7 @@ export async function queryAvailableLockers() {
 
         // Iterate over each floor in the current building
         for (const floor of floors) {
-            // Store the count for the current floor
+            // get levels
             let lockerArr = await Locker.findAll({
                 where: {
                     "location.Building": {[Op.eq]: building}, // Extract building number
@@ -134,25 +134,44 @@ export async function queryAvailableLockers() {
                     model: User,
                 }]
             });
-
-            let emptyLockerCount = 0;
+            // get levels in area
             let levels = [];
-
-            //todo fix count not correct not sure if count is even needed, just make sure return array is not null
             for (let locker of lockerArr) {
-                if (!locker.Users || locker.Users.length === 0) {
-                    emptyLockerCount++;
-                }
-
                 if (!levels.includes(locker.location.Level)) {
                     levels.push(locker.location.Level);
                 }
             }
 
-            if (emptyLockerCount === 0) continue;
+            let finalLevels = [];
+            for (let level in levels) {
+                let postLockerArr = await Locker.findAll({
+                    where: {
+                        "location.Building": {[Op.eq]: building},
+                        "location.Floor": {[Op.eq]: floor},
+                        "location.Level": {[Op.eq]: level},
+                        [Op.or]: [
+                            {"status": {[Op.is]: null}},  // Include records where status is null
+                            {"status": {[Op.not]: 1}}      // Include records where status is not equal to 1
+                        ]
+                    }, include: [{
+                        model: User,
+                    }]
+                });
+
+                let emptyLockerCount = 0;
+                for (let locker of postLockerArr) {
+                    if (!locker.Users || locker.Users.length === 0) {
+                        emptyLockerCount++;
+                    }
+                }
+
+                if (emptyLockerCount !== 0) {
+                    finalLevels.push(level)
+                }
+            }
 
             floorCounts[floor] = {
-                "Levels": levels,
+                "Levels": finalLevels,
             };
         }
 
