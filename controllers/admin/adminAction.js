@@ -19,3 +19,21 @@ export async function setAreaRestriction(data) {
         return false;
     }
 }
+
+export async function setAutoReleaseEnablement(data) {
+    try {
+        if (await editConfig('enable_auto_release', data)) return true;
+
+    } catch (err) {
+        return false;
+    }
+}
+
+export async function setAutoReleaseDates(data) {
+    try {
+        if (await editConfig('auto_release_dates', data)) return true;
+
+    } catch (err) {
+        return false;
+    }
+}

@@ -9,6 +9,7 @@ import {verificationQueue} from "../../models/verificationQueue.js";
 import {createDataUser, createUser} from "../app/appData.js";
 import {readConfig} from "../../utils/admin/config/configManager.js";
 import {throwApplicationError} from "../../middleware/errorHandler.js";
+import {setAutoReleaseDates} from "./adminAction.js";
 
 
 //todo fix try catch here
@@ -28,6 +29,23 @@ export async function queryAreaRestriction() {
         throw err;
     }
 }
+
+export async function queryAutoReleaseEnablement() {
+    try {
+        return await readConfig('enable_auto_release');
+    } catch (err) {
+        throw err;
+    }
+}
+
+export async function queryAutoReleaseDates() {
+    try {
+        return await readConfig('auto_release_dates');
+    } catch (err) {
+        throw err;
+    }
+}
+
 
 export async function queryStats() {
     let targetGrades = [9, 10, 11, 12];

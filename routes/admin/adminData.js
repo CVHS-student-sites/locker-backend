@@ -1,5 +1,10 @@
 import {loadLockers, loadUsers} from "../../controllers/admin/adminImportData.js";
-import {setAreaRestriction, setGradeRestriction} from "../../controllers/admin/adminAction.js";
+import {
+    setAreaRestriction,
+    setAutoReleaseDates,
+    setAutoReleaseEnablement,
+    setGradeRestriction
+} from "../../controllers/admin/adminAction.js";
 import {
     checkLocker,
     clearLockerDB,
@@ -12,6 +17,8 @@ import {
     manualCreateUser,
     manualVerifyUser,
     queryAreaRestriction,
+    queryAutoReleaseDates,
+    queryAutoReleaseEnablement,
     queryAvailableLockersCount,
     queryGradeRestriction,
     queryStats,
@@ -79,6 +86,44 @@ adminRouter.get('/management/area-restrictions', async (req, res) => {
     }
 });
 
+adminRouter.post('/management/auto-release-enablement', async (req, res) => {
+    const data = req.body;
+
+    if (await setAutoReleaseEnablement(data)) {
+        res.status(200).json({status: 'upload successful'});
+    } else {
+        res.status(500).json({status: 'Internal server error'});
+    }
+
+});
+adminRouter.get('/management/auto-release-enablement', async (req, res) => {
+    try {
+        const data = await queryAutoReleaseEnablement();
+        res.json(data);
+    } catch (error) {
+        res.status(500).json({error: 'Internal server error'});
+    }
+});
+
+
+adminRouter.post('/management/auto-release-dates', async (req, res) => {
+    const data = req.body;
+
+    if (await setAutoReleaseDates(data)) {
+        res.status(200).json({status: 'upload successful'});
+    } else {
+        res.status(500).json({status: 'Internal server error'});
+    }
+
+});
+adminRouter.get('/management/auto-release-dates', async (req, res) => {
+    try {
+        const data = await queryAutoReleaseDates();
+        res.json(data);
+    } catch (error) {
+        res.status(500).json({error: 'Internal server error'});
+    }
+});
 
 //total users, total lockers, last hour,
 
