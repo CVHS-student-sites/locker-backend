@@ -271,7 +271,7 @@ export async function queryAvailableLockersCount() {
                 }
             }
 
-            let levelCounts = {};
+            let levelCounts = [];
             for (let level of levels) {
                 let postLockerArr = await Locker.findAll({
                     where: {
