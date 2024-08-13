@@ -9,8 +9,10 @@ import {
     getLockersDB,
     getUserEditData,
     getUsersDB,
-    manualCreateUser, manualVerifyUser,
+    manualCreateUser,
+    manualVerifyUser,
     queryAreaRestriction,
+    queryAvailableLockersCount,
     queryGradeRestriction,
     queryStats,
     removeLockerFromUser,
@@ -91,6 +93,14 @@ adminRouter.get('/management/get-statistics', async (req, res) => {
     }
 });
 
+adminRouter.get('/management/get-locker-statistics', async (req, res, next) => {
+    try {
+        let data = await queryAvailableLockersCount();
+        res.json(data)
+    } catch (error) {
+        next(error);
+    }
+});
 
 adminRouter.get('/data/user-data', async (req, res) => {
     try {
