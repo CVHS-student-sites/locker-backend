@@ -99,10 +99,10 @@ export async function registerUserToLocker(data) {
     });
 
 
-    const filteredLockers = lockerArray.filter(Locker => Locker.Users.length === 0); //check for standard lockers, todo needs to check less than 0 for single lockers
+    const filteredLockers = lockerArray.filter(Locker => Locker.Users.length === 0);
 
 
-    //todo write some logic to do something if lockerArray is empty (no lockers avalible in the selected area), this should throw an error
+    if (filteredLockers.length === 0) throwApplicationError('Selected area is now full, please select new location');
 
     let selectedLocker = filteredLockers[0]; //todo find a better way to select lockers, this would work but seems kinda low tech
 
@@ -114,8 +114,6 @@ export async function registerUserToLocker(data) {
     logger.info(`Locker ${selectedLocker.lockerNumber} successfully assigned to ${students.join(' ')}`)
 
     //send locker email to students
-    //todo this is disabled for now, lets put this as an admin config toggle from dashboard
-
     for (let student of students) {
         const user = await User.findByPk(student, {
             include: {
@@ -125,5 +123,4 @@ export async function registerUserToLocker(data) {
 
         await sendLockerEmail(user.email, user.Locker);
     }
-
 }
