@@ -13,6 +13,7 @@ import passport from 'passport';
 import session from 'express-session';
 import connectSqlite3 from 'connect-sqlite3';
 import cors from 'cors';
+import {scheduleAutoRelease} from "./services/admin/scheduleRelease.js";
 
 
 const SQLiteStore = connectSqlite3(session);
@@ -69,8 +70,11 @@ await addRootUsers();
 // setup json configs in db
 await setDefaultConfigs();
 
-//start the verification queue scheduler
+// start the verification queue scheduler
 scheduleVerificationJob();
+
+// start auto release scheduler
+scheduleAutoRelease();
 
 // Start the server
 app.listen(3000, () => {
