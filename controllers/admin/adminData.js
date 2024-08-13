@@ -294,11 +294,11 @@ export async function queryAvailableLockersCount() {
                     }
                 }
 
-                levelCounts.push({level: emptyLockerCount});
+                levelCounts.push({[level]: emptyLockerCount});
             }
 
             floorCounts[floor] = {
-                "Levels": levelCounts,
+                "Positions": levelCounts,
             };
         }
 
