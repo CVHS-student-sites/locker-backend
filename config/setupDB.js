@@ -47,8 +47,7 @@ export async function setDefaultConfigs() {
     };
     if (await readConfig('restricted_areas') === false) await createConfig('restricted_areas', areas);
 
-    const autoRelease = {
-        enable: false,
+    const autoReleaseDates = {
         preRegister: new Date(),
         grade12: new Date(),
         grade11: new Date(),
@@ -56,5 +55,10 @@ export async function setDefaultConfigs() {
         grade9: new Date()
 
     };
-    if (await readConfig('auto_release') === false) await createConfig('auto_release', autoRelease);
+    if (await readConfig('auto_release_dates') === false) await createConfig('auto_release_dates', autoReleaseDates);
+
+    const enableAutoRelease = {
+        enabled: false,
+    };
+    if (await readConfig('enable_auto_release') === false) await createConfig('enable_auto_release', enableAutoRelease);
 }
