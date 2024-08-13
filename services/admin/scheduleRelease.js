@@ -27,7 +27,7 @@ export function scheduleAutoRelease() {
                 grade_12: (dateObjects.grade12 < now),
             }
 
-            console.log(enabledGrades);
+            console.log(enabledGrades.toString());
             // await setGradeRestriction(enabledGrades.preReg, enabledGrades.grade_9);
         }
 
