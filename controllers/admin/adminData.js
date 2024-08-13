@@ -9,7 +9,6 @@ import {verificationQueue} from "../../models/verificationQueue.js";
 import {createDataUser, createUser} from "../app/appData.js";
 import {readConfig} from "../../utils/admin/config/configManager.js";
 import {throwApplicationError} from "../../middleware/errorHandler.js";
-import {generateLockerCSV, generateUserCSV} from "../../utils/admin/csvgen/generateCSV.js";
 
 
 //todo fix try catch here
@@ -226,11 +225,84 @@ export async function clearUserDB(data) {
     }
 }
 
-export async function sendUsersCSV() {
-    await generateUserCSV();
-}
+export async function queryAvailableLockersCount() {
+    let jsonData = await queryAreaRestriction();
 
-export async function sendLockerCSV() {
-    await generateLockerCSV();
+    const areas = {};
+    for (const buildingKey in jsonData) {
+        const buildingNumber = parseInt(buildingKey.split('_')[1]);
+        const floors = [];
+        for (const floorKey in jsonData[buildingKey]) {
+            const floorNumber = parseInt(floorKey.split('_')[1]);
+            floors.push(floorNumber);
+        }
+        areas[buildingNumber] = floors;
+    }
 
+    console.log(areas);
+
+    const buildingCounts = {};
+
+    // Iterate over each building
+    for (const building in areas) {
+        const floors = areas[building];
+        const floorCounts = {};
+
+        // Iterate over each floor in the current building
+        for (const floor of floors) {
+            // get levels
+            let lockerArr = await Locker.findAll({
+                where: {
+                    "location.Building": {[Op.eq]: building}, // Extract building number
+                    "location.Floor": {[Op.eq]: floor},
+                    [Op.or]: [
+                        {"status": {[Op.is]: null}},  // Include records where status is null
+                        {"status": {[Op.not]: 1}}      // Include records where status is not equal to 1
+                    ]
+                }, include: [{
+                    model: User,
+                }]
+            });
+            // get levels in area
+            let levels = [];
+            for (let locker of lockerArr) {
+                if (!levels.includes(locker.location.Level)) {
+                    levels.push(locker.location.Level);
+                }
+            }
+
+            let levelCounts = {};
+            for (let level of levels) {
+                let postLockerArr = await Locker.findAll({
+                    where: {
+                        "location.Building": {[Op.eq]: building},
+                        "location.Floor": {[Op.eq]: floor},
+                        "location.Level": {[Op.eq]: level},
+                        [Op.or]: [
+                            {"status": {[Op.is]: null}},  // Include records where status is null
+                            {"status": {[Op.not]: 1}}      // Include records where status is not equal to 1
+                        ]
+                    }, include: [{
+                        model: User,
+                    }]
+                });
+
+                let emptyLockerCount = 0;
+                for (let locker of postLockerArr) {
+                    if (!locker.Users || locker.Users.length === 0) {
+                        emptyLockerCount++;
+                    }
+                }
+
+                levelCounts.push({level: emptyLockerCount});
+            }
+
+            floorCounts[floor] = {
+                "Levels": levelCounts,
+            };
+        }
+
+        buildingCounts[building] = floorCounts;
+    }
+    return buildingCounts;
 }
