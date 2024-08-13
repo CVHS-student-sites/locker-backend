@@ -46,4 +46,15 @@ export async function setDefaultConfigs() {
         },
     };
     if (await readConfig('restricted_areas') === false) await createConfig('restricted_areas', areas);
+
+    const autoRelease = {
+        enable: false,
+        preRegister: new Date(),
+        grade12: new Date(),
+        grade11: new Date(),
+        grade10: new Date(),
+        grade9: new Date()
+
+    };
+    if (await readConfig('auto_release') === false) await createConfig('auto_release', autoRelease);
 }
