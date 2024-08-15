@@ -257,8 +257,6 @@ export async function queryAvailableLockersCount() {
         areas[buildingNumber] = floors;
     }
 
-    console.log(areas);
-
     const buildingCounts = {};
 
     // Iterate over each building
