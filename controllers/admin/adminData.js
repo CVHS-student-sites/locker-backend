@@ -9,7 +9,6 @@ import {verificationQueue} from "../../models/verificationQueue.js";
 import {createDataUser, createUser} from "../app/appData.js";
 import {readConfig} from "../../utils/admin/config/configManager.js";
 import {throwApplicationError} from "../../middleware/errorHandler.js";
-import {setAutoReleaseDates} from "./adminAction.js";
 
 
 //todo fix try catch here
@@ -218,6 +217,7 @@ export async function manualCreateUser(data) {
 }
 
 export async function manualVerifyUser(studentId) {
+    if (!studentId) throwApplicationError('Student ID Not Found');
     let student = await UserData.findByPk(studentId);
     await createUser(student.studentId, student.name, student.grade, student.permissions, student.email);
 }
