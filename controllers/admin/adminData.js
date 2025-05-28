@@ -218,8 +218,12 @@ export async function manualCreateUser(data) {
 
 export async function manualVerifyUser(studentId) {
     if (!studentId) throwApplicationError('Student ID Not Found');
-    let student = await UserData.findByPk(studentId);
-    await createUser(student.studentId, student.name, student.grade, student.permissions, student.email);
+    try {
+        let student = await UserData.findByPk(studentId);
+        await createUser(student.studentId, student.name, student.grade, student.permissions, student.email);
+    } catch (error) {
+        throwApplicationError('Student not found or exists');
+    }
 }
 
 //todo this doesnt work, gives an error
