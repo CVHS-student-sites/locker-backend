@@ -8,8 +8,10 @@ export function scheduleAutoRelease() {
         const now = new Date();
 
         let autoEnabled = await readConfig('enable_auto_release');
+        console.log(autoEnabled);
 
         if (autoEnabled) {
+            console.log("autoEnabled auto release active");
             let dates = await readConfig('auto_release_dates');
             let dateObjects = {
                 preRegister: new Date(dates.preRegister),
