@@ -27,7 +27,7 @@ appRouter.get('/lookup-user/:studentId', async (req, res) => {
         const userData = await getUser(studentId);
 
         if (userData) {
-            res.json(userData);
+            res.json({Locker: userData.Locker});
         } else {
             res.status(404).json({error: 'User not found'});
         }
@@ -96,9 +96,9 @@ appRouter.get('/available-areas/', async (req, res) => {
 appRouter.post('/send-verify-student/:token', async (req, res, next) => {
     const data = req.body;
     const token = req.params.token;
-  
+
     try {
-        await sendVerifyStudents(data, token); 
+        await sendVerifyStudents(data, token);
         res.status(200).end();
     } catch (error) {
         next(error);
