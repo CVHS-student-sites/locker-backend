@@ -114,13 +114,10 @@ export async function registerUserToLocker(data) {
     logger.info(`Locker ${selectedLocker.lockerNumber} successfully assigned to ${students.join(' ')}`)
 
     //send locker email to students
-    for (let student of students) {
+    await Promise.all(students.map(async (student) => {
         const user = await User.findByPk(student, {
-            include: {
-                model: Locker,
-            },
+            include: {model: Locker}
         });
-
-        await sendLockerEmail(user.email, user.Locker);
-    }
+        return sendLockerEmail(user.email, user.Locker);
+    }));
 }
