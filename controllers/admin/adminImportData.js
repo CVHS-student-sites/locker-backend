@@ -14,6 +14,7 @@ const formatLockerData = (obj) => {
         Level: obj.Level,
         Floor: parseInt(obj.Floor),
     };
+    result.Status = parseInt(obj.Status)
     return result;
 };
 
@@ -49,9 +50,10 @@ export async function loadLockers(fileBuffer) {
                 try {
                     const final = parsedData.map(formatLockerData);
 
-                    const batchData = final.map(({Num, Location}) => ({
+                    const batchData = final.map(({Num, Location, Status}) => ({
                         lockerNumber: Num,
                         location: Location,
+                        status: Status
                     }));
 
                     await createLockerBatch(batchData);
