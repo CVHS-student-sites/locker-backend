@@ -8,13 +8,25 @@ import {parse} from 'csv-parse';
 //todo we want to add a status filed to the locker locator, implement that here
 const formatLockerData = (obj) => {
     const result = {};
+
     result.Num = obj.Num;
+
     result.Location = {
         Building: parseInt(obj.Building),
         Level: obj.Level,
         Floor: parseInt(obj.Floor),
     };
-    result.Status = parseInt(obj.Status)
+
+    const rawStatus = obj.Status?.trim();
+
+    if (rawStatus !== undefined && rawStatus !== "") {
+        const parsedStatus = parseInt(rawStatus, 10);
+
+        if (!Number.isNaN(parsedStatus)) {
+            result.Status = parsedStatus;
+        }
+    }
+
     return result;
 };
 
@@ -50,11 +62,18 @@ export async function loadLockers(fileBuffer) {
                 try {
                     const final = parsedData.map(formatLockerData);
 
-                    const batchData = final.map(({Num, Location, Status}) => ({
-                        lockerNumber: Num,
-                        location: Location,
-                        status: Status
-                    }));
+                    const batchData = final.map(({Num, Location, Status}) => {
+                        const row = {
+                            lockerNumber: Num,
+                            location: Location,
+                        };
+
+                        if (Status !== undefined) {
+                            row.status = Status;
+                        }
+
+                        return row;
+                    });
 
                     await createLockerBatch(batchData);
                     resolve(true);
